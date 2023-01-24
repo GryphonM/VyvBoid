@@ -1,17 +1,17 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by DGLDemoProject.rc
+// Used by BoidBox.rc
 
 #define IDS_APP_TITLE			103
 
 #define IDR_MAINFRAME			128
-#define IDD_DGLDEMOPROJECT_DIALOG	102
+#define IDD_BOIDBOX_DIALOG	102
 #define IDD_ABOUTBOX			103
 #define IDM_ABOUT				104
 #define IDM_EXIT				105
-#define IDI_DGLDEMOPROJECT			107
+#define IDI_BOIDBOX			107
 #define IDI_SMALL				108
-#define IDC_DGLDEMOPROJECT			109
+#define IDC_BOIDBOX			109
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
