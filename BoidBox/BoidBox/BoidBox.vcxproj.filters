@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{e5144546-f22e-48e8-8478-84ca7a87a8f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\SoundSystems">
+      <UniqueIdentifier>{9d21d3a7-71e1-4782-b0db-d77196a114d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SoundSystems">
+      <UniqueIdentifier>{c476a9b4-a905-438f-99e7-b584705bd65e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -51,6 +57,9 @@
     <ClInclude Include="Mesh.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Header Files\SoundSystems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -67,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>Source Files\SoundSystems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
