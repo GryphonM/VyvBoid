@@ -19,6 +19,18 @@
     <Filter Include="Header Files\Positions">
       <UniqueIdentifier>{23cc2051-49d5-4f7f-ac16-f5f2051b22fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Enemy">
+      <UniqueIdentifier>{d3d650bd-9818-4991-9796-8abd071d1e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemy">
+      <UniqueIdentifier>{e9b27f62-1272-40c2-8120-762aa28e7936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{9a5eb5de-186d-426d-9599-415dbe2157d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{e5144546-f22e-48e8-8478-84ca7a87a8f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -33,6 +45,12 @@
     <ClInclude Include="Vector2D.h">
       <Filter>Header Files\Positions</Filter>
     </ClInclude>
+    <ClInclude Include="Hunters.h">
+      <Filter>Header Files\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,6 +61,12 @@
     </ClCompile>
     <ClCompile Include="Vector2D.cpp">
       <Filter>Source Files\Positions</Filter>
+    </ClCompile>
+    <ClCompile Include="Hunters.cpp">
+      <Filter>Source Files\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
