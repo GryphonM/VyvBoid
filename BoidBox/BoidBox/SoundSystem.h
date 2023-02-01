@@ -2,7 +2,7 @@
 
 #pragma once
 
-void AudioInit(void);
-void AudioUpdate(void);
-void AudioCleanup(void);
-void PlaySound(void);
+//void AudioInit(void);
+//void AudioUpdate(void);
+//void AudioCleanup(void);
+//void PlaySound(void);
