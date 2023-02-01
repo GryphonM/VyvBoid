@@ -25,6 +25,15 @@ Transform* CreateTransform(Vector2D position, Vector2D scale, float rotation)
 	return transform;
 }
 
+Transform* CloneTransform(Transform* _transform)
+{
+	Transform* transform = new Transform;
+	transform->position = _transform->position;
+	transform->rotation = _transform->rotation;
+	transform->scale = _transform->scale;
+	return transform;
+}
+
 void DeleteTransform(Transform* transform) { delete transform; }
 
 Vector2D TransformGetPosition(Transform* transform) { return transform->position; }

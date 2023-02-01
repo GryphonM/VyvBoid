@@ -9,9 +9,6 @@
 
 #include "Vector2D.h"
 #include <string>
-#include "assert.h"
-
-const std::string DIVIDE0 = "Stop dividing by 0 Idiot";
 
 Vector2D::Vector2D(float x, float y) { vec.x = x; vec.y = y; }
 
