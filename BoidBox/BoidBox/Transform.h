@@ -29,8 +29,8 @@ Vector2D TransformGetPosition(Transform* transform);
 Vector2D TransformGetScale(Transform* transform);
 Vector2D TransformGetRotation(Transform* transform);
 
-Vector2D TransformSetPosition(Transform* transform, Vector2D& position);
-Vector2D TransformSetScale(Transform* transform, Vector2D& scale);
-Vector2D TransformSetRotation(Transform* transform, float rotation);
+void TransformSetPosition(Transform* transform, Vector2D& position);
+void TransformSetScale(Transform* transform, Vector2D& scale);
+void TransformSetRotation(Transform* transform, float rotation);
 
 #endif

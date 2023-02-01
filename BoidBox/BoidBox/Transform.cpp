@@ -31,7 +31,7 @@ Vector2D TransformGetPosition(Transform* transform) { return transform->position
 Vector2D TransformGetScale(Transform* transform) { return transform->scale; }
 Vector2D TransformGetRotation(Transform* transform) { return transform->rotation; }
 
-Vector2D TransformSetPosition(Transform* transform, Vector2D& position) { transform->position = position; }
-Vector2D TransformSetScale(Transform* transform, Vector2D& scale) { transform->scale = scale; }
-Vector2D TransformSetRotation(Transform* transform, float rotation) { transform->rotation = rotation; }
+void TransformSetPosition(Transform* transform, Vector2D& position) { transform->position = position; }
+void TransformSetScale(Transform* transform, Vector2D& scale) { transform->scale = scale; }
+void TransformSetRotation(Transform* transform, float rotation) { transform->rotation = rotation; }
 

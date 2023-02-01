@@ -20,8 +20,7 @@ float Vector2D::Y() const { return vec.y; }
 void Vector2D::X(float x) { vec.x = x; }
 void Vector2D::Y(float y) { vec.y = y; }
 
-DGL_Vec2 Vector2D::DGL() const { return vec; }
-Vector2D::operator DGL_Vec2*() const { return &vec; }
+Vector2D::operator DGL_Vec2*() { return &vec; }
 
 float Vector2D::DotProduct(Vector2D& other)
 {
@@ -60,11 +59,10 @@ Vector2D Vector2D::operator*(Vector2D& rhs)
 
 Vector2D Vector2D::operator/(Vector2D& rhs)
 {
-	assert(rhs.vec.x != 0 && rhs.vec.y != 0, DIVIDE0);
+	return Vector2D(vec.x / rhs.X(), vec.y / rhs.Y());
 }
 
 Vector2D Vector2D::operator/(float rhs)
 {
-	assert(rhs != 0, DIVIDE0);
 	return Vector2D(vec.x / rhs, vec.y / rhs);
 }
