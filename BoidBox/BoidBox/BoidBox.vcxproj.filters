@@ -37,12 +37,6 @@
     <Filter Include="Header Files\SoundSystems">
       <UniqueIdentifier>{c476a9b4-a905-438f-99e7-b584705bd65e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Engine">
-      <UniqueIdentifier>{27347b0a-9e7d-47eb-8625-d83a01652c69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Engine">
-      <UniqueIdentifier>{0f8facbb-9eb0-45f1-a946-af3e95190b67}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -66,12 +60,6 @@
     <ClInclude Include="SoundSystem.h">
       <Filter>Header Files\SoundSystems</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\source\repos\stdafx.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\source\repos\targetver.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -91,9 +79,6 @@
     </ClCompile>
     <ClCompile Include="SoundSystem.cpp">
       <Filter>Source Files\SoundSystems</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\source\repos\stdafx.c">
-      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
