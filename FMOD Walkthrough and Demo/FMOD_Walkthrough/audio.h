@@ -1,15 +1,16 @@
 //---------------------------------------------------------------------------\\
 //
 //	file	audio.h
-//	author	Justin Chambers
+//	author	Justin Chambers, Andy Ellinger
 //			Course: GAM100/GAM150
-//			Copyright © 2021 DigiPen (USA) Corporation.
-//	brief	This is a simple example of how to properly setup and use FMOD
+//			Copyright © 2023 DigiPen (USA) Corporation.
+//	brief	This is a simple example of how to set up and use FMOD
 //
 //---------------------------------------------------------------------------\\
 
 #pragma once
 
-void AudioInit();
-void AudioUpdate();
-void AudioCleanup();
+void AudioInit(void);
+void AudioUpdate(void);
+void AudioCleanup(void);
+void PlaySound(void);
