@@ -37,6 +37,4 @@ struct Hunters
 };
 #endif
 
-// woah what do
-
 #endif

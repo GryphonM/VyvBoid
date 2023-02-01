@@ -175,6 +175,8 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\..\source\repos\stdafx.h" />
+    <ClInclude Include="..\..\..\..\..\..\source\repos\targetver.h" />
     <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="Hunters.h" />
     <ClInclude Include="Mesh.h" />
@@ -184,6 +186,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\..\source\repos\stdafx.c" />
     <ClCompile Include="Hunters.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />

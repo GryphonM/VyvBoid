@@ -6,14 +6,18 @@
 // Course:		GAM 150
 //
 //------------------------------------------------------------------------------
+
+//
+// HEY DONT USE THIS FILE RN THANKS SORRY
+//
+
 //#include "stdafx.h"
 #include "DGL.h"
+#include "Vector2D.h"
 #include "Mesh.h"
 #include <stdlib.h>
 
-typedef struct Mesh mesh;
-
-typedef struct Mesh
+struct Mesh
 {
 	char name[32];
 
@@ -22,9 +26,11 @@ typedef struct Mesh
 	DGL_DrawMode drawMode;
 };
 
-mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
+Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
 {
 	// dont ask why it doesnt work lmao
+
+	DGL_Color meshColor = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	Mesh* mesh = new Mesh;
 
@@ -33,17 +39,15 @@ mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 		DGL_Graphics_StartMesh();
 
 		// sorry shilling
-		DGL_Graphics_AddTriangle(&(DGL_Vec2) { -xHalfSize, -yHalfSize }, & (DGL_Color) { 0.0f, 0.0f, 0.0f, 1.0f }, & (DGL_Vec2) { 0.0f, 0.0f },
-			& (DGL_Vec2) { xHalfSize, yHalfSize }, & (DGL_Color) { 0.0f, 0.0f, 0.0f, 1.0f }, & (DGL_Vec2) { uSize, vSize },
-			& (DGL_Vec2) { xHalfSize, -yHalfSize }, & (DGL_Color) { 0.0f, 0.0f, 0.0f, 1.0f }, & (DGL_Vec2) { uSize, 0.0f });
+		DGL_Graphics_AddTriangle(Vector2D(-xHalfSize, -yHalfSize), &meshColor, Vector2D(0.0f, 0.0f),
+			Vector2D(xHalfSize, yHalfSize), &meshColor, Vector2D(uSize, vSize),
+			Vector2D(xHalfSize, -yHalfSize), &meshColor, Vector2D(uSize, 0.0f));
 
-		DGL_Graphics_AddTriangle(&(DGL_Vec2) { -xHalfSize, -yHalfSize }, & (DGL_Color) { 0.0f, 0.0f, 0.0f, 1.0f }, & (DGL_Vec2) { 0.0f, 0.0f },
-			& (DGL_Vec2) { -xHalfSize, yHalfSize}, & (DGL_Color) { 0.0f, 0.0f, 0.0f, 1.0f }, & (DGL_Vec2) { 0.0f, vSize }, 
-			& (DGL_Vec2) { xHalfSize, yHalfSize }, & (DGL_Color) { 0.0f, 0.0f, 0.0f, 1.0f }, & (DGL_Vec2) { uSize, vSize });
+		DGL_Graphics_AddTriangle(Vector2D(-xHalfSize, -yHalfSize), &meshColor, Vector2D(0.0f, 0.0f),
+			Vector2D(-xHalfSize, yHalfSize), &meshColor, Vector2D(0.0f, vSize),
+			Vector2D(xHalfSize, yHalfSize), &meshColor, Vector2D(uSize, vSize));
 
 		mesh->source = DGL_Graphics_EndMesh();
-
-		//strcpy_s(mesh->name, _countof(mesh->name), name);
 
 		return (mesh);
 	}
