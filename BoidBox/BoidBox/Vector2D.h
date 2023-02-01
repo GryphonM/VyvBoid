@@ -16,10 +16,12 @@ class Vector2D
 {
 public:
 	Vector2D(float x = 0.0f, float y = 0.0f);
-	float X();
-	float Y();
+	float X() const;
+	float Y() const;
 	void X(const float newVal);
 	void Y(const float newVal);
+
+	DGL_Vec2 DGL() const;
 	
 	float DotProduct(Vector2D& rhs);
 

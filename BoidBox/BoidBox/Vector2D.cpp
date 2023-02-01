@@ -15,10 +15,12 @@ const std::string DIVIDE0 = "Stop dividing by 0 Idiot";
 
 Vector2D::Vector2D(float x, float y) { vec.x = x; vec.y = y; }
 
-float Vector2D::X() { return vec.x; }
-float Vector2D::Y() { return vec.y; }
+float Vector2D::X() const { return vec.x; }
+float Vector2D::Y() const { return vec.y; }
 void Vector2D::X(float x) { vec.x = x; }
 void Vector2D::Y(float y) { vec.y = y; }
+
+DGL_Vec2 Vector2D::DGL() const { return vec; }
 
 float Vector2D::DotProduct(Vector2D& other)
 {
