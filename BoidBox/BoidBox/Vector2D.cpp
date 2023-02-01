@@ -21,6 +21,7 @@ void Vector2D::X(float x) { vec.x = x; }
 void Vector2D::Y(float y) { vec.y = y; }
 
 DGL_Vec2 Vector2D::DGL() const { return vec; }
+Vector2D::operator DGL_Vec2() const { return vec; }
 
 float Vector2D::DotProduct(Vector2D& other)
 {

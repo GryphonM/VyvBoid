@@ -22,6 +22,7 @@ public:
 	void Y(const float newVal);
 
 	DGL_Vec2 DGL() const;
+	operator DGL_Vec2() const;
 	
 	float DotProduct(Vector2D& rhs);
 
