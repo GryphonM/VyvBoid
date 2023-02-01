@@ -21,7 +21,7 @@ Transform* CreateTransform(Vector2D position, Vector2D scale, float rotation)
 	Transform* transform = new Transform;
 	transform->position = position;
 	transform->scale = scale;
-	transform->position = position;
+	transform->rotation = rotation;
 	return transform;
 }
 
