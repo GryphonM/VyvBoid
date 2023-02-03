@@ -7,11 +7,6 @@
 //
 //------------------------------------------------------------------------------
 
-//
-// HEY DONT USE THIS FILE RN THANKS SORRY
-//
-
-//#include "stdafx.h"
 #include "DGL.h"
 #include "Vector2D.h"
 #include "Mesh.h"
@@ -28,17 +23,16 @@ struct Mesh
 
 Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
 {
-	// dont ask why it doesnt work lmao
-
 	DGL_Color meshColor = { 1.0f, 1.0f, 0.0f, 1.0f };
 
 	Mesh* mesh = new Mesh;
 
 	if (mesh)
 	{
-		mesh->source = NULL;
+		//mesh->source = NULL;
 		mesh->drawMode = DGL_DM_TRIANGLELIST;
 		strcpy(mesh->name, name);
+
 		DGL_Graphics_StartMesh();
 
 		// sorry shilling

@@ -28,6 +28,7 @@ Engine::ErrorCode Engine::Start(DGL_SysInitInfo* initInfo)
 	// Other Startup Fings
 	instance->SetLevel(LevelCreate("Level 1"));
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
+	LevelInit(instance->level1);
 
 	// Start the engine! Vrooom Vroom
 	ErrorCode updateRet = Update();
