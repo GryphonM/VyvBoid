@@ -13,13 +13,41 @@
 //------------------------------------------------------------------------------
 #include "Resource.h"
 #include "DGL.h"
+#include "Engine.h"
+#include "Level1.h"
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    // Fings
+    DGL_SysInitInfo initInfo;
+    initInfo.mAppInstance = hInstance;
+    initInfo.mClassStyle = CS_HREDRAW | CS_VREDRAW;
+    initInfo.mMaxFrameRate = 60;
+    initInfo.mShow = nCmdShow;
+    initInfo.mWindowStyle = WS_OVERLAPPEDWINDOW;
+    initInfo.mWindowTitle = "Boid Box";
+    initInfo.mWindowHeight = 768;
+    initInfo.mWindowWidth = 1024;
+    initInfo.mCreateConsole = false;
+    initInfo.pWindowsCallback = WndProc;
+    initInfo.mWindowIcon = IDI_BOIDBOX;
+
+    Engine* instance = Engine::GetInstance();
+
+    Engine::ErrorCode returnCode = instance->Start(&initInfo);
+    switch (returnCode)
+    {
+    case Engine::NullWindowHandle:
+        return 1;
+        break;
+    default:
+        return 0;
+        break;
+    }
 }
 
 //

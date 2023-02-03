@@ -9,27 +9,30 @@
 
 #pragma once
 
-#include <vector>
 #include <string>
 struct Object;
-struct Level;
+struct Level1;
 
 typedef unsigned int LevelIDType;
+enum State { Place, Play };
 
 #if 0
-struct Level
+struct Level1
 {
 	std::string name;
 	LevelIDType id;
 
-	std::vector<Object*> objects;
-	int objectCount;
+	State state;
 };
 #endif
 
-Level* LevelCreate(std::string name = "");
-void DeleteLevel(Level* level);
+Level1* LevelCreate(std::string name = "");
+void DeleteLevel(Level1* level);
 
-LevelIDType GetID(Level* level);
-std::string GetName(Level* level);
-void SetName(Level* level, std::string name);
+//LevelIDType LevelGetID(Level* level);
+std::string LevelGetName(Level1* level);
+void LevelSetName(Level1* level, std::string name);
+void LevelSwitchState(Level1* level, State state);
+
+void LevelUpdate(Level1* level, float dt);
+void LevelDraw(Level1* level);

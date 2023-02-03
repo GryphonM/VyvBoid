@@ -14,6 +14,10 @@ struct Transform
 	Vector2D position;
 	Vector2D scale;
 	float rotation;
+
+	// Here to shut up warning about uninitialized variable
+	// Use CreateTransform instead
+	Transform() : position(), scale(), rotation(0.0f) {}
 };
 
 Transform* CreateTransform(Vector2D position, Vector2D scale, float rotation)

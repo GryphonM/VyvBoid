@@ -30,12 +30,15 @@ Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 {
 	// dont ask why it doesnt work lmao
 
-	DGL_Color meshColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+	DGL_Color meshColor = { 1.0f, 1.0f, 0.0f, 1.0f };
 
 	Mesh* mesh = new Mesh;
 
 	if (mesh)
 	{
+		mesh->source = NULL;
+		mesh->drawMode = DGL_DM_TRIANGLELIST;
+		strcpy(mesh->name, name);
 		DGL_Graphics_StartMesh();
 
 		// sorry shilling
@@ -58,11 +61,12 @@ Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 }
 void RenderMesh(const mesh* mesh)
 {
+	DGL_Graphics_SetCB_TransformData(Vector2D(), Vector2D(100.0f, 100.0f), 0);
 	DGL_Graphics_DrawMesh(mesh->source, mesh->drawMode);
 }
 void freeMesh(mesh** mesh)
 {
 	DGL_Graphics_FreeMesh(&((*mesh)->source));
-	delete mesh;
+	delete *mesh;
 	mesh = NULL;
 }

@@ -9,25 +9,60 @@
 
 #include "Object.h"
 #include "Transform.h"
+#include "Level1.h"
+#include <vector>
+#include <map>
+#include <typeindex>
+
+//------------------------------------------------------------------------------
+// Private Class, Struct, and Function Definitions
+//------------------------------------------------------------------------------
+
+ObjectIDType GenerateID();
 
 struct Object
 {
+	ObjectIDType id;
+	std::string name;
+
 	Transform* transform;
 	bool destroyed;
+
+	State activeState;
+
+	// Level* owner;
+
+	// Here to shut up compiler warnings
+	// Use ObjectCreate instead
+	Object() : id(0), name(), transform(NULL), destroyed(false), activeState(Play)/*, owner(NULL)*/ {}
 };
 
-Object* ObjectCreate(Transform* transform)
+//------------------------------------------------------------------------------
+// Private Variables
+//------------------------------------------------------------------------------
+std::vector<ObjectIDType> idCollection;
+
+//------------------------------------------------------------------------------
+// Public Functions
+//------------------------------------------------------------------------------
+
+Object* ObjectCreate(std::string name/*, Level* owner*/, Transform* transform, State activeState)
 {
 	Object *obj = new Object;
-	obj->transform = transform;
+	// ObjectSetOwner(obj, owner);
+	ObjectSetTransform(obj, transform);
+
+	ObjectIDType id = GenerateID();
+
 	obj->destroyed = false;
 	return obj;
 }
 
-Object* ObjectClone(Object* obj)
+Object* ObjectClone(Object* _obj)
 {
 	Object* obj = new Object;
-	obj->transform = CloneTransform(obj->transform);
+	obj->transform = CloneTransform(_obj->transform);
+	// obj->owner = _obj->owner;
 	obj->destroyed = false;
 	return obj;
 }
@@ -35,16 +70,30 @@ Object* ObjectClone(Object* obj)
 void ObjectDelete(Object* obj)
 {
 	DeleteTransform(obj->transform);
+	// obj->owner = NULL;
 	delete obj;
+	obj = NULL;
 }
 
 
-void ObjectDestroy(Object* obj)
-{
-	obj->destroyed = true;
-}
+void ObjectDestroy(Object* obj) { obj->destroyed = true; }
+bool IsDestroyed(Object* obj) { return obj->destroyed; }
 
-bool IsDestroyed(Object* obj)
+Transform* ObjectGetTransform(Object* obj) { return obj->transform; }
+void ObjectSetTransform(Object* obj, Transform* transform) { obj->transform = transform; }
+
+State ObjectGetActiveState(Object* obj) { return obj->activeState; }
+void ObjectSetActiveState(Object* obj, State activeState) { obj->activeState = activeState; }
+
+//Level* ObjectGetOwner(Object* obj) { return obj->owner; }
+//void ObjectSetOwner(Object* obj, Level* owner) { obj->owner = owner; }
+
+//------------------------------------------------------------------------------
+// Private Functions
+//------------------------------------------------------------------------------
+ObjectIDType GenerateID()
 {
-	return obj->destroyed;
+	ObjectIDType id = static_cast<ObjectIDType>(idCollection.size());
+	idCollection.push_back(id);
+	return id;
 }
