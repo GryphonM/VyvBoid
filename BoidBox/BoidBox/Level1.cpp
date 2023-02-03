@@ -29,7 +29,8 @@ Level1* LevelCreate(std::string name)
 {
 	Level1* level = new Level1;
 	level->name = name;
-	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone");
+	level->state = Place;
+	level->testMesh = NULL;
 	return level;
 }
 
@@ -37,6 +38,12 @@ void DeleteLevel(Level1* level)
 {
 	freeMesh(&level->testMesh);
 	delete level;
+}
+
+void LevelInit(Level1* level)
+{
+	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone");
+	// Put your funky level init things here
 }
 
 std::string LevelGetName(Level1* level) { return level->name; }

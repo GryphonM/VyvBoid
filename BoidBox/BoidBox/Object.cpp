@@ -11,8 +11,6 @@
 #include "Transform.h"
 #include "Level1.h"
 #include <vector>
-#include <map>
-#include <typeindex>
 
 //------------------------------------------------------------------------------
 // Private Class, Struct, and Function Definitions

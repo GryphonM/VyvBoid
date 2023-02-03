@@ -28,6 +28,7 @@ struct Level1
 
 Level1* LevelCreate(std::string name = "");
 void DeleteLevel(Level1* level);
+void LevelInit(Level1* level);
 
 //LevelIDType LevelGetID(Level* level);
 std::string LevelGetName(Level1* level);
