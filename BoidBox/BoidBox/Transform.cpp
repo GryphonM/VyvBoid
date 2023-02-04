@@ -42,7 +42,7 @@ void DeleteTransform(Transform* transform) { delete transform; }
 
 Vector2D TransformGetPosition(const Transform* transform) { return transform->position; }
 Vector2D TransformGetScale(const Transform* transform) { return transform->scale; }
-Vector2D TransformGetRotation(const Transform* transform) { return transform->rotation; }
+float TransformGetRotation(const Transform* transform) { return transform->rotation; }
 
 void TransformSetPosition(Transform* transform, Vector2D& position) { transform->position = position; }
 void TransformSetScale(Transform* transform, Vector2D& scale) { transform->scale = scale; }

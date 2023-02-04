@@ -28,7 +28,7 @@ void DeleteTransform(Transform* transform);
 
 Vector2D TransformGetPosition(const Transform* transform);
 Vector2D TransformGetScale(const Transform* transform);
-Vector2D TransformGetRotation(const Transform* transform);
+float TransformGetRotation(const Transform* transform);
 
 void TransformSetPosition(Transform* transform, Vector2D& position);
 void TransformSetScale(Transform* transform, Vector2D& scale);
