@@ -11,6 +11,7 @@
 #include <string>
 
 Vector2D::Vector2D(float x, float y) { vec.x = x; vec.y = y; }
+Vector2D::Vector2D(DGL_Vec2* _vec) : vec(*_vec) {}
 
 float Vector2D::X() const { return vec.x; }
 float Vector2D::Y() const { return vec.y; }
