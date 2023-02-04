@@ -86,6 +86,8 @@ void ObjectSetActiveState(Object* obj, State activeState) { obj->activeState = a
 //Level* ObjectGetOwner(Object* obj) { return obj->owner; }
 //void ObjectSetOwner(Object* obj, Level* owner) { obj->owner = owner; }
 
+void ObjectMove(Object* obj, Vector2D pos) { TransformSetPosition(obj->transform, pos); }
+
 //------------------------------------------------------------------------------
 // Private Functions
 //------------------------------------------------------------------------------

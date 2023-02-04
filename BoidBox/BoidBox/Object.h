@@ -50,4 +50,6 @@ void ObjectSetActiveState(Object* obj, State activeState);
 // Level* ObjectGetOwner(Object* obj);
 // void ObjectSetOwner(Object* obj, Level* owner);
 
+void ObjectMove(Object* obj, Vector2D pos);
+
 #endif
