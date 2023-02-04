@@ -71,7 +71,7 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 	// Set blend color (RGBA, A = “strength” of blend)
 	DGL_Graphics_SetCB_TintColor(&meshColor);
 	// Render the mesh (list of triangles)
-	RenderMesh(sprite->mesh);
+	RenderMesh(sprite->mesh, transform);
 }
 
 float SpriteGetAlpha(const Sprite* sprite)

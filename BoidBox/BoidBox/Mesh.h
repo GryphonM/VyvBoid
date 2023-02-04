@@ -10,6 +10,8 @@
 #define MESH_H
 
 #include "DGL.h"
+#include "Transform.h"
+
 typedef struct Mesh mesh;
 
 #if 0

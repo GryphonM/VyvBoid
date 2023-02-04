@@ -67,5 +67,5 @@ void LevelUpdate(Level1* level, float dt)
 
 void LevelDraw(Level1* level)
 {
-	RenderMesh(level->testMesh);
+	//RenderMesh(level->testMesh,);
 }

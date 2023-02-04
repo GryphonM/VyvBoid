@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 #include "DGL.h"
 #include "Mesh.h"
+#include "Transform.h"
 #include "Hunters.h"
 #include "Vector2D.h"
 
@@ -58,7 +59,7 @@ Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float hei
 	return hunter;
 }
 
-void DrawCrosshair(const Mesh* mesh)
+void DrawCrosshair(const Mesh* mesh, const Transform* transform)
 {
-	RenderMesh(mesh);
+	RenderMesh(mesh, transform);
 }

@@ -13,6 +13,8 @@
 struct DGL_Texture;
 struct SpriteSource;
 
+class Vector2D;
+
 
 #if 0
 struct SpriteSource
