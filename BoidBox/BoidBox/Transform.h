@@ -26,9 +26,9 @@ Transform* CreateTransform(Vector2D position = Vector2D(0, 0), Vector2D scale = 
 Transform* CloneTransform(Transform* _transform);
 void DeleteTransform(Transform* transform);
 
-Vector2D TransformGetPosition(Transform* transform);
-Vector2D TransformGetScale(Transform* transform);
-Vector2D TransformGetRotation(Transform* transform);
+Vector2D TransformGetPosition(const Transform* transform);
+Vector2D TransformGetScale(const Transform* transform);
+Vector2D TransformGetRotation(const Transform* transform);
 
 void TransformSetPosition(Transform* transform, Vector2D& position);
 void TransformSetScale(Transform* transform, Vector2D& scale);

@@ -40,9 +40,9 @@ Transform* CloneTransform(Transform* _transform)
 
 void DeleteTransform(Transform* transform) { delete transform; }
 
-Vector2D TransformGetPosition(Transform* transform) { return transform->position; }
-Vector2D TransformGetScale(Transform* transform) { return transform->scale; }
-Vector2D TransformGetRotation(Transform* transform) { return transform->rotation; }
+Vector2D TransformGetPosition(const Transform* transform) { return transform->position; }
+Vector2D TransformGetScale(const Transform* transform) { return transform->scale; }
+Vector2D TransformGetRotation(const Transform* transform) { return transform->rotation; }
 
 void TransformSetPosition(Transform* transform, Vector2D& position) { transform->position = position; }
 void TransformSetScale(Transform* transform, Vector2D& scale) { transform->scale = scale; }
