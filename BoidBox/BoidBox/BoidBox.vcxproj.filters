@@ -49,6 +49,12 @@
     <Filter Include="Header Files\Placement">
       <UniqueIdentifier>{347b401b-cac2-46ff-84e1-5868488e2ae4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Helper">
+      <UniqueIdentifier>{da8213b0-a428-4e2b-8f5b-ba7d30546bf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helper">
+      <UniqueIdentifier>{02cd042e-f072-4df9-89de-dc69b2e19a2d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -90,6 +96,9 @@
     <ClInclude Include="PlaceBlock.h">
       <Filter>Header Files\Placement</Filter>
     </ClInclude>
+    <ClInclude Include="List.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -127,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="PlaceBlock.cpp">
       <Filter>Source Files\Placement</Filter>
+    </ClCompile>
+    <ClCompile Include="List.cpp">
+      <Filter>Source Files\Helper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
