@@ -59,10 +59,9 @@ void UpdatePlaceBlocks(PlaceBlock* place)
 	{	
 		Vector2D mish = Vector2D(DGL_Input_GetMousePosition());
 		mish = DGL_Camera_ScreenCoordToWorld(mish);
-		Transform* transform;
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
-			place->object[place->BlocksPlaced] = ObjectCreate("Blocks"+place->BlocksPlaced++, transform = CreateTransform(mish));
+			place->object[place->BlocksPlaced] = ObjectCreate("Blocks"+place->BlocksPlaced++, CreateTransform(mish));
 		}
 
 		if (DGL_Input_KeyTriggered(VK_RBUTTON) )
@@ -70,7 +69,6 @@ void UpdatePlaceBlocks(PlaceBlock* place)
 			for (int i = 0; i < place->BlocksPlaced; i++)
 			{
 				Vector2D position = TransformGetPosition(ObjectGetTransform(place->object[i]));
-
 				if ((mish.X() <= position.X() + 10.0f) && (mish.X() >= position.X() - 10.0f)
 					&& (mish.Y() <= position.Y() + 25.0f) && (mish.Y() >= position.Y() - 25.0f))
 				{
