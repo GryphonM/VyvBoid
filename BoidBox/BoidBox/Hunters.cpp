@@ -7,7 +7,9 @@
 //
 //------------------------------------------------------------------------------
 #include "DGL.h"
+#include "Mesh.h"
 #include "Hunters.h"
+#include "Vector2D.h"
 
 #include <math.h>
 #include <stdio.h>
@@ -15,19 +17,49 @@
 
 struct Hunters
 {
-	DGL_Vec2 pos;
-	DGL_Vec2 uv;
+	// perhaaps unnecessary idk yet
+	//DGL_Vec2 pos;
+	//DGL_Vec2 uv;
 
-	static const DGL_Vec2 scaleColored;
+	//const DGL_Texture* texture;
+
+	//static const DGL_Vec2 scale;
 
 	float radius;
 	float width;
 	float height;
 	float halfWidth;
 	float halfHeight;
-	float xDistance;
-	float yDistance;
-	float totalDistance;
+
+	// collision stuff 
+	//float xDistance;
+	//float yDistance;
+	//float totalDistance;
 };
 
-// hooo boy
+Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float height, float radius)
+{
+	DGL_Texture* crosshairTexture = DGL_Graphics_LoadTexture("./Assets/crosshair.png");
+	if (mesh)
+	{
+
+		hunter->width = width;
+		hunter->height = height;
+		hunter->halfWidth = hunter->width / 2.0f;
+		hunter->halfWidth = hunter->width / 2.0f;
+		hunter->radius = radius;
+
+		DGL_Graphics_SetShaderMode(DGL_SM_TEXTURE);
+        DGL_Graphics_SetTexture(crosshairTexture);
+
+		//array of crosshairs for diff positions
+		DGL_Graphics_SetCB_TransformData(Vector2D(30, 0), Vector2D(100.0f, 100.0f), 0);
+	}
+
+	return hunter;
+}
+
+void DrawCrosshair(const Mesh* mesh)
+{
+	RenderMesh(mesh);
+}

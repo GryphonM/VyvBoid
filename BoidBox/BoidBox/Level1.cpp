@@ -11,6 +11,7 @@
 #include "Level1.h"
 #include "Object.h"
 #include "Mesh.h"
+#include "Hunters.h"
 
 struct Level1
 {
@@ -19,6 +20,7 @@ struct Level1
 
 	State state;
 	Mesh* testMesh;
+	Hunters* hunter;
 
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
@@ -31,6 +33,7 @@ Level1* LevelCreate(std::string name)
 	level->name = name;
 	level->state = Place;
 	level->testMesh = NULL;
+
 	return level;
 }
 

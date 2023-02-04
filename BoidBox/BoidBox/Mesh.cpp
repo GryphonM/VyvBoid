@@ -10,6 +10,7 @@
 #include "DGL.h"
 #include "Vector2D.h"
 #include "Mesh.h"
+#include "Transform.h"
 #include <stdlib.h>
 
 struct Mesh
@@ -29,7 +30,7 @@ Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 
 	if (mesh)
 	{
-		//mesh->source = NULL;
+		// thank you gryph!! I forgor this part lol
 		mesh->drawMode = DGL_DM_TRIANGLELIST;
 		strcpy(mesh->name, name);
 
@@ -53,7 +54,7 @@ Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 		return NULL;
 	}
 }
-void RenderMesh(const mesh* mesh)
+void RenderMesh(const mesh* mesh, const Transform* transform)
 {
 	DGL_Graphics_SetCB_TransformData(Vector2D(), Vector2D(100.0f, 100.0f), 0);
 	DGL_Graphics_DrawMesh(mesh->source, mesh->drawMode);
