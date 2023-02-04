@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{0e5ffce8-c9c3-4a9a-9c0d-af358e36c306}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Placement">
+      <UniqueIdentifier>{8ee06acb-7699-4a5d-aa0a-047a1219f266}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Placement">
+      <UniqueIdentifier>{347b401b-cac2-46ff-84e1-5868488e2ae4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -81,6 +87,9 @@
     <ClInclude Include="SpriteSource.h">
       <Filter>Header Files\Graphics</Filter>
     </ClInclude>
+    <ClInclude Include="PlaceBlock.h">
+      <Filter>Header Files\Placement</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -115,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="SpriteSource.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaceBlock.cpp">
+      <Filter>Source Files\Placement</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

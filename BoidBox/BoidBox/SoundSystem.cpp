@@ -1,11 +1,12 @@
-//!!!!Note!!!! change otherwise this is plagarisng (not my work just yet)
-//!!!!Note!!!! i just need to learn the funtions
-
-
+//------------------------------------------------------------------------------
+//
+// File Name:	SoundSystem.cpp
+// Author(s):	Michael Howard (michael.howard)
+// Project:		GAM 150 Game Project
+// Course:		GAM 150
+//
+//------------------------------------------------------------------------------
 #include "SoundSystem.h"
-#include "fmod.h"
-#include "fmod_errors.h"
-#include <stdio.h>		// printf()
 
 FMOD_SYSTEM* soundSystem;
 FMOD_SOUND* sound;

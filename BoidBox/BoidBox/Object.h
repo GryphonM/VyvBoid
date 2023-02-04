@@ -17,6 +17,7 @@
 struct Transform;
 struct Object;
 enum State;
+class Vector2D;
 //struct Level1;
 
 typedef unsigned int ObjectIDType;
