@@ -47,7 +47,6 @@ void FreeSprite(Sprite** sprite)
 
 void RenderSprite(const Sprite* sprite, Transform* transform)
 { 
-	Transform *transformSprite = CreateTransform();
 	DGL_Color meshColor = { 0.0f, 0.0f, 0.0, 0.0f };
 
 	if (sprite->source)
@@ -65,7 +64,7 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 	}
 	// Set position, scale, and rotation for the sprite
 	// 
-	//DGL_Graphics_SetCB_TransformData(, &scale, rotation);
+	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), TransformGetRotation(transform));
 	// 
 	// Set transparency (range 0.0f – 1.0f)
 	DGL_Graphics_SetCB_Alpha(sprite->alpha);

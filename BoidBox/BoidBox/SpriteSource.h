@@ -33,10 +33,10 @@ void SpriteSourceLoadTexture(SpriteSource* spriteSource, int numCols, int numRow
 
 unsigned SpriteSourceGetFrameCount(const SpriteSource* spriteSource);
 
-void SpriteSourceGetUV(const SpriteSource* spriteSource, unsigned int frameIndex, float* u, float* v);
+void SpriteSourceGetUV(const SpriteSource* spriteSource, unsigned int frameIndex, Vector2D(vec));
 
 void SpriteSourceSetTexture(const SpriteSource* spriteSource);
 
-//void SpriteSourceSetTextureOffset(const SpriteSource* spriteSource, unsigned frameIndex);
+void SpriteSourceSetTextureOffset(const SpriteSource* spriteSource, unsigned frameIndex);
 
 #endif

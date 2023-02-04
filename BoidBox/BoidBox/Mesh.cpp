@@ -56,7 +56,7 @@ Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 }
 void RenderMesh(const mesh* mesh, const Transform* transform)
 {
-	DGL_Graphics_SetCB_TransformData(Vector2D(), Vector2D(100.0f, 100.0f), 0);
+	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), TransformGetRotation(transform));
 	DGL_Graphics_DrawMesh(mesh->source, mesh->drawMode);
 }
 void freeMesh(mesh** mesh)

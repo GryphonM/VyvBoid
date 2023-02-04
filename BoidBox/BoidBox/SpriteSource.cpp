@@ -61,24 +61,22 @@ unsigned SpriteSourceGetFrameCount(const SpriteSource* spriteSource)
 	}
 }
 
-//void SpriteSourceGetUV(const SpriteSource* spriteSource, unsigned int frameIndex, float* u, float* v)
-//{
-//	*u = (1.0f / spriteSource->numCols);
-//	*v = (1.0f / spriteSource->numRows);
+void SpriteSourceGetUV(const SpriteSource* spriteSource, unsigned int frameIndex, Vector2D(vec))
+{
+	// hopefully the math checks, funky vector jazz 
 
-//	*u = *u * (frameIndex % spriteSource->numCols);
-//	*v = *v * (frameIndex / spriteSource->numCols);
-//}
+	vec.X((1.0f / spriteSource->numCols) * (frameIndex % spriteSource->numCols));
+	vec.Y((1.0f / spriteSource->numRows) * (frameIndex / spriteSource->numCols));
+}
 
 void SpriteSourceSetTexture(const SpriteSource* spriteSource)
 {
 	DGL_Graphics_SetTexture(spriteSource->texture);
 }
 
-//void SpriteSourceSetTextureOffset(const SpriteSource* spriteSource, unsigned frameIndex)
-//{
- // vector stuff needs x and y value
-//	Vector2D UV;
-//	SpriteSourceGetUV(spriteSource, frameIndex, &UV.X(), &UV.Y());
-//	DGL_Graphics_SetCB_TextureOffset(&UV);
-//}
+void SpriteSourceSetTextureOffset(const SpriteSource* spriteSource, unsigned frameIndex)
+{
+	Vector2D(UV);
+	SpriteSourceGetUV(spriteSource, frameIndex, UV);
+	DGL_Graphics_SetCB_TextureOffset(UV);
+}

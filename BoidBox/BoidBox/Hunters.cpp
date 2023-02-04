@@ -53,7 +53,6 @@ Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float hei
         DGL_Graphics_SetTexture(crosshairTexture);
 
 		//array of crosshairs for diff positions
-		DGL_Graphics_SetCB_TransformData(Vector2D(30, 0), Vector2D(100.0f, 100.0f), 0);
 	}
 
 	return hunter;
