@@ -17,6 +17,7 @@ class Vector2D
 public:
 	Vector2D(float x = 0.0f, float y = 0.0f);
 	Vector2D(DGL_Vec2* vec);
+	Vector2D(DGL_Vec2 vec);
 	float X() const;
 	float Y() const;
 	void X(const float newVal);
