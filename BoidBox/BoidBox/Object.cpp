@@ -44,7 +44,7 @@ std::vector<ObjectIDType> idCollection;
 // Public Functions
 //------------------------------------------------------------------------------
 
-Object* ObjectCreate(std::string name/*, Level* owner*/, Transform* transform, State activeState)
+Object* ObjectCreate(std::string name/*, Level* owner*/, Transform* transform/*, State activeState*/)
 {
 	Object *obj = new Object;
 	// ObjectSetOwner(obj, owner);
