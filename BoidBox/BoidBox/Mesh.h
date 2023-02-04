@@ -22,7 +22,7 @@ typedef struct Mesh
 #endif
 
 mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name);
-void RenderMesh(const mesh* mesh);
+void RenderMesh(const mesh* mesh, const Transform* transform);
 void freeMesh(mesh** mesh);
 
 #endif
