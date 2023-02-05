@@ -45,4 +45,4 @@ bool ObjectList::IsEmpty() { return list.empty(); }
 
 void ObjectListAdd(ObjectList* list, Object* obj) { list->PushFront(obj); }
 void ObjectListRemove(ObjectList* list, Object* obj) { list->Erase(obj); }
-int ObjectListAdd(ObjectList* list) { list->Size(); }
+int ObjectListAdd(ObjectList* list) { return list->Size(); }
