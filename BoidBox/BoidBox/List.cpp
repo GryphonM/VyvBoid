@@ -22,12 +22,12 @@ Object* ObjectList::Back() { return list.back(); }
 Object* ObjectList::Front() { return list.front(); }
 Object* ObjectList::PopBack() { Object* back = list.back(); list.pop_back(); return back; }
 Object* ObjectList::PopFront() { Object* front = list.front(); list.pop_front(); return front; }
-void ObjectList::Erase(Object* obj) { list.erase(std::find(list.begin(), list.end(), obj)); }
+void ObjectList::Erase(Object* obj) { list.erase(std::find(list.begin(), list.end(), obj)); ObjectDelete(obj); }
 void ObjectList::Clear()
 {
 	int size = Size();
 	for (int i = 0; i < size; ++i)
-		ObjectDestroy(PopBack());
+		ObjectDelete(PopBack());
 }
 Object* ObjectList::operator[](int index)
 {
