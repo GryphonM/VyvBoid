@@ -55,6 +55,12 @@
     <Filter Include="Source Files\Helper">
       <UniqueIdentifier>{02cd042e-f072-4df9-89de-dc69b2e19a2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Boids">
+      <UniqueIdentifier>{5eff976c-0597-473b-8fc7-20e13e554777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Boids">
+      <UniqueIdentifier>{71b6004d-27e0-4e2a-87ca-09d592695669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -99,6 +105,9 @@
     <ClInclude Include="List.h">
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
+    <ClInclude Include="Boids.h">
+      <Filter>Header Files\Boids</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,6 +149,9 @@
     <ClCompile Include="List.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
+    <ClCompile Include="Boids.cpp">
+      <Filter>Source Files\Boids</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BoidBox.rc">
@@ -147,11 +159,11 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="BoidBox.ico">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Source Files</Filter>
     </Image>
   </ItemGroup>
 </Project>
