@@ -36,3 +36,4 @@ private:
 
 void ObjectListAdd(ObjectList* list, Object* obj);
 void ObjectListRemove(ObjectList* list, Object* obj);
+int ObjectListSize(ObjectList* list);

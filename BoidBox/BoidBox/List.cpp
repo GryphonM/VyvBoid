@@ -25,9 +25,9 @@ Object* ObjectList::PopFront() { Object* front = list.front(); list.pop_front();
 void ObjectList::Erase(Object* obj) { list.erase(std::find(list.begin(), list.end(), obj)); }
 void ObjectList::Clear()
 {
-	int size = list.size();
+	int size = Size();
 	for (int i = 0; i < size; ++i)
-		delete PopBack();
+		ObjectDestroy(PopBack());
 }
 Object* ObjectList::operator[](int index)
 {
@@ -39,10 +39,10 @@ Object* ObjectList::operator[](int index)
 	return *it;
 }
 
-int ObjectList::Size() { return list.size(); }
+int ObjectList::Size() { return static_cast<int>(list.size()); }
 bool ObjectList::IsEmpty() { return list.empty(); }
 
 
-void ObjectListAdd(ObjectList* list, Object* obj) { list->PushBack(obj); }
-
+void ObjectListAdd(ObjectList* list, Object* obj) { list->PushFront(obj); }
 void ObjectListRemove(ObjectList* list, Object* obj) { list->Erase(obj); }
+int ObjectListAdd(ObjectList* list) { list->Size(); }
