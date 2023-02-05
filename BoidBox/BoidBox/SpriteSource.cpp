@@ -25,6 +25,9 @@ SpriteSource* CreateSpriteSource()
 
 	if (source)
 	{
+		source->Cols = 1;
+		source->rows = 1;
+		source->texture = NULL;
 		return (source);
 	}
 	else
@@ -39,9 +42,9 @@ void FreeSpriteSource(const SpriteSource** source)
 	*source = NULL;
 }
 
-void LoadSpriteSourceTexture(SpriteSource* source, int Cols, int rows, const char* textureName)
+void LoadSpriteSourceTexture(SpriteSource* source, int Cols, int rows, const char* texture)
 {
-	source->texture = DGL_Graphics_LoadTexture(textureName);
+	source->texture = DGL_Graphics_LoadTexture(texture);
 	source->Cols = Cols;
 	source->rows = rows;
 }

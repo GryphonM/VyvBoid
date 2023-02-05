@@ -31,6 +31,10 @@ Sprite* CreateSprite(void)
 
 	if (sprite)
 	{
+		sprite->source = NULL;
+		sprite->mesh = NULL;
+		sprite->alpha = 1;
+		sprite->frameIndex = 0;
 		return (sprite);
 	}
 	else
@@ -65,7 +69,7 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 
 	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), TransformGetRotation(transform));
 	DGL_Graphics_SetCB_Alpha(sprite->alpha);
-	DGL_Graphics_SetCB_TintColor(&meshColor);
+	//DGL_Graphics_SetCB_TintColor(&meshColor);
 	RenderMesh(sprite->mesh, transform);
 }
 
@@ -78,6 +82,14 @@ float SpriteGetAlpha(const Sprite* sprite)
 	else
 	{
 		return 0.0f;
+	}
+}
+
+void SpriteSetFrame(Sprite* sprite, unsigned int frameIndex)
+{
+	if (frameIndex >= 0 && frameIndex <= GetFrameCount(sprite->source))
+	{
+		sprite->frameIndex = frameIndex;
 	}
 }
 
@@ -107,7 +119,7 @@ void SpriteSetSource(Sprite* sprite, const SpriteSource* Source)
 {
 	if (sprite->source)
 	{
-		FreeSpriteSource(&Source);
+		FreeSpriteSource(&sprite->source);
 	}
 	sprite->source = Source;
 }

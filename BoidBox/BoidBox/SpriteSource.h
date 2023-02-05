@@ -31,7 +31,7 @@ SpriteSource* CreateSpriteSource();
 
 void FreeSpriteSource(const SpriteSource** spriteSource);
 
-void LoadSpriteSourceTexture(SpriteSource* spriteSource, int Cols, int rows, const char* textureName);
+void LoadSpriteSourceTexture(SpriteSource* spriteSource, int Cols, int rows, const char* texture);
 
 unsigned GetFrameCount(const SpriteSource* spriteSource);
 

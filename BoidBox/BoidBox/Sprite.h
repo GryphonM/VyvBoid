@@ -38,6 +38,8 @@ void RenderSprite(const Sprite* sprite, Transform* transform);
 
 float SpriteGetAlpha(const Sprite* sprite);
 
+void SpriteSetFrame(Sprite* sprite, unsigned int frameIndex);
+
 void SpriteSetAlpha(Sprite* sprite, float alpha);
 
 void SpriteSetMesh(Sprite* sprite, const Mesh* mesh);

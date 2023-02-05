@@ -33,12 +33,19 @@ Level1* LevelCreate(std::string name)
 	level->name = name;
 	level->state = Place;
 	level->testMesh = NULL;
+	level->hunter = HunterCreate();
+
+	Sprite* hunterSprite = CreateSprite();
+	AddHunterSprite(level->hunter, hunterSprite);
+	Transform* hunterTrans = CreateTransform();
+	AddHunterTrans(level->hunter, hunterTrans);
 
 	return level;
 }
 
 void DeleteLevel(Level1* level)
 {
+	FreeHunters(&level->hunter);
 	freeMesh(&level->testMesh);
 	delete level;
 }
@@ -47,6 +54,7 @@ void LevelInit(Level1* level)
 {
 	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone");
 	// Put your funky level init things here
+	InitCrosshair(level->hunter);
 }
 
 std::string LevelGetName(Level1* level) { return level->name; }
@@ -68,4 +76,5 @@ void LevelUpdate(Level1* level, float dt)
 void LevelDraw(Level1* level)
 {
 	//RenderMesh(level->testMesh,);
+	DrawCrosshair(level->hunter);
 }

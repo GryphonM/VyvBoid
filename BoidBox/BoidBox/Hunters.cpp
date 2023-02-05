@@ -23,13 +23,11 @@
 struct Hunters
 {
 	// perhaaps unnecessary idk yet
-	//DGL_Vec2 pos;
-	//DGL_Vec2 uv;
-
-	const DGL_Texture* texture;
+	DGL_Vec2 pos;
+	DGL_Vec2 uv;
 
 	// this WAS neces at some point...
-	//static const DGL_Vec2 scale;
+	static const DGL_Vec2 scale;
 
 	float radius;
 	float width;
@@ -38,9 +36,9 @@ struct Hunters
 	float halfHeight;
 
 	// collision stuff 
-	//float xDistance;
-	//float yDistance;
-	//float totalDistance;
+	float xDistance;
+	float yDistance;
+	float totalDistance;
 
 	Sprite* sprite;
 
@@ -69,16 +67,29 @@ void FreeHunters(Hunters** hunter)
 	delete *hunter;
 }
 
-Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float height, float radius)
+Hunters* InitCrosshair(Hunters* hunter, float width, float height, float radius)
 {
-	DGL_Texture* crosshairTexture = DGL_Graphics_LoadTexture("./Assets/crosshair.png");
-	if (mesh)
+	if (hunter)
 	{
+		Vector2D scale = Vector2D(100, 100);
+		SpriteSource* source = CreateSpriteSource();
+		Sprite* sprite = CreateSprite();
+		Mesh* mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0, "Crosshair");
+
+		LoadSpriteSourceTexture(source, 1, 1, "./Assets/crosshair.png");
+		SpriteSetMesh(sprite, mesh);
+
+		AddHunterSprite(hunter, sprite);
+		SpriteSetSource(hunter->sprite, source);
+
+		Transform* hunterTrans = CreateTransform();
+		TransformSetScale(hunterTrans, scale);
+		AddHunterTrans(hunter, hunterTrans);
 
 		hunter->width = width;
 		hunter->height = height;
 		hunter->halfWidth = hunter->width / 2.0f;
-		hunter->halfWidth = hunter->width / 2.0f;
+		hunter->halfHeight = hunter->height / 2.0f;
 		hunter->radius = radius;
 
 
@@ -88,14 +99,14 @@ Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float hei
 	return hunter;
 }
 
-/* void DrawCrosshair(const Mesh* mesh, const Transform* transform)
+// im fuckin stupid so like, this is *terrible* and I am sorry
+void DrawCrosshair(Hunters* hunter)
 {
-	RenderMesh(mesh, transform);
-		// move this? i think? note for later lol
-
-		DGL_Graphics_SetShaderMode(DGL_SM_TEXTURE);
-        DGL_Graphics_SetTexture(crosshairTexture);
-} */
+	if (hunter)
+	{
+		RenderSprite(hunter->sprite, hunter->transform);
+	}
+}
 
 void AddHunterSprite(Hunters* hunter, Sprite* sprite)
 {

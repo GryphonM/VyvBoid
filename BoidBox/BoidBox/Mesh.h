@@ -12,7 +12,7 @@
 #include "DGL.h"
 #include "Transform.h"
 
-typedef struct Mesh mesh;
+struct Mesh;
 
 #if 0
 typedef struct Mesh
@@ -23,8 +23,9 @@ typedef struct Mesh
 };
 #endif
 
-mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName);
-void RenderMesh(const mesh* mesh, const Transform* transform);
-void freeMesh(mesh** mesh);
+Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName);
+void RenderMesh(const Mesh* mesh, const Transform* transform);
+void RenderMesh(const Mesh* mesh);
+void freeMesh(Mesh** mesh);
 
 #endif

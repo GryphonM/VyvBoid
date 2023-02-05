@@ -24,10 +24,10 @@ struct Hunters;
 #if 0
 struct Hunters
 {
-	//DGL_Vec2 pos;
-	//DGL_Vec2 uv;
+	DGL_Vec2 pos;
+	DGL_Vec2 uv;
 
-	//const DGL_Texture* texture;
+	const DGL_Texture* texture;
 
 	static const DGL_Vec2 scale;
 
@@ -36,9 +36,9 @@ struct Hunters
 	float height;
 	float halfWidth;
 	float halfHeight;
-	//float xDistance;
-	//float yDistance;
-	//float totalDistance;
+	float xDistance;
+	float yDistance;
+	float totalDistance;
 
 	Sprite* sprite;
 
@@ -52,7 +52,7 @@ Hunters* HunterCreate(void);
 
 void FreeHunters(Hunters** hunter);
 
-Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width = 1.0f, float height = 2.0f, float radius = 30.0f);
+Hunters* InitCrosshair(Hunters* hunter, float width = 2.0f, float height = 4.0f, float radius = 30.0f);
 
 void AddHunterSprite(Hunters* hunter, Sprite* sprite);
 
@@ -61,7 +61,7 @@ void AddHunterTrans(Hunters* hunter, Transform* transform);
 Sprite* GetHunterSprite(const Hunters* hunter);
 // Update
 
-//void DrawCrosshair(const Mesh* mesh);
+void DrawCrosshair(Hunters* hunter);
 
 // maybe clone
 

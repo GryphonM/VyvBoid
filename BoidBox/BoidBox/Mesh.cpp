@@ -53,12 +53,18 @@ Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const c
 		return NULL;
 	}
 }
-void RenderMesh(const mesh* mesh, const Transform* transform)
+void RenderMesh(const Mesh* mesh, const Transform* transform)
 {
 	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), TransformGetRotation(transform));
 	DGL_Graphics_DrawMesh(mesh->source, mesh->drawMode);
 }
-void freeMesh(mesh** mesh)
+
+void RenderMesh(const Mesh* mesh)
+{
+	DGL_Graphics_DrawMesh(mesh->source, mesh->drawMode);
+}
+
+void freeMesh(Mesh** mesh)
 {
 	DGL_Graphics_FreeMesh(&((*mesh)->source));
 	delete *mesh;
