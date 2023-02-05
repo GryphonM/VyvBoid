@@ -19,26 +19,26 @@ class Vector2D;
 #if 0
 struct SpriteSource
 {
-	int	numRows;
-	int	numCols;
+	int	rows;
+	int	Cols;
 
 	const DGL_Texture* texture;
 
 };
 #endif
 
-SpriteSource* SpriteSourceCreate();
+SpriteSource* CreateSpriteSource();
 
-void SpriteSourceFree(const SpriteSource** spriteSource);
+void FreeSpriteSource(const SpriteSource** spriteSource);
 
-void SpriteSourceLoadTexture(SpriteSource* spriteSource, int numCols, int numRows, const char* textureName);
+void LoadSpriteSourceTexture(SpriteSource* spriteSource, int Cols, int rows, const char* textureName);
 
-unsigned SpriteSourceGetFrameCount(const SpriteSource* spriteSource);
+unsigned GetFrameCount(const SpriteSource* spriteSource);
 
-void SpriteSourceGetUV(const SpriteSource* spriteSource, unsigned int frameIndex, Vector2D(vec));
+void SpriteSourceGetUV(const SpriteSource* spriteSource, int frameIndex, Vector2D(vec));
 
 void SpriteSourceSetTexture(const SpriteSource* spriteSource);
 
-void SpriteSourceSetTextureOffset(const SpriteSource* spriteSource, unsigned frameIndex);
+void SpriteSourceSetUV(const SpriteSource* spriteSource, int frameIndex);
 
 #endif

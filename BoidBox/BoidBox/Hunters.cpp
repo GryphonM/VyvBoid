@@ -8,6 +8,8 @@
 //------------------------------------------------------------------------------
 #include "DGL.h"
 #include "Mesh.h"
+#include "Sprite.h"
+#include "SpriteSource.h"
 #include "Transform.h"
 #include "Hunters.h"
 #include "Vector2D.h"
@@ -16,14 +18,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// i dont know what I'm doing
+
 struct Hunters
 {
 	// perhaaps unnecessary idk yet
 	//DGL_Vec2 pos;
 	//DGL_Vec2 uv;
 
-	//const DGL_Texture* texture;
+	const DGL_Texture* texture;
 
+	// this WAS neces at some point...
 	//static const DGL_Vec2 scale;
 
 	float radius;
@@ -36,7 +41,33 @@ struct Hunters
 	//float xDistance;
 	//float yDistance;
 	//float totalDistance;
+
+	Sprite* sprite;
+
+	Transform* transform;
 };
+
+Hunters* HunterCreate(void)
+{
+	Hunters* hunter = new Hunters;
+
+	if (hunter)
+	{
+		return hunter;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+void FreeHunters(Hunters** hunter)
+{
+	// rip my boys
+	FreeSprite(&(*hunter)->sprite);
+	DeleteTransform((*hunter)->transform);
+	delete *hunter;
+}
 
 Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float height, float radius)
 {
@@ -50,16 +81,54 @@ Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width, float hei
 		hunter->halfWidth = hunter->width / 2.0f;
 		hunter->radius = radius;
 
-		DGL_Graphics_SetShaderMode(DGL_SM_TEXTURE);
-        DGL_Graphics_SetTexture(crosshairTexture);
 
-		//array of crosshairs for diff positions
+		//note: array of crosshairs for diff positions would be good 
 	}
 
 	return hunter;
 }
 
-void DrawCrosshair(const Mesh* mesh, const Transform* transform)
+/* void DrawCrosshair(const Mesh* mesh, const Transform* transform)
 {
 	RenderMesh(mesh, transform);
+		// move this? i think? note for later lol
+
+		DGL_Graphics_SetShaderMode(DGL_SM_TEXTURE);
+        DGL_Graphics_SetTexture(crosshairTexture);
+} */
+
+void AddHunterSprite(Hunters* hunter, Sprite* sprite)
+{
+	hunter->sprite = sprite;
+}
+
+void AddHunterTrans(Hunters* hunter, Transform* transform)
+{
+	hunter->transform = transform;
+}
+
+// gotta love getters and setters 
+
+Sprite* GetHunterSprite(const Hunters* hunter)
+{
+	if (hunter)
+	{
+		return hunter->sprite;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+Transform* GetHunterTransform(const Hunters* hunter)
+{
+	if (hunter)
+	{
+		return hunter->transform;
+	}
+	else
+	{
+		return NULL;
+	}
 }

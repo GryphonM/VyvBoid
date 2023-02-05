@@ -17,13 +17,13 @@ typedef struct Mesh mesh;
 #if 0
 typedef struct Mesh
 {
-	char name[32];
+	char meshName[32];
 
 	const DGL_Mesh* source;
 };
 #endif
 
-mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name);
+mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName);
 void RenderMesh(const mesh* mesh, const Transform* transform);
 void freeMesh(mesh** mesh);
 

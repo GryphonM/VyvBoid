@@ -16,7 +16,7 @@
 
 struct Sprite
 {
-	unsigned int frameIndex;
+	int frameIndex;
 
 	float alpha;
 
@@ -49,28 +49,23 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 { 
 	DGL_Color meshColor = { 0.0f, 0.0f, 0.0, 0.0f };
 
+	// props to anyone who DOESNT rip this from 230 tbh
+
 	if (sprite->source)
 	{
-		// Prepare to render a textured sprite
 		DGL_Graphics_SetShaderMode(DGL_SM_TEXTURE);
-		// Set texture and texture offsets
 		SpriteSourceSetTexture(sprite->source);
-		//SpriteSourceSetTextureOffset(sprite->source, sprite->frameIndex);
+		SpriteSourceSetUV(sprite->source, sprite->frameIndex);
 	}
 	else
 	{
 		DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
 		DGL_Graphics_SetTexture(NULL);
 	}
-	// Set position, scale, and rotation for the sprite
-	// 
+
 	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), TransformGetRotation(transform));
-	// 
-	// Set transparency (range 0.0f – 1.0f)
 	DGL_Graphics_SetCB_Alpha(sprite->alpha);
-	// Set blend color (RGBA, A = “strength” of blend)
 	DGL_Graphics_SetCB_TintColor(&meshColor);
-	// Render the mesh (list of triangles)
 	RenderMesh(sprite->mesh, transform);
 }
 
@@ -108,11 +103,11 @@ void SpriteSetMesh(Sprite* sprite, const Mesh* mesh)
 	sprite->mesh = mesh;
 }
 
-void SpriteSetSpriteSource(Sprite* sprite, const SpriteSource* spriteSource)
+void SpriteSetSource(Sprite* sprite, const SpriteSource* Source)
 {
 	if (sprite->source)
 	{
-		SpriteSourceFree(&spriteSource);
+		FreeSpriteSource(&Source);
 	}
-	sprite->source = spriteSource;
+	sprite->source = Source;
 }

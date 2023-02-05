@@ -15,14 +15,14 @@
 
 struct Mesh
 {
-	char name[32];
+	char meshName[32];
 
 	DGL_Mesh* source;
 
 	DGL_DrawMode drawMode;
 };
 
-Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
+Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName)
 {
 	DGL_Color meshColor = { 1.0f, 1.0f, 0.0f, 1.0f };
 
@@ -32,18 +32,17 @@ Mesh* SquareMesh(float xHalfSize, float yHalfSize, float uSize, float vSize, con
 	{
 		// thank you gryph!! I forgor this part lol
 		mesh->drawMode = DGL_DM_TRIANGLELIST;
-		strcpy(mesh->name, name);
+		strcpy(mesh->meshName, meshName);
 
 		DGL_Graphics_StartMesh();
 
-		// sorry shilling
-		DGL_Graphics_AddTriangle(Vector2D(-xHalfSize, -yHalfSize), &meshColor, Vector2D(0.0f, 0.0f),
-			Vector2D(xHalfSize, yHalfSize), &meshColor, Vector2D(uSize, vSize),
-			Vector2D(xHalfSize, -yHalfSize), &meshColor, Vector2D(uSize, 0.0f));
+		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &meshColor, Vector2D(0.0f, 0.0f),
+			Vector2D(halfX, halfY), &meshColor, Vector2D(UOffset, VOffset),
+			Vector2D(halfX, -halfY), &meshColor, Vector2D(UOffset, 0.0f));
 
-		DGL_Graphics_AddTriangle(Vector2D(-xHalfSize, -yHalfSize), &meshColor, Vector2D(0.0f, 0.0f),
-			Vector2D(-xHalfSize, yHalfSize), &meshColor, Vector2D(0.0f, vSize),
-			Vector2D(xHalfSize, yHalfSize), &meshColor, Vector2D(uSize, vSize));
+		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &meshColor, Vector2D(0.0f, 0.0f),
+			Vector2D(-halfX, halfY), &meshColor, Vector2D(0.0f, VOffset),
+			Vector2D(halfX, halfY), &meshColor, Vector2D(UOffset, VOffset));
 
 		mesh->source = DGL_Graphics_EndMesh();
 

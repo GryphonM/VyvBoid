@@ -9,6 +9,8 @@
 #include "DGL.h"
 
 #include "Mesh.h"
+#include "Sprite.h"
+#include "Transform.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,18 +39,29 @@ struct Hunters
 	//float xDistance;
 	//float yDistance;
 	//float totalDistance;
+
+	Sprite* sprite;
+
+	Transform* transform;
 };
 #endif
 
 // coll will need player/boids
 
+Hunters* HunterCreate(void);
+
+void FreeHunters(Hunters** hunter);
+
 Hunters* InitCrosshair(const Mesh* mesh, Hunters* hunter, float width = 1.0f, float height = 2.0f, float radius = 30.0f);
 
+void AddHunterSprite(Hunters* hunter, Sprite* sprite);
+
+void AddHunterTrans(Hunters* hunter, Transform* transform);
+
+Sprite* GetHunterSprite(const Hunters* hunter);
 // Update
 
-void DrawCrosshair(const Mesh* mesh);
-
-// if create then delete
+//void DrawCrosshair(const Mesh* mesh);
 
 // maybe clone
 

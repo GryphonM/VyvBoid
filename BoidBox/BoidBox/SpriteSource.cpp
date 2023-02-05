@@ -12,20 +12,20 @@
 
 struct SpriteSource
 {
-	int	numRows;
-	int	numCols;
+	int	rows;
+	int	Cols;
 
 	const DGL_Texture* texture;
 };
 
 
-SpriteSource* SpriteSourceCreate()
+SpriteSource* CreateSpriteSource()
 {
-	SpriteSource* spriteSource = new SpriteSource;
+	SpriteSource* source = new SpriteSource;
 
-	if (spriteSource)
+	if (source)
 	{
-		return (spriteSource);
+		return (source);
 	}
 	else
 	{
@@ -33,26 +33,26 @@ SpriteSource* SpriteSourceCreate()
 	}
 }
 
-void SpriteSourceFree(const SpriteSource** spriteSource)
+void FreeSpriteSource(const SpriteSource** source)
 {
-	delete* spriteSource;
-	*spriteSource = NULL;
+	delete* source;
+	*source = NULL;
 }
 
-void SpriteSourceLoadTexture(SpriteSource* spriteSource, int numCols, int numRows, const char* textureName)
+void LoadSpriteSourceTexture(SpriteSource* source, int Cols, int rows, const char* textureName)
 {
-	spriteSource->texture = DGL_Graphics_LoadTexture(textureName);
-	spriteSource->numCols = numCols;
-	spriteSource->numRows = numRows;
+	source->texture = DGL_Graphics_LoadTexture(textureName);
+	source->Cols = Cols;
+	source->rows = rows;
 }
 
-unsigned SpriteSourceGetFrameCount(const SpriteSource* spriteSource)
+unsigned GetFrameCount(const SpriteSource* source)
 {
 	int frameCount;
 
-	if (spriteSource)
+	if (source)
 	{
-		frameCount = (spriteSource->numCols * spriteSource->numRows);
+		frameCount = (source->Cols * source->rows);
 		return frameCount;
 	}
 	else
@@ -61,22 +61,21 @@ unsigned SpriteSourceGetFrameCount(const SpriteSource* spriteSource)
 	}
 }
 
-void SpriteSourceGetUV(const SpriteSource* spriteSource, unsigned int frameIndex, Vector2D(vec))
+void SpriteSourceGetUV(const SpriteSource* source, int frameIndex, Vector2D(vec))
 {
-	// hopefully the math checks, funky vector jazz 
-
-	vec.X((1.0f / spriteSource->numCols) * (frameIndex % spriteSource->numCols));
-	vec.Y((1.0f / spriteSource->numRows) * (frameIndex / spriteSource->numCols));
+	// mmm hopefully this math checks out otherwise im gonna lose my mind lmao
+	vec.X((1.0f / source->Cols) * (frameIndex % source->Cols));
+	vec.Y((1.0f / source->rows) * (frameIndex / source->Cols));
 }
 
-void SpriteSourceSetTexture(const SpriteSource* spriteSource)
+void SpriteSourceSetTexture(const SpriteSource* source)
 {
-	DGL_Graphics_SetTexture(spriteSource->texture);
+	DGL_Graphics_SetTexture(source->texture);
 }
 
-void SpriteSourceSetTextureOffset(const SpriteSource* spriteSource, unsigned frameIndex)
+void SpriteSourceSetUV(const SpriteSource* source, int frameIndex)
 {
 	Vector2D(UV);
-	SpriteSourceGetUV(spriteSource, frameIndex, UV);
+	SpriteSourceGetUV(source, frameIndex, UV);
 	DGL_Graphics_SetCB_TextureOffset(UV);
 }

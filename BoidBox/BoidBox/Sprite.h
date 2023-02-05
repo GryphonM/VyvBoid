@@ -19,12 +19,13 @@ struct Transform;
 #if 0
 struct Sprite
 {
+	int frameIndex;
+
 	float alpha;
 
 	const SpriteSource* source;
 
 	const Mesh* mesh;
-
 };
 
 #endif
@@ -41,6 +42,6 @@ void SpriteSetAlpha(Sprite* sprite, float alpha);
 
 void SpriteSetMesh(Sprite* sprite, const Mesh* mesh);
 
-void SpriteSetSpriteSource(Sprite* sprite, const SpriteSource* spriteSource);
+void SpriteSetSource(Sprite* sprite, const SpriteSource* spriteSource);
 
 #endif
