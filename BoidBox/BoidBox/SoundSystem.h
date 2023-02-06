@@ -17,10 +17,6 @@
 #ifndef PLACEBLOCK_H
 #define PLACEBLOCK_H
 
-#include "fmod.h"
-#include "fmod_errors.h"
-#include <stdio.h>		// printf()
-
 typedef struct PlaceBlock PlaceBlock;
 
 #if 0

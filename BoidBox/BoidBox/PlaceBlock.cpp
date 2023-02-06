@@ -10,6 +10,7 @@
 #include "Transform.h"
 #include "Mesh.h"
 #include "Vector2D.h"
+#include "List.h"
 #include "Object.h"
 #include "PlaceBlock.h"
 
@@ -23,8 +24,8 @@ struct PlaceBlock
 	Vector2D offScreen;
 
 	Mesh* mesh;
-	
 	Object** object;
+	ObjectList* objectList;
 };
 
 PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
@@ -34,17 +35,15 @@ PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, 
 	if (place)
 	{
 		place->BlocksPlaced = 0;
-		place->maxBlocks = 0;
+		place->maxBlocks = max_blocks;
 		place->offScreen = (Vector2D)OFFSCREEN;
 		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name);
-		place->object = new Object* [max_blocks];
-		
-		if (place->object && place->mesh)
+		place->objectList = new ObjectList;
+		place->object = new Object * [max_blocks];
+		if (place->objectList && place->mesh && place->object)
 		{
 			for (int i = 0; i < max_blocks; i++)
-			{
 				place->object[i] = NULL;
-			}
 			return place;
 		}
 		return NULL;
@@ -61,18 +60,19 @@ void UpdatePlaceBlocks(PlaceBlock* place)
 		mish = DGL_Camera_ScreenCoordToWorld(mish);
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
-			place->object[place->BlocksPlaced] = ObjectCreate("Blocks"+place->BlocksPlaced++, CreateTransform(mish));
+			place->objectList->PushFront(place->object[place->BlocksPlaced] = ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(30.0f, 30.0f), 0.0f)));
+			place->BlocksPlaced++;
 		}
 
 		if (DGL_Input_KeyTriggered(VK_RBUTTON) )
 		{
-			for (int i = 0; i < place->BlocksPlaced; i++)
+			for (int i = 0; i < place->objectList->Size(); i++)
 			{
 				Vector2D position = TransformGetPosition(ObjectGetTransform(place->object[i]));
 				if ((mish.X() <= position.X() + 10.0f) && (mish.X() >= position.X() - 10.0f)
 					&& (mish.Y() <= position.Y() + 25.0f) && (mish.Y() >= position.Y() - 25.0f))
 				{
-					ObjectMove(place->object[i], place->offScreen);
+					ObjectListRemove(place->objectList, place->object[i]);
 					place->BlocksPlaced--;
 					break;
 				}
@@ -92,8 +92,8 @@ void DrawPlacedBlocks(PlaceBlock* place)
 void DestroyPlaceBlocks(PlaceBlock* place)
 {
 	freeMesh(&place->mesh);
-	for (int i = 0; i < place->maxBlocks; i++)
-		ObjectDelete(place->object[i]);
+	place->objectList->Clear();
+	delete place->objectList;
 	delete place;
 	place = NULL;
 }

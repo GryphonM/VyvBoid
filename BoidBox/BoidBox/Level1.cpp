@@ -9,6 +9,7 @@
 
 #include <vector>
 #include "Level1.h"
+#include "PlaceBlock.h"
 #include "Object.h"
 #include "Mesh.h"
 #include "Hunters.h"
@@ -21,6 +22,7 @@ struct Level1
 	State state;
 	Mesh* testMesh;
 	Hunters* hunter;
+	PlaceBlock* place;
 
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
@@ -34,12 +36,13 @@ Level1* LevelCreate(std::string name)
 	level->state = Place;
 	level->testMesh = NULL;
 	level->hunter = HunterCreate();
-
+	level->place = CreatePlaceBlocks(5, .5f, .5f, 1.0f, 1.0f, "blocks");
 	return level;
 }
 
 void DeleteLevel(Level1* level)
 {
+	DestroyPlaceBlocks(level->place);
 	FreeHunters(&level->hunter);
 	freeMesh(&level->testMesh);
 	delete level;
@@ -61,6 +64,7 @@ void LevelUpdate(Level1* level, float dt)
 	if (level->state == Place)
 	{
 		// Update Place Objects
+		UpdatePlaceBlocks(level->place);
 	}
 	else if (level->state == Play)
 	{
@@ -70,6 +74,7 @@ void LevelUpdate(Level1* level, float dt)
 
 void LevelDraw(Level1* level)
 {
+	DrawPlacedBlocks(level->place);
 	//RenderMesh(level->testMesh,);
 	DrawCrosshair(level->hunter);
 }
