@@ -16,7 +16,7 @@
 #include "fmod_codec.h"
 #include <stdio.h>		// printf()
 
-typedef struct Sound
+struct Sound
 {
     const char* soundPath; // file path
     const char* name;      // sound name to be used a future reference
@@ -28,7 +28,7 @@ typedef struct Sound
 
     FMOD_BOOL TRUE = 1;
     FMOD_BOOL FALSE = 0;
-}Sound;
+};
 
 // Helper function to check for errors
 void ERRCHECK(Sound* sound, FMOD_RESULT checkResult)

@@ -14,15 +14,24 @@
 // Course:		GAM 150
 //
 //------------------------------------------------------------------------------
-#ifndef PLACEBLOCK_H
-#define PLACEBLOCK_H
+#ifndef SOUNDSYSTEM_H
+#define SOUNDSYSTEM_H
 
-typedef struct PlaceBlock PlaceBlock;
+typedef struct Sound Sound;
 
 #if 0
 typedef struct Sound
 {
-	
+    const char* soundPath; // file path
+    const char* name;      // sound name to be used a future reference
+    FMOD_SOUND* fmodSound; // FMOD struct managing FMOD stuff
+    FMOD_CHANNEL* channel = 0; // another FMOD struct managing FMOD stuff
+    FMOD_SYSTEM* soundSystem;
+    FMOD_SOUND* sound;
+    FMOD_RESULT result;
+
+    FMOD_BOOL TRUE = 1;
+    FMOD_BOOL FALSE = 0;
 };
 #endif
 
