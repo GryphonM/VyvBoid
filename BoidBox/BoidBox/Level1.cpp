@@ -35,11 +35,6 @@ Level1* LevelCreate(std::string name)
 	level->testMesh = NULL;
 	level->hunter = HunterCreate();
 
-	Sprite* hunterSprite = CreateSprite();
-	AddHunterSprite(level->hunter, hunterSprite);
-	Transform* hunterTrans = CreateTransform();
-	AddHunterTrans(level->hunter, hunterTrans);
-
 	return level;
 }
 

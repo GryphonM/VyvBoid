@@ -56,13 +56,15 @@ Hunters* InitCrosshair(Hunters* hunter, float width = 2.0f, float height = 4.0f,
 
 void AddHunterSprite(Hunters* hunter, Sprite* sprite);
 
-void AddHunterTrans(Hunters* hunter, Transform* transform);
+void AddHunterTrans1(Hunters* hunter, Transform* transform);
+void AddHunterTrans2(Hunters* hunter, Transform* transform);
+void AddHunterTrans3(Hunters* hunter, Transform* transform);
 
 Sprite* GetHunterSprite(const Hunters* hunter);
-// Update
+Transform* GetHunterTransform1(const Hunters* hunter);
+Transform* GetHunterTransform2(const Hunters* hunter);
+Transform* GetHunterTransform3(const Hunters* hunter);
 
 void DrawCrosshair(Hunters* hunter);
-
-// maybe clone
 
 #endif

@@ -42,7 +42,9 @@ struct Hunters
 
 	Sprite* sprite;
 
-	Transform* transform;
+	Transform* transform1;
+	Transform* transform2;
+	Transform* transform3;
 };
 
 Hunters* HunterCreate(void)
@@ -63,7 +65,9 @@ void FreeHunters(Hunters** hunter)
 {
 	// rip my boys
 	FreeSprite(&(*hunter)->sprite);
-	DeleteTransform((*hunter)->transform);
+	DeleteTransform((*hunter)->transform1);
+	DeleteTransform((*hunter)->transform2);
+	DeleteTransform((*hunter)->transform3);
 	delete *hunter;
 }
 
@@ -72,6 +76,10 @@ Hunters* InitCrosshair(Hunters* hunter, float width, float height, float radius)
 	if (hunter)
 	{
 		Vector2D scale = Vector2D(100, 100);
+		Vector2D trans1 = Vector2D(0, 0);
+		Vector2D trans2 = Vector2D(60, -60);
+		Vector2D trans3 = Vector2D(-150, 0);
+
 		SpriteSource* source = CreateSpriteSource();
 		Sprite* sprite = CreateSprite();
 		Mesh* mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0, "Crosshair");
@@ -82,9 +90,17 @@ Hunters* InitCrosshair(Hunters* hunter, float width, float height, float radius)
 		AddHunterSprite(hunter, sprite);
 		SpriteSetSource(hunter->sprite, source);
 
-		Transform* hunterTrans = CreateTransform();
-		TransformSetScale(hunterTrans, scale);
-		AddHunterTrans(hunter, hunterTrans);
+		Transform* hunterTrans1 = CreateTransform(trans1);
+		TransformSetScale(hunterTrans1, scale);
+		AddHunterTrans1(hunter, hunterTrans1);
+
+		Transform* hunterTrans2 = CreateTransform(trans2);
+		TransformSetScale(hunterTrans2, scale);
+		AddHunterTrans2(hunter, hunterTrans2);
+
+		Transform* hunterTrans3 = CreateTransform(trans3);
+		TransformSetScale(hunterTrans3, scale);
+		AddHunterTrans3(hunter, hunterTrans3);
 
 		hunter->width = width;
 		hunter->height = height;
@@ -104,7 +120,9 @@ void DrawCrosshair(Hunters* hunter)
 {
 	if (hunter)
 	{
-		RenderSprite(hunter->sprite, hunter->transform);
+		RenderSprite(hunter->sprite, hunter->transform1);
+		RenderSprite(hunter->sprite, hunter->transform2);
+		RenderSprite(hunter->sprite, hunter->transform3);
 	}
 }
 
@@ -113,9 +131,19 @@ void AddHunterSprite(Hunters* hunter, Sprite* sprite)
 	hunter->sprite = sprite;
 }
 
-void AddHunterTrans(Hunters* hunter, Transform* transform)
+void AddHunterTrans1(Hunters* hunter, Transform* transform)
 {
-	hunter->transform = transform;
+	hunter->transform1 = transform;
+}
+
+void AddHunterTrans2(Hunters* hunter, Transform* transform)
+{
+	hunter->transform2 = transform;
+}
+
+void AddHunterTrans3(Hunters* hunter, Transform* transform)
+{
+	hunter->transform3 = transform;
 }
 
 // gotta love getters and setters 
@@ -132,11 +160,35 @@ Sprite* GetHunterSprite(const Hunters* hunter)
 	}
 }
 
-Transform* GetHunterTransform(const Hunters* hunter)
+Transform* GetHunterTransform1(const Hunters* hunter)
 {
 	if (hunter)
 	{
-		return hunter->transform;
+		return hunter->transform1;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+Transform* GetHunterTransform2(const Hunters* hunter)
+{
+	if (hunter)
+	{
+		return hunter->transform2;
+	}
+	else
+	{
+		return NULL;
+	}
+}
+
+Transform* GetHunterTransform3(const Hunters* hunter)
+{
+	if (hunter)
+	{
+		return hunter->transform3;
 	}
 	else
 	{
