@@ -22,12 +22,26 @@ Object* ObjectList::Back() { return list.back(); }
 Object* ObjectList::Front() { return list.front(); }
 Object* ObjectList::PopBack() { Object* back = list.back(); list.pop_back(); return back; }
 Object* ObjectList::PopFront() { Object* front = list.front(); list.pop_front(); return front; }
-void ObjectList::Erase(Object* obj) { list.erase(std::find(list.begin(), list.end(), obj)); ObjectDestroy(obj); }
+void ObjectList::Erase(Object* obj) { list.erase(std::find(list.begin(), list.end(), obj)); ObjectDelete(obj); }
 void ObjectList::Clear()
 {
 	int size = Size();
 	for (int i = 0; i < size; ++i)
 		ObjectDelete(PopBack());
+}
+void ObjectList::Clean()
+{
+	for (auto it = list.begin(); it != list.end();)
+	{
+		if (IsDestroyed(*it))
+		{
+			Object* obj = *it;
+			it = list.erase(it);
+			ObjectDelete(obj);
+		}
+		else
+			++it;
+	}
 }
 Object* ObjectList::operator[](int index)
 {
@@ -44,5 +58,6 @@ bool ObjectList::IsEmpty() { return list.empty(); }
 
 
 void ObjectListAdd(ObjectList* list, Object* obj) { list->PushFront(obj); }
-void ObjectListRemove(ObjectList* list, Object* obj) { list->Erase(obj); }
-int ObjectListAdd(ObjectList* list) { return list->Size(); }
+void ObjectListRemove(ObjectList* list, Object* obj) { ObjectDestroy(obj); }
+int ObjectListSize(ObjectList* list) { return list->Size(); }
+void ObjectListClean(ObjectList* list) { list->Clean(); }

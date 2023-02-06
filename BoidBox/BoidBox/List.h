@@ -27,6 +27,7 @@ public:
 	Object* operator[](int index);
 	void Erase(Object* obj);
 	void Clear();
+	void Clean();
 
 	int Size();
 	bool IsEmpty();
