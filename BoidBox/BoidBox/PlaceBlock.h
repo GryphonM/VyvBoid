@@ -14,19 +14,20 @@ typedef struct PlaceBlock PlaceBlock;
 #if 0
 typedef struct PlaceBlock
 {
-	int mouseClicks[MAXBLOCKS];
-	int isDrawn[MAXBLOCKS];
-
-	Vector2D mousePosition;
+	int BlocksPlaced;
+	int maxBlocks;
+	Vector2D offScreen;
 
 	Mesh* mesh;
-
-	Transform* trans;
+	Object** object;
+	ObjectList* objectList;
 };
 #endif
 
 PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name);
 void UpdatePlaceBlocks(PlaceBlock* place);
+int GetNumberOfPlacedBlocks(PlaceBlock* place);
+//Vector2D* GetPlacedBlocksTransform(PlaceBlock* place, int location);
 void DrawPlacedBlocks(PlaceBlock* place);
 void DestroyPlaceBlocks(PlaceBlock** place);
 

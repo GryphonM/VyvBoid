@@ -94,6 +94,17 @@ int GetNumberOfPlacedBlocks(PlaceBlock* place)
 	}
 }
 
+/*Vector2D* GetPlacedBlocksTransform(PlaceBlock* place, int location)
+{
+	if (place)
+	{
+		Vector2D position = TransformGetPosition(ObjectGetTransform(place->object[location]));
+		return &position;
+	}
+	else
+		return NULL;
+}*/
+
 void DrawPlacedBlocks(PlaceBlock* place)
 {
 	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);

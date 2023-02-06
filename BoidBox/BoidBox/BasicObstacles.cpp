@@ -33,6 +33,17 @@ Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float 
 	}
 }
 
+/*Vector2D GetObstaclePosition(Obstacles* obstacle)
+{
+	if (obstacle)
+	{
+		Vector2D position = TransformGetPosition(obstacle->transform);
+		return position;
+	}
+	else
+		return Vector2D(0, 0);
+}*/
+
 void DrawObstacles(Obstacles* obstacles)
 {
 	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
