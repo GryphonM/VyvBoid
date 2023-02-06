@@ -28,6 +28,6 @@ typedef struct PlaceBlock
 PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name);
 void UpdatePlaceBlocks(PlaceBlock* place);
 void DrawPlacedBlocks(PlaceBlock* place);
-void DestroyPlaceBlocks(PlaceBlock* place);
+void DestroyPlaceBlocks(PlaceBlock** place);
 
 #endif

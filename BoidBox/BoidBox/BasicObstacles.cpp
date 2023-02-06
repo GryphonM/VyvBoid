@@ -9,6 +9,7 @@
 #include "Mesh.h"
 #include "Transform.h"
 #include "Vector2D.h"
+#include "DGL.h"
 
 struct Obstacles
 {
@@ -23,7 +24,7 @@ Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float 
 	if (obstacles)
 	{
 		obstacles->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, "FirstObstacles");
-		obstacles->transform = CreateTransform(Vector2D(-300, -250), Vector2D(50, 100));
+		obstacles->transform = CreateTransform(Vector2D(-300, -250), Vector2D(25, 40));
 		return obstacles;
 	}
 	else
@@ -34,18 +35,19 @@ Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float 
 
 void DrawObstacles(Obstacles* obstacles)
 {
+	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
 	RenderMesh(obstacles->mesh, obstacles->transform);
 }
 
-void DestroyObstacles(Obstacles* obstacles)
+void DestroyObstacles(Obstacles** obstacles)
 {
 	if (obstacles)
 	{
-		if (obstacles->transform)
-			DeleteTransform(obstacles->transform);
-		if (obstacles->mesh)
-			freeMesh(&obstacles->mesh);
-		delete obstacles;
-		obstacles = NULL;
+		if ((*obstacles)->transform)
+			DeleteTransform((*obstacles)->transform);
+		if ((*obstacles)->mesh)
+			freeMesh(&(*obstacles)->mesh);
+		delete *obstacles;
+		*obstacles = NULL;
 	}
 }

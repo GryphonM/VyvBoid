@@ -54,7 +54,7 @@ PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, 
 void UpdatePlaceBlocks(PlaceBlock* place)
 {
 	// set to 0 to place
-	int test = 1;
+	int test = 0;
 	if (place && test != 1)
 	{	
 		Vector2D mish = Vector2D(DGL_Input_GetMousePosition());
@@ -96,25 +96,22 @@ int GetNumberOfPlacedBlocks(PlaceBlock* place)
 
 void DrawPlacedBlocks(PlaceBlock* place)
 {
+	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
 	for (int k = 0; k < place->BlocksPlaced; k++)
 	{
 		RenderMesh(place->mesh, ObjectGetTransform(place->object[k]));
 	}
 }
 
-void DestroyPlaceBlocks(PlaceBlock* place)
+void DestroyPlaceBlocks(PlaceBlock** place)
 {
 	if (place)
 	{
-		if (place->mesh)
-			freeMesh(&place->mesh);
-		if (place->objectList)
-		{
-			place->objectList->Clear();
-			delete place->objectList;
-		}
-		delete place;
-		place = NULL;
+		freeMesh(&((*place)->mesh));
+		(*place)->objectList->Clear();
+		delete (*place)->objectList;
+		delete *place;
+		*place = NULL;
 	}
 	else
 		return;

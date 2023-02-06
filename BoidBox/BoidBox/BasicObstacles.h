@@ -6,10 +6,10 @@
 // Course:		GAM 150
 //
 //------------------------------------------------------------------------------
-#ifndef PLACEBLOCK_H
-#define PLACEBLOCK_H
+#ifndef BASICOBSTACLES_H
+#define BASICOBSTACLES_H
 
-typedef struct Obstacles Obsta;
+typedef struct Obstacles Obstacles;
 
 #if 0
 typedef struct Obstacles
@@ -22,5 +22,6 @@ typedef struct Obstacles
 #endif
 
 Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name);
-void DestroyObstacles(Obstacles* obstacles);
+void DrawObstacles(Obstacles* obstacles);
+void DestroyObstacles(Obstacles** obstacles);
 #endif

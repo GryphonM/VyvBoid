@@ -13,6 +13,7 @@
 #include "Object.h"
 #include "Mesh.h"
 #include "Hunters.h"
+#include "BasicObstacles.h"
 
 struct Level1
 {
@@ -23,6 +24,7 @@ struct Level1
 	Mesh* testMesh;
 	Hunters* hunter;
 	PlaceBlock* place;
+	Obstacles* obstacles;
 
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
@@ -35,6 +37,7 @@ Level1* LevelCreate(std::string name)
 	level->name = name;
 	level->state = Place;
 	level->testMesh = NULL;
+	level->obstacles = CreateObstacles(5.0f, 10.0f, 1.0f, 1.0f, "obstacles");
 	level->hunter = HunterCreate();
 	level->place = CreatePlaceBlocks(5, .5f, .5f, 1.0f, 1.0f, "blocks");
 	return level;
@@ -42,7 +45,8 @@ Level1* LevelCreate(std::string name)
 
 void DeleteLevel(Level1* level)
 {
-	DestroyPlaceBlocks(level->place);
+	DestroyObstacles(&level->obstacles);
+	DestroyPlaceBlocks(&level->place);
 	FreeHunters(&level->hunter);
 	freeMesh(&level->testMesh);
 	delete level;
@@ -74,6 +78,7 @@ void LevelUpdate(Level1* level, float dt)
 
 void LevelDraw(Level1* level)
 {
+	DrawObstacles(level->obstacles);
 	DrawPlacedBlocks(level->place);
 	//RenderMesh(level->testMesh,);
 	DrawCrosshair(level->hunter);
