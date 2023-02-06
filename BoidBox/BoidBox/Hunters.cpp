@@ -75,10 +75,10 @@ Hunters* InitCrosshair(Hunters* hunter, float width, float height, float radius)
 {
 	if (hunter)
 	{
-		Vector2D scale = Vector2D(100, 100);
-		Vector2D trans1 = Vector2D(0, 0);
-		Vector2D trans2 = Vector2D(60, -60);
-		Vector2D trans3 = Vector2D(-150, 0);
+		Vector2D scale = Vector2D(75, 75);
+		Vector2D trans1 = Vector2D(0, -180);
+		Vector2D trans2 = Vector2D(250, 250);
+		Vector2D trans3 = Vector2D(-250, 250);
 
 		SpriteSource* source = CreateSpriteSource();
 		Sprite* sprite = CreateSprite();
