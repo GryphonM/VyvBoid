@@ -23,8 +23,7 @@ struct PlaceBlock
 	Vector2D offScreen;
 
 	Mesh* mesh;
-	Object** object;
-	ObjectList* objectList;
+	ObjectList objectList;
 };
 
 PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
@@ -37,12 +36,9 @@ PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, 
 		place->maxBlocks = max_blocks;
 		place->offScreen = (Vector2D)OFFSCREEN;
 		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name);
-		place->objectList = new ObjectList;
-		place->object = new Object * [max_blocks];
-		if (place->objectList && place->mesh && place->object)
+
+		if (place->mesh)
 		{
-			for (int i = 0; i < max_blocks; i++)
-				place->object[i] = NULL;
 			return place;
 		}
 		return NULL;
@@ -61,24 +57,25 @@ void UpdatePlaceBlocks(PlaceBlock* place)
 		mish = DGL_Camera_ScreenCoordToWorld(mish);
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
-			place->objectList->PushFront(place->object[place->BlocksPlaced] = ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(30.0f, 30.0f))));
+			place->objectList.PushFront(ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(30.0f, 30.0f))));
 			place->BlocksPlaced++;
 		}
 
 		if (DGL_Input_KeyTriggered(VK_RBUTTON) )
 		{
-			for (int i = 0; i < place->objectList->Size(); i++)
+			for (int i = 0; i < place->objectList.Size(); i++)
 			{
-				Vector2D position = TransformGetPosition(ObjectGetTransform(place->object[i]));
+				Vector2D position = TransformGetPosition(ObjectGetTransform(place->objectList[i]));
 				if ((mish.X() <= position.X() + 10.0f) && (mish.X() >= position.X() - 10.0f)
 					&& (mish.Y() <= position.Y() + 25.0f) && (mish.Y() >= position.Y() - 25.0f))
 				{
-					ObjectListRemove(place->objectList, place->object[i]);
+					ObjectListRemove(&place->objectList, place->objectList[i]);
 					place->BlocksPlaced--;
 					break;
 				}
 			}
 		}
+		ObjectListClean(&place->objectList);
 	}
 }
 // in theory could be used for printing stuff for UI
@@ -110,7 +107,7 @@ void DrawPlacedBlocks(PlaceBlock* place)
 	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
 	for (int k = 0; k < place->BlocksPlaced; k++)
 	{
-		RenderMesh(place->mesh, ObjectGetTransform(place->object[k]));
+		RenderMesh(place->mesh, ObjectGetTransform(place->objectList[k]));
 	}
 }
 
@@ -119,8 +116,6 @@ void DestroyPlaceBlocks(PlaceBlock** place)
 	if (place)
 	{
 		freeMesh(&((*place)->mesh));
-		(*place)->objectList->Clear();
-		delete (*place)->objectList;
 		delete *place;
 		*place = NULL;
 	}
