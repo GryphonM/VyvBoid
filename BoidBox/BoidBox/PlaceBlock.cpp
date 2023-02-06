@@ -20,7 +20,6 @@ struct PlaceBlock
 {
 	int BlocksPlaced;
 	int maxBlocks;
-	float rotation;
 	Vector2D offScreen;
 
 	Mesh* mesh;
@@ -54,13 +53,15 @@ PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, 
 
 void UpdatePlaceBlocks(PlaceBlock* place)
 {
-	if (place)
+	// set to 0 to place
+	int test = 1;
+	if (place && test != 1)
 	{	
 		Vector2D mish = Vector2D(DGL_Input_GetMousePosition());
 		mish = DGL_Camera_ScreenCoordToWorld(mish);
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
-			place->objectList->PushFront(place->object[place->BlocksPlaced] = ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(30.0f, 30.0f), 0.0f)));
+			place->objectList->PushFront(place->object[place->BlocksPlaced] = ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(30.0f, 30.0f))));
 			place->BlocksPlaced++;
 		}
 
@@ -80,6 +81,18 @@ void UpdatePlaceBlocks(PlaceBlock* place)
 		}
 	}
 }
+// in theory could be used for printing stuff for UI
+int GetNumberOfPlacedBlocks(PlaceBlock* place)
+{
+	if (place)
+	{
+		return place->BlocksPlaced;
+	}
+	else
+	{
+		return NULL;
+	}
+}
 
 void DrawPlacedBlocks(PlaceBlock* place)
 {
@@ -91,9 +104,18 @@ void DrawPlacedBlocks(PlaceBlock* place)
 
 void DestroyPlaceBlocks(PlaceBlock* place)
 {
-	freeMesh(&place->mesh);
-	place->objectList->Clear();
-	delete place->objectList;
-	delete place;
-	place = NULL;
+	if (place)
+	{
+		if (place->mesh)
+			freeMesh(&place->mesh);
+		if (place->objectList)
+		{
+			place->objectList->Clear();
+			delete place->objectList;
+		}
+		delete place;
+		place = NULL;
+	}
+	else
+		return;
 }

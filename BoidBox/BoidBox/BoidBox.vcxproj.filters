@@ -61,6 +61,12 @@
     <Filter Include="Source Files\Boids">
       <UniqueIdentifier>{71b6004d-27e0-4e2a-87ca-09d592695669}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Obstacles">
+      <UniqueIdentifier>{579a869b-d2cb-4f3f-a6e7-e7797b5f5d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Obstacles">
+      <UniqueIdentifier>{4f999b13-eeb0-4b22-9f22-10fa3dd97340}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -108,6 +114,9 @@
     <ClInclude Include="Boids.h">
       <Filter>Header Files\Boids</Filter>
     </ClInclude>
+    <ClInclude Include="BasicObstacles.h">
+      <Filter>Header Files\Obstacles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -151,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="Boids.cpp">
       <Filter>Source Files\Boids</Filter>
+    </ClCompile>
+    <ClCompile Include="BasicObstacles.cpp">
+      <Filter>Source Files\Obstacles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
