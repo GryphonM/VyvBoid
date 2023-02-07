@@ -37,6 +37,9 @@ float Vector2D::MagnitudeSquared() const { return (vec.x * vec.x) + (vec.y * vec
 float Vector2D::Magnitude() const { return sqrt(MagnitudeSquared()); }
 Vector2D Vector2D::Normalized() const { return *this / Magnitude(); }
 
+bool Vector2D::operator==(const Vector2D& rhs) const { return vec.x == rhs.vec.x && vec.y == rhs.vec.y; }
+bool Vector2D::operator!=(const Vector2D& rhs) const { return !(*this == rhs); }
+
 Vector2D Vector2D::operator+(Vector2D& rhs) const { return Vector2D(vec.x + rhs.vec.x, vec.y + rhs.vec.y); }
 Vector2D& Vector2D::operator+=(Vector2D& rhs) { vec.x += rhs.vec.x; vec.y += rhs.vec.y; return *this; }
 Vector2D Vector2D::operator+(float rhs) const { return Vector2D(vec.x + rhs, vec.y + rhs); }
