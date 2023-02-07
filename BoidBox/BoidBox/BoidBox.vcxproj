@@ -180,6 +180,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClInclude Include="BasicObstacles.h" />
     <ClInclude Include="Level1.h" />
     <ClInclude Include="List.h" />
+    <ClInclude Include="Math.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PlaceBlock.h" />
     <ClInclude Include="SoundSystem.h" />
@@ -199,6 +200,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClCompile Include="Level1.cpp" />
     <ClCompile Include="List.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PlaceBlock.cpp" />
