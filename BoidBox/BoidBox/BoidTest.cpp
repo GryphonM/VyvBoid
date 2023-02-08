@@ -19,31 +19,27 @@ struct TestLevel
 	std::string name;
 	LevelIDType id;
 
-	Mesh* testMesh;
 	BoidList* boidList;
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
-	TestLevel() : name(), id(0), testMesh(NULL) {}
+	TestLevel() : name(), id(0) {}
 };
 
 TestLevel* TestLevelCreate(std::string name)
 {
 	TestLevel* level = new TestLevel;
 	level->name = name;
-	level->testMesh = NULL;
 	return level;
 }
 
 void DeleteLevel(TestLevel* level)
 {
 	DestroyBoidList(level->boidList);
-	freeMesh(&level->testMesh);
 	delete level;
 }
 
 void LevelInit(TestLevel* level)
 {
-	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone");
 	// Put your funky level init things here
 	level->boidList = CreateBoidlist();
 

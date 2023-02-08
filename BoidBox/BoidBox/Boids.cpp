@@ -43,6 +43,7 @@ struct BoidList
     float FriendRange;
     float SeparateRange;
     float AlignmentSmoothVal;
+    DGL_Color boidColor;
     Mesh* boidMesh;
     Boid* boidsList[BOIDNUMBER];
 };
@@ -188,7 +189,8 @@ BoidList* CreateBoidlist()
     newBoidList->FriendRange = 100;
     newBoidList->SeparateRange = 100;
     newBoidList->AlignmentSmoothVal = .01f;
-    newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid");
+    newBoidList->boidColor = { 0.5f, 0.25f, 1.0f, 1.0f };
+    newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid", newBoidList->boidColor);
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
