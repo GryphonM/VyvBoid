@@ -23,7 +23,7 @@ typedef struct Mesh
 };
 #endif
 
-Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName);
+Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName, DGL_Color color);
 void RenderMesh(const Mesh* mesh, const Transform* transform);
 void RenderMesh(const Mesh* mesh);
 void freeMesh(Mesh** mesh);

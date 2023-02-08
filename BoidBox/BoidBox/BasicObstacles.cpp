@@ -21,9 +21,10 @@ struct Obstacles
 Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
 {
 	Obstacles* obstacles = new Obstacles;
+	DGL_Color color = { 0.0f, 1.0f, 0.0f, 1.0f };
 	if (obstacles)
 	{
-		obstacles->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, "FirstObstacles");
+		obstacles->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, "FirstObstacles", color);
 		obstacles->transform = CreateTransform(Vector2D(-300, -250), Vector2D(25, 40));
 		return obstacles;
 	}

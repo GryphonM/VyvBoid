@@ -15,7 +15,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// tf does this do
 #ifndef HUNTERS_H
 #define HUNTERS_H
 

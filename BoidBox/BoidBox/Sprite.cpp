@@ -51,8 +51,6 @@ void FreeSprite(Sprite** sprite)
 
 void RenderSprite(const Sprite* sprite, Transform* transform)
 { 
-	DGL_Color meshColor = { 0.0f, 0.0f, 0.0, 0.0f };
-
 	// props to anyone who DOESNT rip this from 230 tbh
 
 	if (sprite->source)
