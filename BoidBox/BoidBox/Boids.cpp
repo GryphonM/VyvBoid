@@ -16,6 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "List.h"
+#include "Math.h"
 
 #define BOIDNUMBER 40
 struct BoidList
@@ -76,7 +77,8 @@ Vector2D Separation(Boid* boid, BoidList* list)
     {
         if (Vector2D::DistanceSquared(list->boidsList[i].position, boid->position) < (list->SeparateRange * list->SeparateRange) && boid->position != list->boidsList[i].position && list->boidsList[i].position != zeroVector)
         {
-            SeparatePos += (boid->position - list->boidsList[i].position) / (boid->position - list->boidsList[i].position).magnitude;
+            //this feels wierd but its what referance said to do
+            SeparatePos += (boid->position - list->boidsList[i].position) / (boid->position - list->boidsList[i].position).Magnitude();
         }
     }
     return SeparatePos;
@@ -93,7 +95,7 @@ Vector2D Alignment(Boid* boid, BoidList* list)
         if (Vector2D::DistanceSquared(list->boidsList[i].position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i].position && list->boidsList[i].position != zeroVector)
         {
 
-            AverageDir += list->boidsList[i].velocity.normalized;
+            AverageDir += list->boidsList[i].velocity.Normalized();
             count += 1;
         }
     }
@@ -109,15 +111,16 @@ void SetDirectionOfBoid(Vector2D Cohesion, Vector2D Alignment, Vector2D Separati
 {
  
     Vector2D BoidVelocity = (boid->previousVelocity * list->PreviousSpeedWeight) + (Cohesion * list->CohesionWeight) + (Alignment * list->AlignmentWeight) + (Separation * list->SeparationWeight);
-    float speed = boid->velocity.magnitude;
-    Vector2D LerpedVelocity = PUT LERP HERE WHEN GRYPHON MAKES IT(rb.velocity.normalized, BoidVelocity, AlignmentSmoothVal) * speed;
-    if (LerpedVelocity.magnitude > list->maxSpeed)
+    float speed = boid->velocity.Magnitude();
+    Vector2D LerpedVelocity = Lerp(boid->velocity.Normalized(), BoidVelocity, list->AlignmentSmoothVal) * speed;
+    float lerpMag = LerpedVelocity.Magnitude();
+    if (lerpMag > list->maxSpeed)
     {
-        LerpedVelocity = (LerpedVelocity / LerpedVelocity.magnitude) * list->maxSpeed;
+        LerpedVelocity = (LerpedVelocity / lerpMag) * list->maxSpeed;
     }
-    if (LerpedVelocity.magnitude < list->minSpeed && LerpedVelocity.magnitude != 0)
+    if (lerpMag < list->minSpeed && lerpMag != 0)
     {
-        LerpedVelocity = (LerpedVelocity / LerpedVelocity.magnitude) * list->minSpeed;
+        LerpedVelocity = (LerpedVelocity / lerpMag) * list->minSpeed;
     }
     boid->velocity = LerpedVelocity;
     //float degToRot = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
