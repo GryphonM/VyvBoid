@@ -12,6 +12,7 @@
 #include "BoidTest.h"
 #include "Object.h"
 #include "Mesh.h"
+#include "Boids.h"
 
 struct TestLevel
 {
@@ -19,7 +20,7 @@ struct TestLevel
 	LevelIDType id;
 
 	Mesh* testMesh;
-
+	BoidList* boidList;
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
 	TestLevel() : name(), id(0), testMesh(NULL) {}
@@ -35,6 +36,7 @@ TestLevel* TestLevelCreate(std::string name)
 
 void DeleteLevel(TestLevel* level)
 {
+	DestroyBoidList(level->boidList);
 	freeMesh(&level->testMesh);
 	delete level;
 }
@@ -43,6 +45,11 @@ void LevelInit(TestLevel* level)
 {
 	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone");
 	// Put your funky level init things here
+	level->boidList = CreateBoidlist();
+
+	AddBoidToList(level->boidList, Vector2D(30,30));
+	AddBoidToList(level->boidList, Vector2D(50, 70));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
 }
 
 std::string LevelGetName(TestLevel* level) { return level->name; }
@@ -50,10 +57,10 @@ void LevelSetName(TestLevel* level, std::string name) { level->name = name; }
 
 void LevelUpdate(TestLevel* level, float dt)
 {
-	// Put funky level things here
+	RunBoids(level->boidList);
 }
 
 void LevelDraw(TestLevel* level)
 {
-	// Put draw calls here
+	RenderBoids(level->boidList);
 }

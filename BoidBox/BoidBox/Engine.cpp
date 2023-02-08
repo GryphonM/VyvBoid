@@ -29,7 +29,7 @@ Engine::ErrorCode Engine::Start(DGL_SysInitInfo* initInfo)
 	// Other Startup Fings
 	instance->SetLevel(TestLevelCreate("Test Level"));
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
-	LevelInit(instance->level1);
+	LevelInit(instance->testlevel);
 
 	// Start the engine! Vrooom Vroom
 	ErrorCode updateRet = Update();
@@ -55,6 +55,11 @@ Engine::ErrorCode Engine::SetLevel(Level1* level)
 	return NothingBad;
 }
 
+Engine::ErrorCode Engine::SetLevel(TestLevel* level)
+{
+	testlevel = level;
+	return NothingBad;
+}
 
 
 Engine* Engine::GetInstance() { return instance; }
@@ -90,14 +95,14 @@ Engine::ErrorCode Engine::Update()
 		DGL_System_FrameControl();
 		DGL_System_Update();
 
-		if (level1)
+		if (testlevel)
 		{
 			// Update Level
-			LevelUpdate(level1, static_cast<float>(DGL_System_GetDeltaTime()));
+			LevelUpdate(testlevel, static_cast<float>(DGL_System_GetDeltaTime()));
 
 			// Draw Level
 			DGL_Graphics_StartDrawing();
-			LevelDraw(level1);
+			LevelDraw(testlevel);
 			DGL_Graphics_FinishDrawing();
 		}
 
@@ -108,7 +113,7 @@ Engine::ErrorCode Engine::Update()
 
 Engine::ErrorCode Engine::Shutdown()
 {
-	DeleteLevel(level1);
+	DeleteLevel(testlevel);
 	if (DGL_System_Exit())
 		throw SomethingBad;
 	else

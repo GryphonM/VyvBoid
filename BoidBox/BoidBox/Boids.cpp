@@ -19,6 +19,18 @@
 #include "Math.h"
 
 #define BOIDNUMBER 40
+
+struct Boid
+{
+    Vector2D position;
+    Vector2D velocity;
+    Vector2D previousVelocity;
+
+    float rotation;
+
+    bool isDead;
+};
+
 struct BoidList
 {
     float CohesionWeight;
@@ -31,32 +43,26 @@ struct BoidList
     float FriendRange;
     float SeparateRange;
     float AlignmentSmoothVal;
+    Mesh* boidMesh;
     Boid* boidsList[BOIDNUMBER];
 };
 
-struct Boid
-{
-	Vector2D position;
-    Vector2D velocity;
-    Vector2D previousVelocity;
-
-	float rotation;
-
-    bool isDead;
-};
 
 Vector2D Cohesion(Boid* boid, BoidList* list)
 {
-    int count = 0;
+    float count = 0;
     Vector2D AveragePos = { 0, 0 };
     Vector2D CoheasionVector = {0,0};
     Vector2D zeroVector = {0,0};
     for(int i = 0; i < BOIDNUMBER; i++)
     {
-        if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+        if (list->boidsList[i] != NULL)
         {
-            AveragePos += list->boidsList[i]->position;
-            count += 1;
+            if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+            {
+                AveragePos += list->boidsList[i]->position;
+                count += 1;
+            }
         }
     }
     if (count != 0)
@@ -73,10 +79,13 @@ Vector2D Separation(Boid* boid, BoidList* list)
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
-        if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->SeparateRange * list->SeparateRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+        if (list->boidsList[i] != NULL)
         {
-            //this feels wierd but its what referance said to do
-            SeparatePos += (boid->position - list->boidsList[i]->position) / (boid->position - list->boidsList[i]->position).Magnitude();
+            if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->SeparateRange * list->SeparateRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+            {
+                //this feels wierd but its what referance said to do
+                SeparatePos += (boid->position - list->boidsList[i]->position) / (boid->position - list->boidsList[i]->position).Magnitude();
+            }
         }
     }
     return SeparatePos;
@@ -84,17 +93,20 @@ Vector2D Separation(Boid* boid, BoidList* list)
 
 Vector2D Alignment(Boid* boid, BoidList* list)
 {
-    int count = 0;
+    float count = 0;
     Vector2D AverageDir = {0,0};
     Vector2D zeroVector = { 0,0 };
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
-        if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+        if (list->boidsList[i] != NULL)
         {
+            if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+            {
 
-            AverageDir += list->boidsList[i]->velocity.Normalized();
-            count += 1;
+                AverageDir += list->boidsList[i]->velocity.Normalized();
+                count += 1;
+            }
         }
     }
     if (count != 0)
@@ -175,6 +187,12 @@ BoidList* CreateBoidlist()
     newBoidList->FriendRange = 5;
     newBoidList->SeparateRange = 5;
     newBoidList->AlignmentSmoothVal = .01f;
+    newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid");
+
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        newBoidList->boidsList[i] = NULL;
+    }
     return newBoidList;
 }
 
@@ -199,12 +217,25 @@ void CheckBoidCollisions(BoidList* list)
     }
 }
 
-void RenderBoid(Boid* boid)
+void RenderBoids(BoidList* list)
 {
-    return;
+    Transform* trans = CreateTransform();
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        if (list->boidsList[i] != NULL)
+        {
+            if (list->boidsList[i]->isDead == false)
+            {
+                TransformSetPosition(trans, list->boidsList[i]->position);
+                RenderMesh(list->boidMesh, trans);
+            }
+        }
+    }
+    DeleteTransform(trans);
+    
 }
 
-BoidList* RunBoids(BoidList* list)
+void RunBoids(BoidList* list)
 {
     CheckBoidCollisions(list);
     for (int i = 0; i < BOIDNUMBER; i++)
@@ -214,24 +245,21 @@ BoidList* RunBoids(BoidList* list)
             if (list->boidsList[i]->isDead == false)
             {
                 UpdateBoid(list->boidsList[i], list);
-                RenderBoid(list->boidsList[i]);
             }
         }
     }
-    return list;
 }
 
-BoidList* AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D())
+void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D())
 {
     for (int i = 0; i < BOIDNUMBER; i++)
     {
-        if (list->boidsList[i] != NULL)
+        if (list->boidsList[i] == NULL)
         {
             list->boidsList[i] = CreateBoid(list, posToSpawn);
-            return list;
+            return;
         }
     }
-    return list;
 }
 /*
 

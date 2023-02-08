@@ -45,6 +45,7 @@ private:
 
 	// Current running level
 	Level1* level1;
+	TestLevel* testlevel;
 
 	// Private variables
 	bool isRunning;

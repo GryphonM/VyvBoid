@@ -26,3 +26,8 @@ struct Boid;
 
 
 #endif
+void RenderBoids(BoidList* list);
+void RunBoids(BoidList* list);
+void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D());
+void DestroyBoidList(BoidList* list);
+BoidList* CreateBoidlist();
