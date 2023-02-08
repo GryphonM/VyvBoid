@@ -22,10 +22,9 @@ struct Mesh
 	DGL_DrawMode drawMode;
 };
 
-Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName)
+Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const char* meshName, DGL_Color color)
 {
-	DGL_Color meshColor = { 1.0f, 1.0f, 0.0f, 1.0f };
-
+	//DGL_Color color = { 1.0, 0.0, 1.0, 1.0 };
 	Mesh* mesh = new Mesh;
 
 	if (mesh)
@@ -36,13 +35,13 @@ Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const c
 
 		DGL_Graphics_StartMesh();
 
-		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &meshColor, Vector2D(0.0f, 0.0f),
-			Vector2D(halfX, halfY), &meshColor, Vector2D(UOffset, VOffset),
-			Vector2D(halfX, -halfY), &meshColor, Vector2D(UOffset, 0.0f));
+		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &color, Vector2D(0.0f, 0.0f),
+			Vector2D(halfX, halfY), &color, Vector2D(UOffset, VOffset),
+			Vector2D(halfX, -halfY), &color, Vector2D(UOffset, 0.0f));
 
-		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &meshColor, Vector2D(0.0f, 0.0f),
-			Vector2D(-halfX, halfY), &meshColor, Vector2D(0.0f, VOffset),
-			Vector2D(halfX, halfY), &meshColor, Vector2D(UOffset, VOffset));
+		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &color, Vector2D(0.0f, 0.0f),
+			Vector2D(-halfX, halfY), &color, Vector2D(0.0f, VOffset),
+			Vector2D(halfX, halfY), &color, Vector2D(UOffset, VOffset));
 
 		mesh->source = DGL_Graphics_EndMesh();
 

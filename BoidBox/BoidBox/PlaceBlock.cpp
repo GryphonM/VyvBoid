@@ -29,13 +29,13 @@ struct PlaceBlock
 PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name)
 { 
 	PlaceBlock* place = new PlaceBlock;
-
+	DGL_Color color = { 0.0f, 1.0f, 1.0f, 1.0f };
 	if (place)
 	{
 		place->BlocksPlaced = 0;
 		place->maxBlocks = max_blocks;
 		place->offScreen = (Vector2D)OFFSCREEN;
-		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name);
+		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name, color);
 
 		if (place->mesh)
 		{

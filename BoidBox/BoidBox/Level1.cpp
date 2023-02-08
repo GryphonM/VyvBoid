@@ -54,7 +54,8 @@ void DeleteLevel(Level1* level)
 
 void LevelInit(Level1* level)
 {
-	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone");
+	DGL_Color color = { 1.0f, 0.0f, 0.0f, 1.0f };
+	level->testMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Please Work or I Kill Someone", color);
 	// Put your funky level init things here
 	InitCrosshair(level->hunter);
 }
@@ -80,6 +81,6 @@ void LevelDraw(Level1* level)
 {
 	DrawObstacles(level->obstacles);
 	DrawPlacedBlocks(level->place);
-	//RenderMesh(level->testMesh,);
+	RenderMesh(level->testMesh);
 	DrawCrosshair(level->hunter);
 }

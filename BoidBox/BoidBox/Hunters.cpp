@@ -75,6 +75,7 @@ Hunters* InitCrosshair(Hunters* hunter, float width, float height, float radius)
 {
 	if (hunter)
 	{
+		DGL_Color crosshairsAreRed = { 0.0, 0.0, 0.0, 0.0 };
 		Vector2D scale = Vector2D(75, 75);
 		Vector2D trans1 = Vector2D(0, -180);
 		Vector2D trans2 = Vector2D(250, 250);
@@ -82,7 +83,7 @@ Hunters* InitCrosshair(Hunters* hunter, float width, float height, float radius)
 
 		SpriteSource* source = CreateSpriteSource();
 		Sprite* sprite = CreateSprite();
-		Mesh* mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0, "Crosshair");
+		Mesh* mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0, "Crosshair", crosshairsAreRed);
 
 		LoadSpriteSourceTexture(source, 1, 1, "./Assets/crosshair.png");
 		SpriteSetMesh(sprite, mesh);
@@ -120,6 +121,8 @@ void DrawCrosshair(Hunters* hunter)
 {
 	if (hunter)
 	{
+		DGL_Color meshColor = { 0.0f, 0.0f, 0.0, 0.0f };
+
 		RenderSprite(hunter->sprite, hunter->transform1);
 		RenderSprite(hunter->sprite, hunter->transform2);
 		RenderSprite(hunter->sprite, hunter->transform3);
