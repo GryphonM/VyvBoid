@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 //
-// File Name:	Level.h
+// File Name:	BoidTest.h
 // Author(s):	Gryphon McLaughlin (gryphon.mclaughlin)
 // Project:		GAM 150 Game Project
 // Course:		GAM 150
@@ -11,10 +11,9 @@
 
 #include <string>
 struct Object;
-struct Level1;
+struct TestLevel;
 
 typedef unsigned int LevelIDType;
-enum State { Place, Play };
 
 #if 0
 struct Level1
@@ -26,14 +25,13 @@ struct Level1
 };
 #endif
 
-Level1* Level1Create(std::string name = "");
-void DeleteLevel(Level1* level);
-void LevelInit(Level1* level);
+TestLevel* TestLevelCreate(std::string name = "");
+void DeleteLevel(TestLevel* level);
+void LevelInit(TestLevel* level);
 
 //LevelIDType LevelGetID(Level* level);
-std::string LevelGetName(Level1* level);
-void LevelSetName(Level1* level, std::string name);
-void LevelSwitchState(Level1* level, State state);
+std::string LevelGetName(TestLevel* level);
+void LevelSetName(TestLevel* level, std::string name);
 
-void LevelUpdate(Level1* level, float dt);
-void LevelDraw(Level1* level);
+void LevelUpdate(TestLevel* level, float dt);
+void LevelDraw(TestLevel* level);

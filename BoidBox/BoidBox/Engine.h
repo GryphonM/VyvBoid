@@ -12,6 +12,7 @@
 #include "DGL.h"
 
 struct Level1;
+struct TestLevel;
 
 class Engine
 {
@@ -21,6 +22,7 @@ public:
 	ErrorCode Start(DGL_SysInitInfo* initInfo);
 	ErrorCode Stop();
 
+	ErrorCode SetLevel(TestLevel* level);
 	ErrorCode SetLevel(Level1* level);
 
 	static Engine* GetInstance();

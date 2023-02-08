@@ -9,6 +9,7 @@
 
 #include "Engine.h"
 #include "Level1.h"
+#include "BoidTest.h"
 
 Engine* Engine::instance = new Engine();
 
@@ -26,7 +27,7 @@ Engine::ErrorCode Engine::Start(DGL_SysInitInfo* initInfo)
 	}
 
 	// Other Startup Fings
-	instance->SetLevel(LevelCreate("Level 1"));
+	instance->SetLevel(TestLevelCreate("Test Level"));
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	LevelInit(instance->level1);
 
@@ -53,6 +54,8 @@ Engine::ErrorCode Engine::SetLevel(Level1* level)
 	level1 = level;
 	return NothingBad;
 }
+
+
 
 Engine* Engine::GetInstance() { return instance; }
 
