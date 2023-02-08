@@ -35,20 +35,20 @@ public:
 	bool operator==(const Vector2D& rhs) const;
 	bool operator!=(const Vector2D& rhs) const;
 
-	Vector2D operator+(Vector2D& rhs) const;
-	Vector2D& operator+=(Vector2D& rhs);
+	Vector2D operator+(const Vector2D& rhs) const;
+	Vector2D& operator+=(const Vector2D& rhs);
 	Vector2D operator+(float rhs) const;
 	Vector2D& operator+=(float rhs);
-	Vector2D operator-(Vector2D& rhs) const;
-	Vector2D& operator-=(Vector2D& rhs);
+	Vector2D operator-(const Vector2D& rhs) const;
+	Vector2D& operator-=(const Vector2D& rhs);
 	Vector2D operator-(float rhs) const;
 	Vector2D& operator-=(float rhs);
-	Vector2D operator*(Vector2D& rhs) const;
-	Vector2D& operator*=(Vector2D& rhs);
+	Vector2D operator*(const Vector2D& rhs) const;
+	Vector2D& operator*=(const Vector2D& rhs);
 	Vector2D operator*(float rhs) const;
 	Vector2D& operator*=(float rhs);
-	Vector2D operator/(Vector2D& rhs) const;
-	Vector2D& operator/=(Vector2D& rhs);
+	Vector2D operator/(const Vector2D& rhs) const;
+	Vector2D& operator/=(const Vector2D& rhs);
 	Vector2D operator/(float rhs) const;
 	Vector2D& operator/=(float rhs);
 private:
