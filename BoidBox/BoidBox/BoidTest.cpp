@@ -57,7 +57,7 @@ void LevelSetName(TestLevel* level, std::string name) { level->name = name; }
 
 void LevelUpdate(TestLevel* level, float dt)
 {
-	RunBoids(level->boidList);
+	RunBoids(level->boidList, dt);
 }
 
 void LevelDraw(TestLevel* level)

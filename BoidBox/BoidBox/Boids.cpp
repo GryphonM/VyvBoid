@@ -51,9 +51,9 @@ struct BoidList
 Vector2D Cohesion(Boid* boid, BoidList* list)
 {
     float count = 0;
-    Vector2D AveragePos = { 0, 0 };
-    Vector2D CoheasionVector = {0,0};
-    Vector2D zeroVector = {0,0};
+    Vector2D AveragePos = Vector2D(0,0);
+    Vector2D CoheasionVector = Vector2D(0, 0);
+    Vector2D zeroVector = Vector2D(0, 0);
     for(int i = 0; i < BOIDNUMBER; i++)
     {
         if (list->boidsList[i] != NULL)
@@ -74,8 +74,8 @@ Vector2D Cohesion(Boid* boid, BoidList* list)
 
 Vector2D Separation(Boid* boid, BoidList* list)
 {
-    Vector2D SeparatePos = {0,0};
-    Vector2D zeroVector = { 0,0 };
+    Vector2D SeparatePos = Vector2D(0, 0);
+    Vector2D zeroVector = Vector2D(0, 0);
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
@@ -94,8 +94,8 @@ Vector2D Separation(Boid* boid, BoidList* list)
 Vector2D Alignment(Boid* boid, BoidList* list)
 {
     float count = 0;
-    Vector2D AverageDir = {0,0};
-    Vector2D zeroVector = { 0,0 };
+    Vector2D AverageDir = Vector2D(0, 0);
+    Vector2D zeroVector = Vector2D(0, 0);
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
@@ -117,7 +117,7 @@ Vector2D Alignment(Boid* boid, BoidList* list)
     return AlignmentVector;
 }
 
-void SetDirectionOfBoid(Vector2D Cohesion, Vector2D Alignment, Vector2D Separation, Boid* boid, BoidList* list)
+void SetDirectionOfBoid(Vector2D Cohesion, Vector2D Alignment, Vector2D Separation, Boid* boid, BoidList* list, float dt)
 {
  
     Vector2D BoidVelocity = (boid->previousVelocity * list->PreviousSpeedWeight) + (Cohesion * list->CohesionWeight) + (Alignment * list->AlignmentWeight) + (Separation * list->SeparationWeight);
@@ -137,15 +137,16 @@ void SetDirectionOfBoid(Vector2D Cohesion, Vector2D Alignment, Vector2D Separati
     //degToRot = degToRot * Mathf.Rad2Deg - 90;
     //boid.transform.eulerAngles = new Vector3(0, 0, degToRot);
     boid->previousVelocity = LerpedVelocity;
+    boid->position += boid->velocity * dt;
+    
 }
 
-void UpdateBoid(Boid* boid, BoidList* list)
+void UpdateBoid(Boid* boid, BoidList* list, float dt)
 {
-    boid->velocity * 150;
     Vector2D CohesionVector = Cohesion(boid, list);
     Vector2D SeparationVector = Separation(boid, list);
     Vector2D AlignmentVector = Alignment(boid, list);
-    SetDirectionOfBoid(CohesionVector, AlignmentVector, SeparationVector, boid, list);
+    SetDirectionOfBoid(CohesionVector, AlignmentVector, SeparationVector, boid, list, dt);
 }
 
 Boid* CreateBoid(BoidList* list, Vector2D posToSpawn)
@@ -182,10 +183,10 @@ BoidList* CreateBoidlist()
     newBoidList->SeparationWeight = 1;
     newBoidList->AvoidanceWeight = 1;
     newBoidList->PreviousSpeedWeight = 1;
-    newBoidList->maxSpeed = 15;
-    newBoidList->minSpeed = 5;
-    newBoidList->FriendRange = 5;
-    newBoidList->SeparateRange = 5;
+    newBoidList->maxSpeed = 1;
+    newBoidList->minSpeed = 1;
+    newBoidList->FriendRange = 100;
+    newBoidList->SeparateRange = 100;
     newBoidList->AlignmentSmoothVal = .01f;
     newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid");
 
@@ -234,10 +235,9 @@ void RenderBoids(BoidList* list)
         }
     }
     DeleteTransform(trans);
-    
 }
 
-void RunBoids(BoidList* list)
+void RunBoids(BoidList* list, float dt)
 {
     CheckBoidCollisions(list);
     for (int i = 0; i < BOIDNUMBER; i++)
@@ -246,7 +246,7 @@ void RunBoids(BoidList* list)
         {
             if (list->boidsList[i]->isDead == false)
             {
-                UpdateBoid(list->boidsList[i], list);
+                UpdateBoid(list->boidsList[i], list, dt);
             }
         }
     }
@@ -263,6 +263,7 @@ void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D())
         }
     }
 }
+
 /*
 
 Vector2D Avoidance(Boid* boid)
