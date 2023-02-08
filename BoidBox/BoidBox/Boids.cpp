@@ -15,107 +15,259 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "List.h"
+#include "Math.h"
 
-struct BoidList
-{
-    float CohesionWeight = 1;
-    float AlignmentWeight = 1;
-    float SeparationWeight = 1;
-    float FollowWeight = .5f;
-    float AvoidanceWeight = 1;
-    float PreviousSpeedWeight = 1;
-    float maxSpeed = 15;
-    float minSpeed = 5;
-    float FriendRange = 5;
-    float SeparateRange = 5;
-    float AvoidRange = 5;
-    float AlignmentSmoothVal = .01f;
-};
+#define BOIDNUMBER 40
 
 struct Boid
 {
-	Vector2D position;
-	float rotation;
+    Vector2D position;
+    Vector2D velocity;
+    Vector2D previousVelocity;
+
+    float rotation;
 
     bool isDead;
 };
-/*
 
-
-// Update is called once per frame
-void FixedUpdate()
+struct BoidList
 {
-            rb.AddRelativeForce(Vector2.up * 150);
-            Vector3 CohesionVector = Cohesion(objects[i].gameObject);
-            Vector3 SeparationVector = Separation(objects[i].gameObject);
-            Vector3 AlignmentVector = Alignment(objects[i].gameObject);
-            Vector3 AvoidanceVector = Avoidance(objects[i].gameObject);
-            SetDirectionOfBoid(CohesionVector, AlignmentVector, SeparationVector, AvoidanceVector, objects[i].gameObject);
-}
+    float CohesionWeight;
+    float AlignmentWeight;
+    float SeparationWeight;
+    float AvoidanceWeight;
+    float PreviousSpeedWeight;
+    float maxSpeed;
+    float minSpeed;
+    float FriendRange;
+    float SeparateRange;
+    float AlignmentSmoothVal;
+    Mesh* boidMesh;
+    Boid* boidsList[BOIDNUMBER];
+};
 
 
-Vector3 Cohesion(GameObject boid)
+Vector2D Cohesion(Boid* boid, BoidList* list)
 {
-    int count = 0;
-    Vector3 AveragePos = new Vector3(0, 0, 0);
-    Vector3 CoheasionVector;
-    for (int i = 0; i < objects.Length; i++)
+    float count = 0;
+    Vector2D AveragePos = { 0, 0 };
+    Vector2D CoheasionVector = {0,0};
+    Vector2D zeroVector = {0,0};
+    for(int i = 0; i < BOIDNUMBER; i++)
     {
-        if (Vector2.Distance(objects[i].gameObject.transform.position, boid.transform.position) < FriendRange && boid.transform.position != objects[i].gameObject.transform.position)
+        if (list->boidsList[i] != NULL)
         {
-            AveragePos += objects[i].gameObject.transform.position;
-            count += 1;
+            if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+            {
+                AveragePos += list->boidsList[i]->position;
+                count += 1;
+            }
         }
     }
     if (count != 0)
     {
-        CoheasionVector = (AveragePos / count) - boid.transform.position;
-    }
-    else
-    {
-        CoheasionVector = new Vector3(0, 0, 0);
+        CoheasionVector = (AveragePos / count) - boid->position;
     }
     return CoheasionVector;
 }
 
-Vector3 Separation(GameObject boid)
+Vector2D Separation(Boid* boid, BoidList* list)
 {
-    Vector3 SeparatePos = new Vector3(0, 0, 0);
-    for (int i = 0; i < objects.Length; i++)
+    Vector2D SeparatePos = {0,0};
+    Vector2D zeroVector = { 0,0 };
+
+    for (int i = 0; i < BOIDNUMBER; i++)
     {
-        if (Vector2.Distance(objects[i].gameObject.transform.position, boid.transform.position) < SeparateRange && boid.transform.position != objects[i].gameObject.transform.position)
+        if (list->boidsList[i] != NULL)
         {
-            SeparatePos += (boid.transform.position - objects[i].gameObject.transform.position) / (boid.transform.position - objects[i].gameObject.transform.position).magnitude;
+            if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->SeparateRange * list->SeparateRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+            {
+                //this feels wierd but its what referance said to do
+                SeparatePos += (boid->position - list->boidsList[i]->position) / (boid->position - list->boidsList[i]->position).Magnitude();
+            }
         }
     }
     return SeparatePos;
 }
 
-Vector3 Alignment(GameObject boid)
+Vector2D Alignment(Boid* boid, BoidList* list)
 {
-    int count = 0;
-    Vector2 AverageDir = new Vector2(0, 0);
-    for (int i = 0; i < objects.Length; i++)
+    float count = 0;
+    Vector2D AverageDir = {0,0};
+    Vector2D zeroVector = { 0,0 };
+
+    for (int i = 0; i < BOIDNUMBER; i++)
     {
-        if (Vector2.Distance(objects[i].gameObject.transform.position, boid.transform.position) < FriendRange && boid.transform.position != objects[i].gameObject.transform.position)
+        if (list->boidsList[i] != NULL)
         {
-            Rigidbody2D rb = objects[i].GetComponent<Rigidbody2D>();
-            AverageDir += rb.velocity.normalized;
-            count += 1;
+            if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
+            {
+
+                AverageDir += list->boidsList[i]->velocity.Normalized();
+                count += 1;
+            }
         }
     }
     if (count != 0)
     {
         AverageDir = AverageDir / count;
     }
-    Rigidbody2D rbthis = boid.GetComponent<Rigidbody2D>();
-    Vector3 AlignmentVector = AverageDir - rbthis.velocity;
+    Vector2D AlignmentVector = AverageDir - boid->velocity;
     return AlignmentVector;
 }
 
-Vector3 Avoidance(GameObject boid)
+void SetDirectionOfBoid(Vector2D Cohesion, Vector2D Alignment, Vector2D Separation, Boid* boid, BoidList* list)
 {
-    Vector3 AvoidanceVector = new Vector3(0, 0, 0);
+ 
+    Vector2D BoidVelocity = (boid->previousVelocity * list->PreviousSpeedWeight) + (Cohesion * list->CohesionWeight) + (Alignment * list->AlignmentWeight) + (Separation * list->SeparationWeight);
+    float speed = boid->velocity.Magnitude();
+    Vector2D LerpedVelocity = Lerp(boid->velocity.Normalized(), BoidVelocity, list->AlignmentSmoothVal) * speed;
+    float lerpMag = LerpedVelocity.Magnitude();
+    if (lerpMag > list->maxSpeed)
+    {
+        LerpedVelocity = (LerpedVelocity / lerpMag) * list->maxSpeed;
+    }
+    if (lerpMag < list->minSpeed && lerpMag != 0)
+    {
+        LerpedVelocity = (LerpedVelocity / lerpMag) * list->minSpeed;
+    }
+    boid->velocity = LerpedVelocity;
+    //float degToRot = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
+    //degToRot = degToRot * Mathf.Rad2Deg - 90;
+    //boid.transform.eulerAngles = new Vector3(0, 0, degToRot);
+    boid->previousVelocity = LerpedVelocity;
+}
+
+void UpdateBoid(Boid* boid, BoidList* list)
+{
+    boid->velocity * 150;
+    Vector2D CohesionVector = Cohesion(boid, list);
+    Vector2D SeparationVector = Separation(boid, list);
+    Vector2D AlignmentVector = Alignment(boid, list);
+    SetDirectionOfBoid(CohesionVector, AlignmentVector, SeparationVector, boid, list);
+}
+
+Boid* CreateBoid(BoidList* list, Vector2D posToSpawn)
+{
+    Boid* newBoid = new Boid;
+    newBoid->isDead = false;
+    newBoid->position.X(posToSpawn.X());
+    newBoid->position.Y(posToSpawn.Y());
+    newBoid->velocity.X(0);
+    newBoid->velocity.Y(0);
+    newBoid->previousVelocity.X(0);
+    newBoid->previousVelocity.Y(0);
+    newBoid->rotation = 0;
+    return newBoid;
+}
+
+void DestroyBoids(BoidList* list)
+{
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        if (list->boidsList[i] != NULL)
+        {
+            delete list->boidsList[i];
+            list->boidsList[i] = NULL;
+        }
+    }
+}
+
+BoidList* CreateBoidlist()
+{
+    BoidList* newBoidList = new BoidList;
+    newBoidList->CohesionWeight = 1;
+    newBoidList->AlignmentWeight = 1;
+    newBoidList->SeparationWeight = 1;
+    newBoidList->AvoidanceWeight = 1;
+    newBoidList->PreviousSpeedWeight = 1;
+    newBoidList->maxSpeed = 15;
+    newBoidList->minSpeed = 5;
+    newBoidList->FriendRange = 5;
+    newBoidList->SeparateRange = 5;
+    newBoidList->AlignmentSmoothVal = .01f;
+    newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid");
+
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        newBoidList->boidsList[i] = NULL;
+    }
+    return newBoidList;
+}
+
+void DestroyBoidList(BoidList* list)
+{
+    DestroyBoids(list);
+    delete list;
+}
+
+void CheckBoidCollisions(BoidList* list)
+{
+    return;
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        if (list->boidsList[i] != NULL)
+        {
+            if (list->boidsList[i]->isDead == false)
+            {
+                //check colls here
+            }
+        }
+    }
+}
+
+void RenderBoids(BoidList* list)
+{
+    Transform* trans = CreateTransform();
+    Vector2D scale = Vector2D(10.0f, 10.0f);
+    TransformSetScale(trans, scale);
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        if (list->boidsList[i] != NULL)
+        {
+            if (list->boidsList[i]->isDead == false)
+            {
+                TransformSetPosition(trans, list->boidsList[i]->position);
+                RenderMesh(list->boidMesh, trans);
+            }
+        }
+    }
+    DeleteTransform(trans);
+    
+}
+
+void RunBoids(BoidList* list)
+{
+    CheckBoidCollisions(list);
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        if (list->boidsList[i] != NULL)
+        {
+            if (list->boidsList[i]->isDead == false)
+            {
+                UpdateBoid(list->boidsList[i], list);
+            }
+        }
+    }
+}
+
+void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D())
+{
+    for (int i = 0; i < BOIDNUMBER; i++)
+    {
+        if (list->boidsList[i] == NULL)
+        {
+            list->boidsList[i] = CreateBoid(list, posToSpawn);
+            return;
+        }
+    }
+}
+/*
+
+Vector2D Avoidance(Boid* boid)
+{
+    Vector2D AvoidanceVector = {0,0};
     for (int i = 0; i < objectsToAvoid.Length; i++)
     {
         if (Vector2.Distance(objectsToAvoid[i].gameObject.transform.position, boid.transform.position) < AvoidRange && boid.transform.position != objectsToAvoid[i].gameObject.transform.position)
@@ -124,37 +276,6 @@ Vector3 Avoidance(GameObject boid)
         }
     }
     return AvoidanceVector;
-}
-
-void SetDirectionOfBoid(Vector3 Cohesion, Vector3 Alignment, Vector3 Separation, Vector3 Avoidance, GameObject boid)
-{
-    Rigidbody2D rb = boid.GetComponent<Rigidbody2D>();
-    Boid boidScript = boid.GetComponent<Boid>();
-    Vector3 followVector;
-    if (FollowObject != null)
-    {
-        followVector = FollowObject.transform.position - boid.transform.position;
-    }
-    else
-        followVector = new Vector3(0, 0, 0);
-    Vector3 BoidVelocity = (boidScript.PreviousBoidSpeed * PreviousSpeedWeight) + (Cohesion * CohesionWeight) + (Alignment * AlignmentWeight) + (Separation * SeparationWeight) + (followVector.normalized * FollowWeight) + (Avoidance * AvoidanceWeight);
-    float speed = rb.velocity.magnitude;
-    Vector2 LerpedVelocity = Vector2.Lerp(rb.velocity.normalized, BoidVelocity, AlignmentSmoothVal) * speed;
-    if (LerpedVelocity.magnitude > maxSpeed)
-    {
-        LerpedVelocity = (LerpedVelocity / LerpedVelocity.magnitude) * maxSpeed;
-    }
-    if (LerpedVelocity.magnitude < minSpeed && LerpedVelocity.magnitude != 0)
-    {
-        LerpedVelocity = (LerpedVelocity / LerpedVelocity.magnitude) * minSpeed;
-    }
-    //rb.velocity = BoidVelocity;    
-    rb.velocity = LerpedVelocity;
-    float degToRot = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
-    degToRot = degToRot * Mathf.Rad2Deg - 90;
-    boid.transform.eulerAngles = new Vector3(0, 0, degToRot);
-    boidScript.PreviousBoidSpeed = LerpedVelocity;
-    // boidScript.PreviousBoidSpeed = rb.velocity.normalized;        
 }
 */
 

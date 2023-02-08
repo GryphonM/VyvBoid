@@ -117,6 +117,12 @@
     <ClInclude Include="BasicObstacles.h">
       <Filter>Header Files\Obstacles</Filter>
     </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="BoidTest.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -163,6 +169,12 @@
     </ClCompile>
     <ClCompile Include="BasicObstacles.cpp">
       <Filter>Source Files\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="BoidTest.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

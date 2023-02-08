@@ -25,16 +25,32 @@ public:
 
 	operator DGL_Vec2*();
 	
-	float DotProduct(Vector2D& rhs);
+	float DotProduct(Vector2D& rhs) const;
+	static float DistanceSquared(Vector2D const& lhs, Vector2D const& rhs);
+	static float Distance(Vector2D const& lhs, Vector2D const& rhs);
+	float MagnitudeSquared() const;
+	float Magnitude() const;
+	Vector2D Normalized() const;
 
-	Vector2D operator+(Vector2D& rhs);
-	Vector2D operator+(float rhs);
-	Vector2D operator-(Vector2D& rhs);
-	Vector2D operator-(float rhs);
-	Vector2D operator*(float rhs);
-	Vector2D operator*(Vector2D& rhs);
-	Vector2D operator/(Vector2D& rhs);
-	Vector2D operator/(float rhs);
+	bool operator==(const Vector2D& rhs) const;
+	bool operator!=(const Vector2D& rhs) const;
+
+	Vector2D operator+(const Vector2D& rhs) const;
+	Vector2D& operator+=(const Vector2D& rhs);
+	Vector2D operator+(float rhs) const;
+	Vector2D& operator+=(float rhs);
+	Vector2D operator-(const Vector2D& rhs) const;
+	Vector2D& operator-=(const Vector2D& rhs);
+	Vector2D operator-(float rhs) const;
+	Vector2D& operator-=(float rhs);
+	Vector2D operator*(const Vector2D& rhs) const;
+	Vector2D& operator*=(const Vector2D& rhs);
+	Vector2D operator*(float rhs) const;
+	Vector2D& operator*=(float rhs);
+	Vector2D operator/(const Vector2D& rhs) const;
+	Vector2D& operator/=(const Vector2D& rhs);
+	Vector2D operator/(float rhs) const;
+	Vector2D& operator/=(float rhs);
 private:
 	DGL_Vec2 vec;
 };

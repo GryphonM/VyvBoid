@@ -31,7 +31,7 @@ struct Level1
 	Level1() : name(), id(0), testMesh(NULL), state(Place) {}
 };
 
-Level1* LevelCreate(std::string name)
+Level1* Level1Create(std::string name)
 {
 	Level1* level = new Level1;
 	level->name = name;
