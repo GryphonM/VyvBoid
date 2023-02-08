@@ -220,6 +220,8 @@ void CheckBoidCollisions(BoidList* list)
 void RenderBoids(BoidList* list)
 {
     Transform* trans = CreateTransform();
+    Vector2D scale = Vector2D(10.0f, 10.0f);
+    TransformSetScale(trans, scale);
     for (int i = 0; i < BOIDNUMBER; i++)
     {
         if (list->boidsList[i] != NULL)
