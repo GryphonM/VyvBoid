@@ -53,7 +53,6 @@ Vector2D Cohesion(Boid* boid, BoidList* list)
 {
     float count = 0;
     Vector2D AveragePos = Vector2D(0,0);
-    Vector2D CoheasionVector = Vector2D(0, 0);
     Vector2D zeroVector = Vector2D(0, 0);
     for(int i = 0; i < BOIDNUMBER; i++)
     {
@@ -68,9 +67,9 @@ Vector2D Cohesion(Boid* boid, BoidList* list)
     }
     if (count != 0)
     {
-        CoheasionVector = (AveragePos / count) - boid->position;
+        return ((AveragePos / count) - boid->position);
     }
-    return CoheasionVector;
+    return Vector2D(0, 0);
 }
 
 Vector2D Separation(Boid* boid, BoidList* list)
@@ -104,8 +103,8 @@ Vector2D Alignment(Boid* boid, BoidList* list)
         {
             if (Vector2D::DistanceSquared(list->boidsList[i]->position, boid->position) < (list->FriendRange * list->FriendRange) && boid->position != list->boidsList[i]->position && list->boidsList[i]->position != zeroVector)
             {
-
-                AverageDir += list->boidsList[i]->velocity.Normalized();
+                Vector2D normalVec = AverageDir + list->boidsList[i]->velocity.Normalized();
+               // AverageDir;
                 count += 1;
             }
         }
@@ -114,8 +113,7 @@ Vector2D Alignment(Boid* boid, BoidList* list)
     {
         AverageDir = AverageDir / count;
     }
-    Vector2D AlignmentVector = AverageDir - boid->velocity;
-    return AlignmentVector;
+    return AverageDir - boid->velocity;
 }
 
 void SetDirectionOfBoid(Vector2D Cohesion, Vector2D Alignment, Vector2D Separation, Boid* boid, BoidList* list, float dt)
@@ -156,10 +154,10 @@ Boid* CreateBoid(BoidList* list, Vector2D posToSpawn)
     newBoid->isDead = false;
     newBoid->position.X(posToSpawn.X());
     newBoid->position.Y(posToSpawn.Y());
-    newBoid->velocity.X(0);
-    newBoid->velocity.Y(0);
-    newBoid->previousVelocity.X(0);
-    newBoid->previousVelocity.Y(0);
+    newBoid->velocity.X(list->maxSpeed);
+    newBoid->velocity.Y(list->maxSpeed);
+    newBoid->previousVelocity.X(1);
+    newBoid->previousVelocity.Y(1);
     newBoid->rotation = 0;
     return newBoid;
 }
@@ -180,14 +178,14 @@ BoidList* CreateBoidlist()
 {
     BoidList* newBoidList = new BoidList;
     newBoidList->CohesionWeight = 1;
-    newBoidList->AlignmentWeight = 1;
-    newBoidList->SeparationWeight = 1;
+    newBoidList->AlignmentWeight = 3;
+    newBoidList->SeparationWeight = 3;
     newBoidList->AvoidanceWeight = 1;
     newBoidList->PreviousSpeedWeight = 1;
-    newBoidList->maxSpeed = 1;
-    newBoidList->minSpeed = 1;
-    newBoidList->FriendRange = 100;
-    newBoidList->SeparateRange = 100;
+    newBoidList->maxSpeed = 30;
+    newBoidList->minSpeed = 30;
+    newBoidList->FriendRange = 250;
+    newBoidList->SeparateRange = 150;
     newBoidList->AlignmentSmoothVal = .01f;
     newBoidList->boidColor = { 0.5f, 0.25f, 1.0f, 1.0f };
     newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid", newBoidList->boidColor);

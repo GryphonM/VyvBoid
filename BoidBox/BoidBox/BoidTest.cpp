@@ -46,6 +46,14 @@ void LevelInit(TestLevel* level)
 	AddBoidToList(level->boidList, Vector2D(30,30));
 	AddBoidToList(level->boidList, Vector2D(50, 70));
 	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+	AddBoidToList(level->boidList, Vector2D(30, 60));
+
 }
 
 std::string LevelGetName(TestLevel* level) { return level->name; }
