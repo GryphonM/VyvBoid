@@ -190,6 +190,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteSource.h" />
+    <ClInclude Include="Stream.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector2D.h" />
