@@ -45,6 +45,7 @@ Sprite* CreateSprite(void)
 
 void FreeSprite(Sprite** sprite)
 {
+	FreeSpriteSource(&((*sprite)->source));
 	delete* sprite;
 	sprite = NULL;
 }

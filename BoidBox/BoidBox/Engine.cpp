@@ -10,6 +10,7 @@
 #include "Engine.h"
 #include "Level1.h"
 #include "BoidTest.h"
+#include "SoundTest.h"
 
 Engine* Engine::instance = new Engine();
 
@@ -27,9 +28,9 @@ Engine::ErrorCode Engine::Start(DGL_SysInitInfo* initInfo)
 	}
 
 	// Other Startup Fings
-	instance->SetLevel(TestLevelCreate("Test Level"));
+	instance->SetLevel(SoundTestCreate("Sound Test"));
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
-	LevelInit(instance->testlevel);
+	LevelInit(instance->soundtest);
 
 	// Start the engine! Vrooom Vroom
 	ErrorCode updateRet = Update();
@@ -61,6 +62,11 @@ Engine::ErrorCode Engine::SetLevel(TestLevel* level)
 	return NothingBad;
 }
 
+Engine::ErrorCode Engine::SetLevel(SoundTest* level)
+{
+	soundtest = level;
+	return NothingBad;
+}
 
 Engine* Engine::GetInstance() { return instance; }
 
@@ -95,14 +101,14 @@ Engine::ErrorCode Engine::Update()
 		DGL_System_FrameControl();
 		DGL_System_Update();
 
-		if (testlevel)
+		if (soundtest)
 		{
 			// Update Level
-			LevelUpdate(testlevel, static_cast<float>(DGL_System_GetDeltaTime()));
+			LevelUpdate(soundtest, static_cast<float>(DGL_System_GetDeltaTime()));
 
 			// Draw Level
 			DGL_Graphics_StartDrawing();
-			LevelDraw(testlevel);
+			LevelDraw(soundtest);
 			DGL_Graphics_FinishDrawing();
 		}
 
@@ -113,7 +119,7 @@ Engine::ErrorCode Engine::Update()
 
 Engine::ErrorCode Engine::Shutdown()
 {
-	DeleteLevel(testlevel);
+	DeleteLevel(soundtest);
 	if (DGL_System_Exit())
 		throw SomethingBad;
 	else

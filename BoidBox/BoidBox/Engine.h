@@ -13,6 +13,7 @@
 
 struct Level1;
 struct TestLevel;
+struct SoundTest;
 
 class Engine
 {
@@ -24,6 +25,7 @@ public:
 
 	ErrorCode SetLevel(TestLevel* level);
 	ErrorCode SetLevel(Level1* level);
+	ErrorCode SetLevel(SoundTest* level);
 
 	static Engine* GetInstance();
 private:
@@ -46,6 +48,7 @@ private:
 	// Current running level
 	Level1* level1;
 	TestLevel* testlevel;
+	SoundTest* soundtest;
 
 	// Private variables
 	bool isRunning;

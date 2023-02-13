@@ -34,10 +34,10 @@ typedef struct Sound
     FMOD_BOOL FALSE = 0;
 };
 #endif
-
-void AudioInit(void);
-void AudioUpdate(void);
-void AudioCleanup(void);
-void PlaySound(void);
+Sound* SoundCreate(const char* soundName, const char* filePath);
+void AudioInit(Sound* sound);
+void AudioUpdate(Sound* sound);
+void AudioCleanup(Sound* sound);
+void PlaySound(Sound* sound);
 
 #endif

@@ -34,7 +34,7 @@ Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float 
 	}
 }
 
-/*Vector2D GetObstaclePosition(Obstacles* obstacle)
+Vector2D GetObstaclePosition(Obstacles* obstacle)
 {
 	if (obstacle)
 	{
@@ -43,7 +43,7 @@ Obstacles* CreateObstacles(float xHalfSize, float yHalfSize, float uSize, float 
 	}
 	else
 		return Vector2D(0, 0);
-}*/
+}
 
 void DrawObstacles(Obstacles* obstacles)
 {
@@ -53,11 +53,11 @@ void DrawObstacles(Obstacles* obstacles)
 
 void DestroyObstacles(Obstacles** obstacles)
 {
-	if (obstacles)
+	if (*obstacles)
 	{
 		if ((*obstacles)->transform)
 			DeleteTransform((*obstacles)->transform);
-		if ((*obstacles)->mesh)
+		if (&((*obstacles)->mesh))
 			freeMesh(&(*obstacles)->mesh);
 		delete *obstacles;
 		*obstacles = NULL;

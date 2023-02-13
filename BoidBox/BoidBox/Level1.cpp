@@ -25,7 +25,7 @@ struct Level1
 	Hunters* hunter;
 	PlaceBlock* place;
 	Obstacles* obstacles;
-
+	Sound* sound;
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
 	Level1() : name(), id(0), testMesh(NULL), state(Place) {}
@@ -37,9 +37,10 @@ Level1* Level1Create(std::string name)
 	level->name = name;
 	level->state = Place;
 	level->testMesh = NULL;
+	level->sound = NULL;
 	level->obstacles = CreateObstacles(5.0f, 10.0f, 1.0f, 1.0f, "obstacles");
 	level->hunter = HunterCreate();
-	level->place = CreatePlaceBlocks(5, .5f, .5f, 1.0f, 1.0f, "blocks");
+	level->place = CreatePlaceBlocks(5, .5f, .5f, 1.0f, 1.0f, "blocks", "none");
 	return level;
 }
 
@@ -47,7 +48,7 @@ void DeleteLevel(Level1* level)
 {
 	DestroyObstacles(&level->obstacles);
 	DestroyPlaceBlocks(&level->place);
-	FreeHunters(&level->hunter);
+ 	FreeHunters(&level->hunter);
 	freeMesh(&level->testMesh);
 	delete level;
 }
@@ -69,7 +70,7 @@ void LevelUpdate(Level1* level, float dt)
 	if (level->state == Place)
 	{
 		// Update Place Objects
-		UpdatePlaceBlocks(level->place);
+		UpdatePlaceBlocks(level->place, level->sound);
 	}
 	else if (level->state == Play)
 	{

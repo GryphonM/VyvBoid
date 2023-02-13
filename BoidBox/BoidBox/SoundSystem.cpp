@@ -20,15 +20,31 @@ struct Sound
 {
     const char* soundPath; // file path
     const char* name;      // sound name to be used a future reference
-    FMOD_SOUND* fmodSound; // FMOD struct managing FMOD stuff
-    FMOD_CHANNEL* channel = 0; // another FMOD struct managing FMOD stuff
-    FMOD_SYSTEM* soundSystem;
-    FMOD_SOUND* sound;
+  //  FMOD_SOUND* fmodSound; // FMOD struct managing FMOD stuff
     FMOD_RESULT result;
 
-    FMOD_BOOL TRUE = 1;
-    FMOD_BOOL FALSE = 0;
+
 };
+
+FMOD_SYSTEM* soundSystem;
+FMOD_CHANNEL* channel = 0; // another FMOD struct managing FMOD stuff
+FMOD_BOOL TRUE = 1;
+FMOD_BOOL FALSE = 0;
+FMOD_SOUND* fsound;
+
+Sound* SoundCreate(const char* soundName, const char* filePath)
+{
+    Sound* sound = new Sound;
+    if (sound)
+    {
+        sound->soundPath = filePath;
+        sound->name = soundName;
+
+        return sound;
+    }
+    else
+        return NULL;
+}
 
 // Helper function to check for errors
 void ERRCHECK(Sound* sound, FMOD_RESULT checkResult)
@@ -43,27 +59,27 @@ void ERRCHECK(Sound* sound, FMOD_RESULT checkResult)
 void AudioInit(Sound* sound)
 {
     // Create the FMOD System
-    sound->result = FMOD_System_Create(&sound->soundSystem, FMOD_VERSION);
+    sound->result = FMOD_System_Create(&soundSystem, FMOD_VERSION);
     ERRCHECK(sound, sound->result);
 
     // Initialize the FMOD System
-    sound->result = FMOD_System_Init(sound->soundSystem, 32, FMOD_INIT_NORMAL, 0);
+    sound->result = FMOD_System_Init(soundSystem, 32, FMOD_INIT_NORMAL, 0);
     ERRCHECK(sound, sound->result);
 
     // Create the sound
     // Note: this should be generalized for multiple sounds 
-    sound->result = FMOD_System_CreateSound(sound->soundSystem, "sample_beep.wav", FMOD_2D, 0, &sound->sound);
+    sound->result = FMOD_System_CreateSound(soundSystem, sound->name, FMOD_2D, 0, &fsound);
     ERRCHECK(sound, sound->result);
-
+    
     // Example of loading a sound to be looping
-    // result = FMOD_System_CreateSound(soundSystem, "sample_beep.wav", FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
+    // result = FMOD_System_CreateSound(soundSystem, sound_name, FMOD_LOOP_NORMAL | FMOD_2D, 0, &sound);
 }
 
 // Update the Audio System
 // Note: this should be called during every game loop
 void AudioUpdate(Sound* sound)
 {
-    sound->result = FMOD_System_Update(sound->soundSystem);
+    sound->result = FMOD_System_Update(soundSystem);
     ERRCHECK(sound, sound->result);
 }
 
@@ -71,13 +87,13 @@ void AudioUpdate(Sound* sound)
 void AudioCleanup(Sound* sound)
 {
     // Release all sounds that have been created
-    sound->result = FMOD_Sound_Release(sound->sound);
+    sound->result = FMOD_Sound_Release(fsound);
     ERRCHECK(sound, sound->result);
 
     // Close and Release the FMOD system
-    sound->result = FMOD_System_Close(sound->soundSystem);
+    sound->result = FMOD_System_Close(soundSystem);
     ERRCHECK(sound, sound->result);
-    sound->result = FMOD_System_Release(sound->soundSystem);
+    sound->result = FMOD_System_Release(soundSystem);
     ERRCHECK(sound, sound->result);
 }
 
@@ -86,7 +102,7 @@ void PlaySound(Sound* sound)
 {
     // Play the sound
     // Note: this should be generalized for multiple sounds 
-    sound->result = FMOD_System_PlaySound(sound->soundSystem, sound->sound, 0, sound->FALSE, &sound->channel);
+    sound->result = FMOD_System_PlaySound(soundSystem, fsound, 0, FALSE, &channel);
     ERRCHECK(sound, sound->result);
 
     printf("Played a sound\n\n");

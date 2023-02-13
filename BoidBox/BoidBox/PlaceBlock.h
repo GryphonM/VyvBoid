@@ -10,6 +10,7 @@
 #define PLACEBLOCK_H
 
 typedef struct PlaceBlock PlaceBlock;
+typedef struct Sound Sound;
 
 #if 0
 typedef struct PlaceBlock
@@ -24,10 +25,11 @@ typedef struct PlaceBlock
 };
 #endif
 
-PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name);
-void UpdatePlaceBlocks(PlaceBlock* place);
+PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name, const char* file);
+void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound);
 int GetNumberOfPlacedBlocks(PlaceBlock* place);
 //Vector2D* GetPlacedBlocksTransform(PlaceBlock* place, int location);
+bool SetPlaceSound(PlaceBlock* place, const char* query);
 void DrawPlacedBlocks(PlaceBlock* place);
 void DestroyPlaceBlocks(PlaceBlock** place);
 
