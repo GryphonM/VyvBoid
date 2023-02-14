@@ -42,9 +42,9 @@ Engine::ErrorCode OpenSceneUnload(void);
 Mesh* squareMesh;
 SpriteSource* source;
 Transform* pos;
-OpenScene openInstance(Scene("Open Scene", OpenSceneLoad, OpenSceneInit, OpenSceneUpdate, OpenSceneRender, OpenSceneExit, OpenSceneUnload));
+OpenScene instance(Scene("Open Scene", OpenSceneLoad, OpenSceneInit, OpenSceneUpdate, OpenSceneRender, OpenSceneExit, OpenSceneUnload));
 
-Scene* OpenSceneGetInstance() { return &(openInstance.base); }
+Scene* OpenSceneGetInstance() { return &(instance.base); }
 
 Engine::ErrorCode OpenSceneLoad(void)
 {
@@ -58,10 +58,10 @@ Engine::ErrorCode OpenSceneInit(void)
 	source = CreateSpriteSource();
 	LoadSpriteSourceTexture(source, 1, 1, "./Assets/catholicMario.jpg");
 
-	openInstance.OpenSprite = CreateSprite();
-	SpriteSetMesh(openInstance.OpenSprite, squareMesh);
-	SpriteSetSource(openInstance.OpenSprite, source);
-	SpriteSetFrame(openInstance.OpenSprite, 0);
+	instance.OpenSprite = CreateSprite();
+	SpriteSetMesh(instance.OpenSprite, squareMesh);
+	SpriteSetSource(instance.OpenSprite, source);
+	SpriteSetFrame(instance.OpenSprite, 0);
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	return Engine::NothingBad;
 }
@@ -77,21 +77,21 @@ void Foo() {}
 
 void OpenSceneRender(void)
 {
-	if (openInstance.ResetCounter == 1)
+	if (instance.ResetCounter == 1)
 		Foo();
-	RenderSprite(openInstance.OpenSprite, pos);
+	RenderSprite(instance.OpenSprite, pos);
 }
 
 Engine::ErrorCode OpenSceneExit(void)
 {
-	openInstance.ResetCounter++;
-	FreeSprite(&openInstance.OpenSprite);
+	instance.ResetCounter++;
+	FreeSprite(&instance.OpenSprite);
 	return Engine::NothingBad;
 }
 
 Engine::ErrorCode OpenSceneUnload(void)
 {
-	openInstance.ResetCounter = 0;
+	instance.ResetCounter = 0;
 	freeMesh(&squareMesh);
 	DeleteTransform(&pos);
 	return Engine::NothingBad;

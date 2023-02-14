@@ -31,8 +31,8 @@ void TylerRender(void);
 Engine::ErrorCode TylerExit(void);
 Engine::ErrorCode TylerUnload(void);
 
-TylerDebug tylerInstance(Scene("Tyler Debug Scene", TylerLoad, TylerInit, TylerUpdate, TylerRender, TylerExit, TylerUnload));
-Scene* TylerGetInstance() { return &tylerInstance.base; }
+TylerDebug instance(Scene("Tyler Debug Scene", TylerLoad, TylerInit, TylerUpdate, TylerRender, TylerExit, TylerUnload));
+Scene* TylerGetInstance() { return &instance.base; }
 
 
 Engine::ErrorCode TylerLoad(void)

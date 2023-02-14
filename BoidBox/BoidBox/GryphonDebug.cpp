@@ -40,24 +40,24 @@ void GryphonRender(void);
 Engine::ErrorCode GryphonExit(void);
 Engine::ErrorCode GryphonUnload(void);
 
-GryphonDebug gryphonInstance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
-Scene* GryphonGetInstance() { return &gryphonInstance.base; }
+GryphonDebug instance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
+Scene* GryphonGetInstance() { return &instance.base; }
 Mesh* mesh;
 
 Engine::ErrorCode GryphonLoad(void)
 {
 	mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square", { 0.80f, 0.11f, 0.72f, 1.0f });
-	gryphonInstance.sprite = CreateSprite();
-	gryphonInstance.pos = CreateTransform(Vector2D(), Vector2D(50.0f, 50.0f));
+	instance.sprite = CreateSprite();
+	instance.pos = CreateTransform(Vector2D(), Vector2D(50.0f, 50.0f));
 	return Engine::NothingBad;
 }
 
 Engine::ErrorCode GryphonInit(void)
 {
 	Vector2D pos(0, 0);
-	gryphonInstance.movingUp = false;
-	TransformSetPosition(gryphonInstance.pos, pos);
-	SpriteSetMesh(gryphonInstance.sprite, mesh);
+	instance.movingUp = false;
+	TransformSetPosition(instance.pos, pos);
+	SpriteSetMesh(instance.sprite, mesh);
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	DGL_Graphics_SetTexture(NULL);
 	return Engine::NothingBad;
@@ -68,26 +68,26 @@ void GryphonUpdate(float dt)
 	if (CheckDebugScenes() || CheckGameScenes())
 		return;
 
-	Vector2D pos = TransformGetPosition(gryphonInstance.pos);
-	if (gryphonInstance.movingUp)
+	Vector2D pos = TransformGetPosition(instance.pos);
+	if (instance.movingUp)
 	{
-		pos.Y(pos.Y() + (gryphonInstance.speed * dt));
-		if (pos.Y() >= gryphonInstance.maxY)
-			gryphonInstance.movingUp = false;
+		pos.Y(pos.Y() + (instance.speed * dt));
+		if (pos.Y() >= instance.maxY)
+			instance.movingUp = false;
 	}
 	else
 	{
-		pos.Y(pos.Y() - (gryphonInstance.speed * dt));
-		if (pos.Y() <= gryphonInstance.minY)
-			gryphonInstance.movingUp = true;
+		pos.Y(pos.Y() - (instance.speed * dt));
+		if (pos.Y() <= instance.minY)
+			instance.movingUp = true;
 	}
-	TransformSetPosition(gryphonInstance.pos, pos);
+	TransformSetPosition(instance.pos, pos);
 }
 
 void GryphonRender(void)
 {
 	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
-	RenderSprite(gryphonInstance.sprite, gryphonInstance.pos);
+	RenderSprite(instance.sprite, instance.pos);
 }
 
 Engine::ErrorCode GryphonExit(void)
@@ -98,7 +98,7 @@ Engine::ErrorCode GryphonExit(void)
 Engine::ErrorCode GryphonUnload(void)
 {
 	freeMesh(&mesh);
-	FreeSprite(&gryphonInstance.sprite);
-	DeleteTransform(&gryphonInstance.pos);
+	FreeSprite(&instance.sprite);
+	DeleteTransform(&instance.pos);
 	return Engine::NothingBad;
 }

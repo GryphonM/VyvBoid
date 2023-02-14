@@ -30,8 +30,8 @@ void TayLeeRender(void);
 Engine::ErrorCode TayLeeExit(void);
 Engine::ErrorCode TayLeeUnload(void);
 
-TayLeeDebug tayleeInstance(Scene("TayLee Debug Scene", TayLeeLoad, TayLeeInit, TayLeeUpdate, TayLeeRender, TayLeeExit, TayLeeUnload));
-Scene* TayLeeGetInstance() { return &tayleeInstance.base; }
+TayLeeDebug instance(Scene("TayLee Debug Scene", TayLeeLoad, TayLeeInit, TayLeeUpdate, TayLeeRender, TayLeeExit, TayLeeUnload));
+Scene* TayLeeGetInstance() { return &instance.base; }
 
 
 Engine::ErrorCode TayLeeLoad(void)

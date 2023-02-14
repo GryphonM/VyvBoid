@@ -30,8 +30,8 @@ void MichaelRender(void);
 Engine::ErrorCode MichaelExit(void);
 Engine::ErrorCode MichaelUnload(void);
 
-MichaelDebug michaelInstance(Scene("Michael Debug Scene", MichaelLoad, MichaelInit, MichaelUpdate, MichaelRender, MichaelExit, MichaelUnload));
-Scene* MichaelGetInstance() { return &michaelInstance.base; }
+MichaelDebug instance(Scene("Michael Debug Scene", MichaelLoad, MichaelInit, MichaelUpdate, MichaelRender, MichaelExit, MichaelUnload));
+Scene* MichaelGetInstance() { return &instance.base; }
 
 
 Engine::ErrorCode MichaelLoad(void)
