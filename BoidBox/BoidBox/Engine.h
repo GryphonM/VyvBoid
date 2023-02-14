@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "DGL.h"
+struct DGL_SysInitInfo;
 
 struct Level1;
 struct TestLevel;

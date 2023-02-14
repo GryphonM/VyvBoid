@@ -12,6 +12,7 @@
 #include "Level1.h"
 #include "BoidTest.h"
 #include "SoundTest.h"
+#include "DGL.h"
 
 Engine* Engine::instance = new Engine();
 

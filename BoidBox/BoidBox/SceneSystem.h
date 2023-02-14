@@ -39,3 +39,11 @@ private:
 	bool isRestarting;
 	bool inDebug;
 };
+
+// Checks if any of the Debug Scenes have been triggered to change to
+// Returns true if they are, false if not
+bool CheckDebugScenes();
+
+// Checks if any of the Game Scenes have been triggered to change to
+// Returns true if they are, false if not
+bool CheckGameScenes();

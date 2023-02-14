@@ -10,9 +10,15 @@
 
 #include "SceneSystem.h"
 #include "PlatformSystem.h"
-#include "OpenScene.h"
 #include "Scene.h"
 #include "Engine.h"
+#include "DGL.h"
+
+#include "OpenScene.h"
+#include "GryphonDebug.h"
+#include "MichaelDebug.h"
+#include "TayLeeDebug.h"
+#include "TylerDebug.h"
 
 SceneSystem* SceneSystem::instance = new SceneSystem();
 
@@ -102,4 +108,28 @@ void SceneSystem::ChangeScene()
 
 	nextScene = NULL;
 	activeScene->Init();
+}
+
+bool CheckDebugScenes()
+{
+	if (DGL_Input_KeyTriggered('I'))
+		SceneSystem::GetInstance()->SetScene(GryphonGetInstance(), true);
+	else if (DGL_Input_KeyTriggered('L'))
+		SceneSystem::GetInstance()->SetScene(MichaelGetInstance(), true);
+	else if (DGL_Input_KeyTriggered('Q'))
+		SceneSystem::GetInstance()->SetScene(TayLeeGetInstance(), true);
+	else if (DGL_Input_KeyTriggered('H'))
+		SceneSystem::GetInstance()->SetScene(TylerGetInstance(), true);
+	else
+		return false;
+	return true;
+}
+
+bool CheckGameScenes()
+{
+	if (DGL_Input_KeyTriggered('0'))
+		SceneSystem::GetInstance()->SetScene(OpenSceneGetInstance());
+	else
+		return false;
+	return true;
 }

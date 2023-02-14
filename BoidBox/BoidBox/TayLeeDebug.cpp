@@ -10,7 +10,7 @@
 
 #include "TayLeeDebug.h"
 #include "Scene.h"
-#include "Mesh.h"
+#include "SceneSystem.h"
 
 struct TayLeeDebug
 {
@@ -30,8 +30,8 @@ void TayLeeRender(void);
 Engine::ErrorCode TayLeeExit(void);
 Engine::ErrorCode TayLeeUnload(void);
 
-TayLeeDebug instance(Scene("TayLee Debug Scene", TayLeeLoad, TayLeeInit, TayLeeUpdate, TayLeeRender, TayLeeExit, TayLeeUnload));
-Scene* TayLeeGetInstance() { return &instance.base; }
+TayLeeDebug tayleeInstance(Scene("TayLee Debug Scene", TayLeeLoad, TayLeeInit, TayLeeUpdate, TayLeeRender, TayLeeExit, TayLeeUnload));
+Scene* TayLeeGetInstance() { return &tayleeInstance.base; }
 
 
 Engine::ErrorCode TayLeeLoad(void)

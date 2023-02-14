@@ -10,7 +10,7 @@
 
 #include "MichaelDebug.h"
 #include "Scene.h"
-#include "Mesh.h"
+#include "SceneSystem.h"
 
 struct MichaelDebug
 {
@@ -30,8 +30,8 @@ void MichaelRender(void);
 Engine::ErrorCode MichaelExit(void);
 Engine::ErrorCode MichaelUnload(void);
 
-MichaelDebug instance(Scene("Michael Debug Scene", MichaelLoad, MichaelInit, MichaelUpdate, MichaelRender, MichaelExit, MichaelUnload));
-Scene* MichaelGetInstance() { return &instance.base; }
+MichaelDebug michaelInstance(Scene("Michael Debug Scene", MichaelLoad, MichaelInit, MichaelUpdate, MichaelRender, MichaelExit, MichaelUnload));
+Scene* MichaelGetInstance() { return &michaelInstance.base; }
 
 
 Engine::ErrorCode MichaelLoad(void)

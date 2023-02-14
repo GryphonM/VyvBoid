@@ -11,6 +11,7 @@
 #pragma once
 
 #include "BaseSystem.h"
+#include "DGL.h"
 
 #define DefaultName "Boid Box"
 

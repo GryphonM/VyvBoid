@@ -10,6 +10,7 @@
 
 #include "TylerDebug.h"
 #include "Scene.h"
+#include "SceneSystem.h"
 #include "Mesh.h"
 
 struct TylerDebug
@@ -30,8 +31,8 @@ void TylerRender(void);
 Engine::ErrorCode TylerExit(void);
 Engine::ErrorCode TylerUnload(void);
 
-TylerDebug instance(Scene("Tyler Debug Scene", TylerLoad, TylerInit, TylerUpdate, TylerRender, TylerExit, TylerUnload));
-Scene* TylerGetInstance() { return &instance.base; }
+TylerDebug tylerInstance(Scene("Tyler Debug Scene", TylerLoad, TylerInit, TylerUpdate, TylerRender, TylerExit, TylerUnload));
+Scene* TylerGetInstance() { return &tylerInstance.base; }
 
 
 Engine::ErrorCode TylerLoad(void)
