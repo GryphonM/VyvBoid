@@ -31,8 +31,11 @@ private:
 	SceneSystem& operator=(SceneSystem const&) = delete;
 
 	void ChangeScene();
+	friend bool CheckRestartGame();
 
 	static SceneSystem* instance;
+
+	Scene* (*DefaultSceneInstance)();
 
 	Scene* activeScene;
 	Scene* nextScene;
@@ -47,3 +50,7 @@ bool CheckDebugScenes();
 // Checks if any of the Game Scenes have been triggered to change to
 // Returns true if they are, false if not
 bool CheckGameScenes();
+
+// Checks if the game has been triggered to completely restart
+// Returns true if yes, false if not
+bool CheckRestartGame();

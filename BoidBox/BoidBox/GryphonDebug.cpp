@@ -65,7 +65,7 @@ Engine::ErrorCode GryphonInit(void)
 
 void GryphonUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
 
 	Vector2D pos = TransformGetPosition(instance.pos);

@@ -47,7 +47,7 @@ Engine::ErrorCode TylerInit(void)
 
 void TylerUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
 }
 

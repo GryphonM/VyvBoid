@@ -46,7 +46,7 @@ Engine::ErrorCode MichaelInit(void)
 
 void MichaelUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
 }
 

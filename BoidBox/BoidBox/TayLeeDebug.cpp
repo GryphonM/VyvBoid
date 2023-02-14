@@ -46,7 +46,7 @@ Engine::ErrorCode TayLeeInit(void)
 
 void TayLeeUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
 }
 

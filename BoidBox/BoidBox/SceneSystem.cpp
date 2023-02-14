@@ -24,7 +24,7 @@ SceneSystem* SceneSystem::instance = new SceneSystem();
 
 Engine::ErrorCode SceneSystem::Init()
 {
-	instance->SetScene(OpenSceneGetInstance());
+	instance->SetScene(DefaultSceneInstance());
 	return Engine::NothingBad;
 }
 
@@ -75,7 +75,7 @@ SceneSystem* SceneSystem::GetInstance()
 }
 
 
-SceneSystem::SceneSystem() : BaseSystem("SceneSystem"), activeScene(NULL), nextScene(NULL), isRestarting(false), inDebug(false)
+SceneSystem::SceneSystem() : BaseSystem("SceneSystem"), DefaultSceneInstance(OpenSceneGetInstance), activeScene(NULL), nextScene(NULL), isRestarting(false), inDebug(false)
 { }
 
 SceneSystem::~SceneSystem()
@@ -98,12 +98,13 @@ void SceneSystem::ChangeScene()
 	{
 		activeScene->Exit();
 
-		if (activeScene != nextScene)
+		if (activeScene != nextScene || isRestarting)
 		{
 			activeScene->Unload();
 			activeScene = nextScene;
 			activeScene->Load();
 		}
+		isRestarting = false;
 	}
 
 	nextScene = NULL;
@@ -132,4 +133,16 @@ bool CheckGameScenes()
 	else
 		return false;
 	return true;
+}
+
+bool CheckRestartGame()
+{
+	if (DGL_Input_KeyTriggered('R'))
+	{
+		SceneSystem* instance = SceneSystem::GetInstance();
+		instance->isRestarting = true;
+		instance->SetScene(instance->DefaultSceneInstance());
+		return true;
+	}
+	return false;
 }
