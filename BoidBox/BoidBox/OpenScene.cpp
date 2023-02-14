@@ -48,7 +48,7 @@ Scene* OpenSceneGetInstance() { return &(instance.base); }
 Engine::ErrorCode OpenSceneLoad(void)
 {
 	squareMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
-	pos = CreateTransform(Vector2D(), Vector2D(100.0, 100.0f));	source = CreateSpriteSource();
+	pos = CreateTransform(Vector2D(), Vector2D(200.0, 200.0f));	source = CreateSpriteSource();
 	source = CreateSpriteSource();
 	LoadSpriteSourceTexture(source, 1, 1, "./Assets/catholicMario.jpg");
 	instance.OpenSprite = CreateSprite();
