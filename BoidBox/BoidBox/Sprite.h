@@ -44,6 +44,6 @@ void SpriteSetAlpha(Sprite* sprite, float alpha);
 
 void SpriteSetMesh(Sprite* sprite, const Mesh* mesh);
 
-void SpriteSetSource(Sprite* sprite, const SpriteSource* spriteSource);
+void SpriteSetSource(Sprite* sprite, const SpriteSource* source);
 
 #endif

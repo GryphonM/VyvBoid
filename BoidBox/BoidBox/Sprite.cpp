@@ -114,11 +114,7 @@ void SpriteSetMesh(Sprite* sprite, const Mesh* mesh)
 	sprite->mesh = mesh;
 }
 
-void SpriteSetSource(Sprite* sprite, const SpriteSource* Source)
+void SpriteSetSource(Sprite* sprite, const SpriteSource* source)
 {
-	if (sprite->source)
-	{
-		FreeSpriteSource(&sprite->source);
-	}
-	sprite->source = Source;
+	sprite->source = source;
 }
