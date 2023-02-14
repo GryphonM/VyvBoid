@@ -9,13 +9,14 @@
 
 #include "DGL.h"
 #include "Vector2D.h"
+#include "SpriteSource.h"
 
 struct SpriteSource
 {
 	int	rows;
 	int	Cols;
 
-	const DGL_Texture* texture;
+	DGL_Texture* texture;
 };
 
 
@@ -36,10 +37,14 @@ SpriteSource* CreateSpriteSource()
 	}
 }
 
-void FreeSpriteSource(const SpriteSource** source)
+void FreeSpriteSource(SpriteSource** source)
 {
-	delete* source;
-	*source = NULL;
+	if (source && *source)
+	{
+		DGL_Graphics_FreeTexture(&(*source)->texture);
+		delete* source;
+		*source = NULL;
+	}
 }
 
 void LoadSpriteSourceTexture(SpriteSource* source, int Cols, int rows, const char* texture)

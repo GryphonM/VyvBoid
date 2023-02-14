@@ -56,7 +56,7 @@ void DestroyObstacles(Obstacles** obstacles)
 	if (*obstacles)
 	{
 		if ((*obstacles)->transform)
-			DeleteTransform((*obstacles)->transform);
+			DeleteTransform(&(*obstacles)->transform);
 		if (&((*obstacles)->mesh))
 			freeMesh(&(*obstacles)->mesh);
 		delete *obstacles;

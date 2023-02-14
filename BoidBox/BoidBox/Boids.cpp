@@ -234,7 +234,7 @@ void RenderBoids(BoidList* list)
             }
         }
     }
-    DeleteTransform(trans);
+    DeleteTransform(&trans);
 }
 
 void RunBoids(BoidList* list, float dt)

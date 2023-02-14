@@ -23,7 +23,7 @@ struct Sprite
 
 	float alpha;
 
-	const SpriteSource* source;
+	SpriteSource* source;
 
 	const Mesh* mesh;
 };
@@ -44,6 +44,6 @@ void SpriteSetAlpha(Sprite* sprite, float alpha);
 
 void SpriteSetMesh(Sprite* sprite, const Mesh* mesh);
 
-void SpriteSetSource(Sprite* sprite, const SpriteSource* source);
+void SpriteSetSource(Sprite* sprite, SpriteSource* source);
 
 #endif

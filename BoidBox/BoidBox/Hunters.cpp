@@ -65,9 +65,9 @@ void FreeHunters(Hunters** hunter)
 {
 	// rip my boys
 	FreeSprite(&(*hunter)->sprite);
-	DeleteTransform((*hunter)->transform1);
-	DeleteTransform((*hunter)->transform2);
-	DeleteTransform((*hunter)->transform3);
+	DeleteTransform(&(*hunter)->transform1);
+	DeleteTransform(&(*hunter)->transform2);
+	DeleteTransform(&(*hunter)->transform3);
 	delete *hunter;
 }
 

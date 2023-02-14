@@ -22,14 +22,14 @@ struct SpriteSource
 	int	rows;
 	int	Cols;
 
-	const DGL_Texture* texture;
+	DGL_Texture* texture;
 
 };
 #endif
 
 SpriteSource* CreateSpriteSource();
 
-void FreeSpriteSource(const SpriteSource** spriteSource);
+void FreeSpriteSource(SpriteSource** spriteSource);
 
 void LoadSpriteSourceTexture(SpriteSource* spriteSource, int Cols, int rows, const char* texture);
 

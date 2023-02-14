@@ -24,7 +24,7 @@ struct Transform
 
 Transform* CreateTransform(Vector2D position = Vector2D(0, 0), Vector2D scale = Vector2D(1.0f, 1.0f), float rotation = 0.0f);
 Transform* CloneTransform(Transform* _transform);
-void DeleteTransform(Transform* transform);
+void DeleteTransform(Transform** transform);
 
 Vector2D TransformGetPosition(const Transform* transform);
 Vector2D TransformGetScale(const Transform* transform);

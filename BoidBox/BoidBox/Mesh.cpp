@@ -65,7 +65,10 @@ void RenderMesh(const Mesh* mesh)
 
 void freeMesh(Mesh** mesh)
 {
-	DGL_Graphics_FreeMesh(&((*mesh)->source));
-	delete *mesh;
-	mesh = NULL;
+	if (mesh && *mesh)
+	{
+		DGL_Graphics_FreeMesh(&((*mesh)->source));
+		delete* mesh;
+		*mesh = NULL;
+	}
 }

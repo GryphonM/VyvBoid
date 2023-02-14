@@ -67,7 +67,7 @@ Object* ObjectClone(Object* _obj)
 
 void ObjectDelete(Object* obj)
 {
-	DeleteTransform(obj->transform);
+	DeleteTransform(&obj->transform);
 	// obj->owner = NULL;
 	delete obj;
 	obj = NULL;

@@ -38,7 +38,14 @@ Transform* CloneTransform(Transform* _transform)
 	return transform;
 }
 
-void DeleteTransform(Transform* transform) { delete transform; }
+void DeleteTransform(Transform** transform) 
+{
+	if (transform && *transform)
+	{
+		delete *transform;
+		*transform = NULL;
+	}
+}
 
 Vector2D TransformGetPosition(const Transform* transform) { return transform->position; }
 Vector2D TransformGetScale(const Transform* transform) { return transform->scale; }

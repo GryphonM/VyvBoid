@@ -82,6 +82,6 @@ Engine::ErrorCode OpenSceneExit(void)
 Engine::ErrorCode OpenSceneUnload(void)
 {
 	freeMesh(&squareMesh);
-	DeleteTransform(pos);
+	DeleteTransform(&pos);
 	return Engine::NothingBad;
 }

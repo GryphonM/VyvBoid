@@ -27,6 +27,8 @@ struct GryphonDebug
 
 	GryphonDebug(Scene _base) : base(_base), sprite(NULL), pos(NULL), maxY(150.0f), minY(-150.0f), speed(50.0f), movingUp(false)
 	{
+		sprite = CreateSprite();
+		FreeSprite(&sprite);
 	}
 };
 
@@ -96,6 +98,6 @@ Engine::ErrorCode GryphonUnload(void)
 {
 	freeMesh(&mesh);
 	FreeSprite(&instance.sprite);
-	DeleteTransform(instance.pos);
+	DeleteTransform(&instance.pos);
 	return Engine::NothingBad;
 }
