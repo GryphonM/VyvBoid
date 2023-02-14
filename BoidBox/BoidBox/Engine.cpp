@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 #include "Engine.h"
+#include "BaseSystem.h"
 #include "Level1.h"
 #include "BoidTest.h"
 #include "SoundTest.h"
@@ -18,22 +19,49 @@ Engine* Engine::instance = new Engine();
 // Public Functions
 //------------------------------------------------------------------------------
 
-Engine::ErrorCode Engine::Start(DGL_SysInitInfo* initInfo)
+Engine::ErrorCode Engine::Start()
 {
-	try {
-		Initialize(initInfo);
+	// Startup Fings
+	for (int i = 0; i < systemCount; ++i)
+	{
+		try {
+			systems[i]->Init();
+		}
+		catch (ErrorCode e) {
+			return e;
+		}
 	}
-	catch(ErrorCode e) {
-		return e;
-	}
-
-	// Other Startup Fings
-	instance->SetLevel(SoundTestCreate("Sound Test"));
-	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
-	LevelInit(instance->soundtest);
 
 	// Start the engine! Vrooom Vroom
-	ErrorCode updateRet = Update();
+	while (true)
+	{
+		ErrorCode code = NothingBad;
+
+		if (!paused)
+		{
+			try {
+				code = Update();
+			}
+			catch (ErrorCode e)
+			{
+				// Error Message
+				return e;
+			}
+			if (code == CloseWindow)
+				break;
+		}
+
+		try {
+			code = Render();
+		}
+		catch (ErrorCode e)
+		{
+			// Error Message
+			return e;
+		}
+		if (code == CloseWindow)
+			break;
+	}
 
 	return Stop();
 }
@@ -50,30 +78,20 @@ Engine::ErrorCode Engine::Stop()
 	return EngineExit;
 }
 
-Engine::ErrorCode Engine::SetLevel(Level1* level)
+void Engine::AddSystem(BaseSystem* sys)
 {
-	level1 = level;
-	return NothingBad;
+	systems[systemCount++] = sys;
 }
 
-Engine::ErrorCode Engine::SetLevel(TestLevel* level)
-{
-	testlevel = level;
-	return NothingBad;
-}
-
-Engine::ErrorCode Engine::SetLevel(SoundTest* level)
-{
-	soundtest = level;
-	return NothingBad;
-}
+bool Engine::Paused() { return paused; }
+void Engine::SetPause(bool pause) { paused = pause; }
 
 Engine* Engine::GetInstance() { return instance; }
 
 //------------------------------------------------------------------------------
 // Private Functions
 //------------------------------------------------------------------------------
-Engine::Engine() : isRunning(false), level1(NULL)
+Engine::Engine() : isRunning(false), systemCount(0), systems(), paused(false)
 {
 }
 
@@ -95,31 +113,43 @@ Engine::ErrorCode Engine::Initialize(DGL_SysInitInfo* initInfo)
 
 Engine::ErrorCode Engine::Update()
 {
-	// Pre-loop things
-	while (true)
+	float dt = static_cast<float>(DGL_System_GetDeltaTime());
+	for (int i = 0; i < systemCount; ++i)
 	{
-		DGL_System_FrameControl();
-		DGL_System_Update();
-
-		if (soundtest)
-		{
-			// Update Level
-			LevelUpdate(soundtest, static_cast<float>(DGL_System_GetDeltaTime()));
-
-			// Draw Level
-			DGL_Graphics_StartDrawing();
-			LevelDraw(soundtest);
-			DGL_Graphics_FinishDrawing();
+		try {
+			systems[i]->Update(dt);
 		}
-
-		if (!DGL_System_DoesWindowExist())
-			return WindowDoesntExist;
+		catch (ErrorCode e)
+		{
+			switch (e)
+			{
+				case CloseWindow:
+					return e;
+				default:
+					throw(e);
+			}
+		}
 	}
+	return NothingBad;
+}
+
+Engine::ErrorCode Engine::Render()
+{
+	DGL_Graphics_StartDrawing();
+	for (int i = 0; i < systemCount; ++i)
+	{
+		systems[i]->Render();
+	}
+	DGL_Graphics_FinishDrawing();
+	return NothingBad;
 }
 
 Engine::ErrorCode Engine::Shutdown()
 {
-	DeleteLevel(soundtest);
+	for (int i = 0; i < systemCount; ++i)
+	{
+		systems[i]->Close();
+	}
 	if (DGL_System_Exit())
 		throw SomethingBad;
 	else

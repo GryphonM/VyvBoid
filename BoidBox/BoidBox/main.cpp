@@ -11,34 +11,24 @@
 //------------------------------------------------------------------------------
 // Includes
 //------------------------------------------------------------------------------
-#include "Resource.h"
-#include "DGL.h"
+// #include "Resource.h"
+// #include "DGL.h"
 #include "Engine.h"
-#include "Level1.h"
-
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+#include "SceneSystem.h"
+#include "PlatformSystem.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    DGL_SysInitInfo initInfo;
-    initInfo.mAppInstance = hInstance;
-    initInfo.mClassStyle = CS_HREDRAW | CS_VREDRAW;
-    initInfo.mMaxFrameRate = 60;
-    initInfo.mShow = nCmdShow;
-    initInfo.mWindowStyle = WS_OVERLAPPEDWINDOW;
-    initInfo.mWindowTitle = "Boid Box";
-    initInfo.mWindowHeight = 768;
-    initInfo.mWindowWidth = 1024;
-    initInfo.mCreateConsole = false;
-    initInfo.pWindowsCallback = WndProc;
-    initInfo.mWindowIcon = IDI_BOIDBOX;
 
     Engine* instance = Engine::GetInstance();
+    instance->AddSystem(PlatformSystem::GetInstance(hInstance, nCmdShow));
+    instance->AddSystem(SceneSystem::GetInstance());
 
-    Engine::ErrorCode returnCode = instance->Start(&initInfo);
+    Engine::ErrorCode returnCode = instance->Start();
+
     switch (returnCode)
     {
     case Engine::NullWindowHandle:
@@ -48,27 +38,4 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return 0;
         break;
     }
-}
-
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE: Processes messages for the main window.
-//
-//  WM_COMMAND  - process the application menu
-//  WM_PAINT    - Paint the main window
-//  WM_DESTROY  - post a quit message and return
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    int result;
-    if (DGL_System_HandleWindowsMessage(message, wParam, lParam, &result))
-        return result;
-    switch (message)
-    {
-    default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
-    }
-    return 0;
 }

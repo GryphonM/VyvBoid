@@ -13,41 +13,11 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\Positions">
-      <UniqueIdentifier>{ef8c5ec3-04f7-4210-9440-f0b4dd9f5027}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Positions">
-      <UniqueIdentifier>{23cc2051-49d5-4f7f-ac16-f5f2051b22fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Enemy">
-      <UniqueIdentifier>{d3d650bd-9818-4991-9796-8abd071d1e54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Enemy">
-      <UniqueIdentifier>{e9b27f62-1272-40c2-8120-762aa28e7936}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Graphics">
-      <UniqueIdentifier>{9a5eb5de-186d-426d-9599-415dbe2157d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Graphics">
-      <UniqueIdentifier>{e5144546-f22e-48e8-8478-84ca7a87a8f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\SoundSystems">
-      <UniqueIdentifier>{9d21d3a7-71e1-4782-b0db-d77196a114d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\SoundSystems">
-      <UniqueIdentifier>{c476a9b4-a905-438f-99e7-b584705bd65e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Engine">
       <UniqueIdentifier>{d77b2fe6-bc56-4af0-aa28-8d873ba56b18}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{0e5ffce8-c9c3-4a9a-9c0d-af358e36c306}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Placement">
-      <UniqueIdentifier>{8ee06acb-7699-4a5d-aa0a-047a1219f266}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Placement">
-      <UniqueIdentifier>{347b401b-cac2-46ff-84e1-5868488e2ae4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Helper">
       <UniqueIdentifier>{da8213b0-a428-4e2b-8f5b-ba7d30546bf4}</UniqueIdentifier>
@@ -55,17 +25,80 @@
     <Filter Include="Source Files\Helper">
       <UniqueIdentifier>{02cd042e-f072-4df9-89de-dc69b2e19a2d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Boids">
+    <Filter Include="Header Files\Engine\Scenes">
+      <UniqueIdentifier>{7f50211a-c724-4270-942f-3c796558db33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scenes">
+      <UniqueIdentifier>{0b0b4567-2c4b-4b9b-a29c-76883ffd6d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Systems">
+      <UniqueIdentifier>{be1f2e43-b875-4de5-9246-a3e04d975978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Systems\Boids">
       <UniqueIdentifier>{5eff976c-0597-473b-8fc7-20e13e554777}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Boids">
+    <Filter Include="Header Files\Game Systems\Obstacles">
+      <UniqueIdentifier>{4f999b13-eeb0-4b22-9f22-10fa3dd97340}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Systems\Placement">
+      <UniqueIdentifier>{347b401b-cac2-46ff-84e1-5868488e2ae4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Systems\Enemy">
+      <UniqueIdentifier>{d3d650bd-9818-4991-9796-8abd071d1e54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Generic Systems">
+      <UniqueIdentifier>{dae02a3b-a2c6-40d8-bb9b-47388a31fded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Generic Systems\SoundSystems">
+      <UniqueIdentifier>{c476a9b4-a905-438f-99e7-b584705bd65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Generic Systems\Positions">
+      <UniqueIdentifier>{23cc2051-49d5-4f7f-ac16-f5f2051b22fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Generic Systems\Graphics">
+      <UniqueIdentifier>{9a5eb5de-186d-426d-9599-415dbe2157d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Systems">
+      <UniqueIdentifier>{17ee8eed-1b0f-47c5-a51e-04e30fc47c87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Systems\Boids">
       <UniqueIdentifier>{71b6004d-27e0-4e2a-87ca-09d592695669}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Obstacles">
+    <Filter Include="Source Files\Game Systems\Enemy">
+      <UniqueIdentifier>{e9b27f62-1272-40c2-8120-762aa28e7936}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Systems\Obstacles">
       <UniqueIdentifier>{579a869b-d2cb-4f3f-a6e7-e7797b5f5d1f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Obstacles">
-      <UniqueIdentifier>{4f999b13-eeb0-4b22-9f22-10fa3dd97340}</UniqueIdentifier>
+    <Filter Include="Source Files\Game Systems\Placement">
+      <UniqueIdentifier>{8ee06acb-7699-4a5d-aa0a-047a1219f266}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Generic Systems">
+      <UniqueIdentifier>{df75e2bd-1585-449a-ab0e-64dc779d7ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Generic Systems\SoundSystems">
+      <UniqueIdentifier>{9d21d3a7-71e1-4782-b0db-d77196a114d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Generic Systems\Positions">
+      <UniqueIdentifier>{ef8c5ec3-04f7-4210-9440-f0b4dd9f5027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Generic Systems\Graphics">
+      <UniqueIdentifier>{e5144546-f22e-48e8-8478-84ca7a87a8f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Deprecated">
+      <UniqueIdentifier>{6826dc10-6b3d-4118-b1b9-1b58527e8e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Scenes\Debug Scenes">
+      <UniqueIdentifier>{dad136a7-99ec-4880-8d73-e4aa46ae363a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scenes\Debug Scenes">
+      <UniqueIdentifier>{0ae9c44b-9756-438b-aa93-5ab812c43201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Scenes\Game Scenes">
+      <UniqueIdentifier>{c650a8e4-431e-47b4-b4cf-dccc1549bd6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Engine\Scenes\Game Scenes">
+      <UniqueIdentifier>{3ad11392-879d-4610-aabc-dc2dd46564bf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -76,58 +109,85 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Transform.h">
-      <Filter>Header Files\Positions</Filter>
+      <Filter>Header Files\Generic Systems\Positions</Filter>
     </ClInclude>
     <ClInclude Include="Vector2D.h">
-      <Filter>Header Files\Positions</Filter>
+      <Filter>Header Files\Generic Systems\Positions</Filter>
     </ClInclude>
     <ClInclude Include="Hunters.h">
-      <Filter>Header Files\Enemy</Filter>
+      <Filter>Header Files\Game Systems\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Graphics</Filter>
+      <Filter>Header Files\Generic Systems\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="SoundSystem.h">
-      <Filter>Header Files\SoundSystems</Filter>
+      <Filter>Header Files\Generic Systems\SoundSystems</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Level1.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Header Files\Graphics</Filter>
+      <Filter>Header Files\Generic Systems\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="SpriteSource.h">
-      <Filter>Header Files\Graphics</Filter>
+      <Filter>Header Files\Generic Systems\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="PlaceBlock.h">
-      <Filter>Header Files\Placement</Filter>
+      <Filter>Header Files\Game Systems\Placement</Filter>
     </ClInclude>
     <ClInclude Include="List.h">
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
     <ClInclude Include="Boids.h">
-      <Filter>Header Files\Boids</Filter>
+      <Filter>Header Files\Game Systems\Boids</Filter>
     </ClInclude>
     <ClInclude Include="BasicObstacles.h">
-      <Filter>Header Files\Obstacles</Filter>
+      <Filter>Header Files\Game Systems\Obstacles</Filter>
     </ClInclude>
     <ClInclude Include="Math.h">
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
-    <ClInclude Include="BoidTest.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Stream.h">
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
-    <ClInclude Include="SoundTest.h">
+    <ClInclude Include="BaseSystem.h">
       <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSystem.h">
+      <Filter>Header Files\Engine\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformSystem.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="BoidTest.h">
+      <Filter>Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1.h">
+      <Filter>Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenScene.h">
+      <Filter>Header Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Engine\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundTest.h">
+      <Filter>Deprecated</Filter>
+    </ClInclude>
+    <ClInclude Include="GryphonDebug.h">
+      <Filter>Header Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TylerDebug.h">
+      <Filter>Header Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MichaelDebug.h">
+      <Filter>Header Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="TayLeeDebug.h">
+      <Filter>Header Files\Engine\Scenes\Debug Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,55 +195,82 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Positions</Filter>
+      <Filter>Source Files\Generic Systems\Positions</Filter>
     </ClCompile>
     <ClCompile Include="Vector2D.cpp">
-      <Filter>Source Files\Positions</Filter>
+      <Filter>Source Files\Generic Systems\Positions</Filter>
     </ClCompile>
     <ClCompile Include="Hunters.cpp">
-      <Filter>Source Files\Enemy</Filter>
+      <Filter>Source Files\Game Systems\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Generic Systems\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="SoundSystem.cpp">
-      <Filter>Source Files\SoundSystems</Filter>
+      <Filter>Source Files\Generic Systems\SoundSystems</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Level1.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Generic Systems\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="SpriteSource.cpp">
-      <Filter>Source Files\Graphics</Filter>
+      <Filter>Source Files\Generic Systems\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="PlaceBlock.cpp">
-      <Filter>Source Files\Placement</Filter>
+      <Filter>Source Files\Game Systems\Placement</Filter>
     </ClCompile>
     <ClCompile Include="List.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
     <ClCompile Include="Boids.cpp">
-      <Filter>Source Files\Boids</Filter>
+      <Filter>Source Files\Game Systems\Boids</Filter>
     </ClCompile>
     <ClCompile Include="BasicObstacles.cpp">
-      <Filter>Source Files\Obstacles</Filter>
+      <Filter>Source Files\Game Systems\Obstacles</Filter>
     </ClCompile>
     <ClCompile Include="Math.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
-    <ClCompile Include="BoidTest.cpp">
+    <ClCompile Include="BaseSystem.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="SoundTest.cpp">
+    <ClCompile Include="SceneSystem.cpp">
+      <Filter>Source Files\Engine\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="PlatformSystem.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="BoidTest.cpp">
+      <Filter>Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1.cpp">
+      <Filter>Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenScene.cpp">
+      <Filter>Source Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Engine\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundTest.cpp">
+      <Filter>Deprecated</Filter>
+    </ClCompile>
+    <ClCompile Include="GryphonDebug.cpp">
+      <Filter>Source Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TylerDebug.cpp">
+      <Filter>Source Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MichaelDebug.cpp">
+      <Filter>Source Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="TayLeeDebug.cpp">
+      <Filter>Source Files\Engine\Scenes\Debug Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

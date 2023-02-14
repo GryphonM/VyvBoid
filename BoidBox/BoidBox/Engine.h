@@ -14,18 +14,22 @@
 struct Level1;
 struct TestLevel;
 struct SoundTest;
+class BaseSystem;
+
+#define MAX_SYSTEMS 5
 
 class Engine
 {
 public:
-	enum ErrorCode { NullWindowHandle, WindowDoesntExist, SomethingBad, NothingBad, EngineExit };
+	enum ErrorCode { NullWindowHandle, WindowDoesntExist, AllScenesNull, CloseWindow, SomethingBad, NothingBad, EngineExit };
 
-	ErrorCode Start(DGL_SysInitInfo* initInfo);
+	ErrorCode Start();
 	ErrorCode Stop();
 
-	ErrorCode SetLevel(TestLevel* level);
-	ErrorCode SetLevel(Level1* level);
-	ErrorCode SetLevel(SoundTest* level);
+	void AddSystem(BaseSystem*);
+
+	bool Paused();
+	void SetPause(bool pause);
 
 	static Engine* GetInstance();
 private:
@@ -40,16 +44,17 @@ private:
 	// Private Functions
 	ErrorCode Initialize(DGL_SysInitInfo* initInfo);
 	ErrorCode Update();
+	ErrorCode Render();
 	ErrorCode Shutdown();
 
 	// Singleton pointer
 	static Engine* instance;
 
-	// Current running level
-	Level1* level1;
-	TestLevel* testlevel;
-	SoundTest* soundtest;
+	// Systems array
+	BaseSystem* systems[MAX_SYSTEMS];
+	int systemCount;
 
 	// Private variables
 	bool isRunning;
+	bool paused;
 };
