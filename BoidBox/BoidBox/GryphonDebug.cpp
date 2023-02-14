@@ -11,20 +11,21 @@
 #include "GryphonDebug.h"
 #include "Scene.h"
 #include "Mesh.h"
+#include "Sprite.h"
 
 struct GryphonDebug
 {
 	Scene base;
 
 	// Other Fings
-	Mesh* square;
+	Sprite* sprite;
 	Transform* pos;
 	float maxY;
 	float minY;
 	float speed;
 	bool movingUp;
 
-	GryphonDebug(Scene _base) : base(_base), square(NULL), pos(NULL), maxY(150.0f), minY(-150.0f), speed(50.0f), movingUp(false)
+	GryphonDebug(Scene _base) : base(_base), sprite(NULL), pos(NULL), maxY(150.0f), minY(-150.0f), speed(50.0f), movingUp(false)
 	{
 	}
 };
@@ -38,11 +39,12 @@ Engine::ErrorCode GryphonUnload(void);
 
 GryphonDebug instance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
 Scene* GryphonGetInstance() { return &instance.base; }
-
+Mesh* mesh;
 
 Engine::ErrorCode GryphonLoad(void)
 {
-	instance.square = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Moving Guy", { 1.0f, 0.0f, 1.0f, 1.0f });
+	mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square", { 0.80f, 0.11f, 0.72f, 1.0f });
+	instance.sprite = CreateSprite();
 	instance.pos = CreateTransform(Vector2D(), Vector2D(50.0f, 50.0f));
 	return Engine::NothingBad;
 }
@@ -52,6 +54,7 @@ Engine::ErrorCode GryphonInit(void)
 	Vector2D pos(0, 0);
 	instance.movingUp = false;
 	TransformSetPosition(instance.pos, pos);
+	SpriteSetMesh(instance.sprite, mesh);
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	DGL_Graphics_SetTexture(NULL);
 	return Engine::NothingBad;
@@ -81,7 +84,7 @@ void GryphonUpdate(float dt)
 void GryphonRender(void)
 {
 	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
-	RenderMesh(instance.square, instance.pos);
+	RenderSprite(instance.sprite, instance.pos);
 }
 
 Engine::ErrorCode GryphonExit(void)
@@ -91,7 +94,8 @@ Engine::ErrorCode GryphonExit(void)
 
 Engine::ErrorCode GryphonUnload(void)
 {
-	freeMesh(&instance.square);
+	freeMesh(&mesh);
+	FreeSprite(&instance.sprite);
 	DeleteTransform(instance.pos);
 	return Engine::NothingBad;
 }
