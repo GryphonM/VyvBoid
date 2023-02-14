@@ -189,6 +189,9 @@
     <ClInclude Include="TayLeeDebug.h">
       <Filter>Header Files\Engine\Scenes\Debug Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="StubScene.h">
+      <Filter>Header Files\Engine\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="TayLeeDebug.cpp">
       <Filter>Source Files\Engine\Scenes\Debug Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="StubScene.cpp">
+      <Filter>Source Files\Engine\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
