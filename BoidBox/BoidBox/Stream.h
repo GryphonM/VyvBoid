@@ -19,7 +19,8 @@ public:
 	TextStream(const char * filename);
 	~TextStream();
 
-	std::string ReadToken();
+	std::string ReadWord();
+	void ReadWord(char* val);
 	char ReadChar();
 	int ReadInt();
 	float ReadFloat();

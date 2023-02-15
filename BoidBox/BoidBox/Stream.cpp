@@ -20,11 +20,18 @@ TextStream::~TextStream()
         file.close();
 }
 
-std::string TextStream::ReadToken()
+std::string TextStream::ReadWord()
 {
     std::string val;
     file >> val;
     return val;
+}
+
+void TextStream::ReadWord(char *val)
+{
+    std::string strVal;
+    file >> strVal;
+    strcpy_s(val, strVal.length(), strVal.c_str());
 }
 
 char TextStream::ReadChar()
@@ -37,6 +44,13 @@ char TextStream::ReadChar()
 int TextStream::ReadInt()
 {
     int val;
+    file >> val;
+    return val;
+}
+
+float TextStream::ReadFloat()
+{
+    float val;
     file >> val;
     return val;
 }
