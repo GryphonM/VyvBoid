@@ -147,7 +147,7 @@ Engine::ErrorCode Engine::Render()
 
 Engine::ErrorCode Engine::Shutdown()
 {
-	for (int i = 0; i < systemCount; ++i)
+	for (int i = systemCount - 1; i >= 0; --i)
 	{
 		systems[i]->Close();
 	}
