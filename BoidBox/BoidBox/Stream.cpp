@@ -61,6 +61,6 @@ bool TextStream::ReadBool(bool isAlpha)
     if (isAlpha)
         file >> std::boolalpha >> val;
     else
-        file >> val;
+        file >> std::noboolalpha >> val;
     return val;
 }
