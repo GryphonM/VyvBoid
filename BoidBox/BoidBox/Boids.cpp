@@ -11,12 +11,14 @@
 #include "Transform.h"
 #include "Hunters.h"
 #include "Vector2D.h"
-
+#include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "List.h"
 #include "Math.h"
+#include <string>
 
 #define BOIDNUMBER 40
 
@@ -148,7 +150,7 @@ void UpdateBoid(Boid* boid, BoidList* list, float dt)
     SetDirectionOfBoid(CohesionVector, AlignmentVector, SeparationVector, boid, list, dt);
 }
 
-Boid* CreateBoid(BoidList* list, Vector2D posToSpawn)
+Boid* CreateBoid(BoidList* list, Vector2D posToSpawn = *new Vector2D)
 {
     Boid* newBoid = new Boid;
     newBoid->isDead = false;
@@ -177,6 +179,7 @@ void DestroyBoids(BoidList* list)
 BoidList* CreateBoidlist()
 {
     BoidList* newBoidList = new BoidList;
+
     newBoidList->CohesionWeight = 1;
     newBoidList->AlignmentWeight = 3;
     newBoidList->SeparationWeight = 3;
@@ -195,6 +198,13 @@ BoidList* CreateBoidlist()
         newBoidList->boidsList[i] = NULL;
     }
     return newBoidList;
+}
+
+void UpdateBoidlistParamaters(BoidList* list, std::string filename = "\n")
+{
+    if (filename != "\n")
+    {
+    }
 }
 
 void DestroyBoidList(BoidList* list)
