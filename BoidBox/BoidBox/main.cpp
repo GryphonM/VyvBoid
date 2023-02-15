@@ -23,11 +23,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ int       nCmdShow)
 {
 
-    Engine* instance = Engine::GetInstance();
-    instance->AddSystem(PlatformSystem::GetInstance(hInstance, nCmdShow));
-    instance->AddSystem(SceneSystem::GetInstance());
+    Engine* engine = Engine::GetInstance();
+    engine->AddSystem(PlatformSystem::GetInstance(hInstance, nCmdShow));
+    engine->AddSystem(SceneSystem::GetInstance());
 
-    Engine::ErrorCode returnCode = instance->Start();
+    Engine::ErrorCode returnCode = engine->Start();
 
     switch (returnCode)
     {
