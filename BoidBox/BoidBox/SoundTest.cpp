@@ -42,15 +42,13 @@ SoundTest* SoundTestCreate(std::string name)
 void DeleteLevel(SoundTest* level)
 {
 	DestroyPlaceBlocks(&level->place);
-	AudioCleanup(level->placeSound);
-	AudioCleanup(level->jumpScare);
+	SoundCleanup(level->placeSound);
+	SoundCleanup(level->jumpScare);
 	delete level;
 }
 
 void LevelInit(SoundTest* level)
 {
-	AudioInit(level->placeSound);
-	AudioInit(level->jumpScare);
 	// Put your funky level init things here
 	level->place = CreatePlaceBlocks(10, 1.0f, 1.0f, 1.0f, 1.0f, "block", "none");
 }
@@ -61,9 +59,7 @@ void LevelSetName(SoundTest* level, std::string name) { level->name = name; }
 void LevelUpdate(SoundTest* level, float dt)
 {
 	UpdatePlaceBlocks(level->place, level->placeSound);
-	AudioUpdate(level->placeSound);
-	AudioUpdate(level->jumpScare);
-	if (DGL_Input_KeyTriggered('c'))
+	if (DGL_Input_KeyTriggered('C'))
 	{
 		PlaySound(level->jumpScare);
 	}

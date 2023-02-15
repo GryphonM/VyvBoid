@@ -35,9 +35,10 @@ typedef struct Sound
 };
 #endif
 Sound* SoundCreate(const char* soundName, const char* filePath);
-void AudioInit(Sound* sound);
-void AudioUpdate(Sound* sound);
-void AudioCleanup(Sound* sound);
+void AudioInit(void);
+void AudioUpdate(void);
+void SoundCleanup(Sound* sound);
+void AudioCleanup(void);
 void PlaySound(Sound* sound);
 
 #endif

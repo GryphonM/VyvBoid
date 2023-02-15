@@ -8,18 +8,28 @@
 //
 //------------------------------------------------------------------------------
 
+#include "DGL.h"
 #include "MichaelDebug.h"
 #include "Scene.h"
 #include "SceneSystem.h"
+#include "PlaceBlock.h"
+#include "SoundSystem.h"
 
 struct MichaelDebug
 {
 	Scene base;
 
 	// Other Fings
+	Sound* placeSound;
+	Sound* jumpScare;
+
+	PlaceBlock* place;
 
 	MichaelDebug(Scene _base) : base(_base)
 	{
+		placeSound = NULL;
+		jumpScare = NULL;
+		place = NULL;
 	}
 };
 
@@ -36,6 +46,11 @@ Scene* MichaelGetInstance() { return &instance.base; }
 
 Engine::ErrorCode MichaelLoad(void)
 {
+	instance.placeSound = SoundCreate("test", "./Assets/place.mp3");
+	instance.jumpScare = SoundCreate("scare", "./Assets/cloaker.ogg");
+
+	instance.place = CreatePlaceBlocks(10, 1.0f, 1.0f, 1.0f, 1.0f, "block", "./Assets/catholicMario.jpg");
+
 	return Engine::NothingBad;
 }
 
@@ -48,10 +63,17 @@ void MichaelUpdate(float dt)
 {
 	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
+	
+	UpdatePlaceBlocks(instance.place, instance.placeSound);
+	if (DGL_Input_KeyTriggered('C'))
+	{
+		PlaySound(instance.jumpScare);
+	}
 }
 
 void MichaelRender(void)
 {
+	DrawPlacedBlocks(instance.place);
 }
 
 Engine::ErrorCode MichaelExit(void)
@@ -61,5 +83,8 @@ Engine::ErrorCode MichaelExit(void)
 
 Engine::ErrorCode MichaelUnload(void)
 {
+	DestroyPlaceBlocks(&instance.place);
+	SoundCleanup(instance.placeSound);
+	SoundCleanup(instance.jumpScare);
 	return Engine::NothingBad;
 }

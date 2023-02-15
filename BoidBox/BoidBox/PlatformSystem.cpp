@@ -10,6 +10,7 @@
 
 #include "PlatformSystem.h"
 #include "SceneSystem.h"
+#include "SoundSystem.h"
 #include "Resource.h"
 
 PlatformSystem* PlatformSystem::instance = new PlatformSystem();
@@ -23,6 +24,7 @@ void PlatformSystem::Update(float dt)
 {
     DGL_System_FrameControl();
     DGL_System_Update();
+    AudioUpdate();
 
     if (DGL_Input_KeyTriggered(VK_ESCAPE) || !DGL_System_DoesWindowExist())
         throw(Engine::CloseWindow);
@@ -51,6 +53,7 @@ PlatformSystem* PlatformSystem::GetInstance(HINSTANCE hInstance, bool show)
     initInfo.mWindowIcon = IDI_BOIDBOX;
 
     instance->winHandle = DGL_System_Init(&initInfo);
+    AudioInit();
 
     if (instance->winHandle == NULL)
         throw(Engine::NullWindowHandle);
@@ -73,6 +76,7 @@ PlatformSystem::~PlatformSystem()
 {
     if (instance)
         delete instance;
+    AudioCleanup();
 }
 
 LRESULT CALLBACK PlatformSystemCallback(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)

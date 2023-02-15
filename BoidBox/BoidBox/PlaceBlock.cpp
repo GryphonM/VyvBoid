@@ -54,8 +54,8 @@ PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, 
 			if (place->sprite && place->source)
 			{
 				LoadSpriteSourceTexture(place->source, 1, 1, file);
-				SpriteSetSource(place->sprite, place->source);
 				SpriteSetMesh(place->sprite, place->mesh);
+				SpriteSetSource(place->sprite, place->source);
 			}
 		}
 		if (place->mesh)
@@ -145,7 +145,7 @@ void DrawPlacedBlocks(PlaceBlock* place)
 		
 		for (int k = 0; k < place->BlocksPlaced; k++)
 		{
-			RenderMesh(place->mesh, ObjectGetTransform(place->objectList[k]));
+			RenderSprite(place->sprite, ObjectGetTransform(place->objectList[k]));
 		}
 	}
 	else
