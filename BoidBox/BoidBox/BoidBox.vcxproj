@@ -230,6 +230,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClCompile Include="SoundTest.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSource.cpp" />
+    <ClCompile Include="Stream.cpp" />
     <ClCompile Include="StubScene.cpp" />
     <ClCompile Include="TayLeeDebug.cpp" />
     <ClCompile Include="Transform.cpp" />

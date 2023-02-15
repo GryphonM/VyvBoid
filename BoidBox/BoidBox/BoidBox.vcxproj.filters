@@ -278,6 +278,9 @@
     <ClCompile Include="StubScene.cpp">
       <Filter>Source Files\Engine\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Stream.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="BoidBox.rc">
