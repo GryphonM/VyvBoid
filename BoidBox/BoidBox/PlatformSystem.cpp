@@ -17,6 +17,7 @@ PlatformSystem* PlatformSystem::instance = new PlatformSystem();
 
 Engine::ErrorCode PlatformSystem::Init()
 {
+    AudioInit();
     return Engine::NothingBad;
 }
 
@@ -34,6 +35,7 @@ void PlatformSystem::Render() { }
 
 Engine::ErrorCode PlatformSystem::Close()
 {
+    AudioCleanup();
     return Engine::NothingBad;
 }
 
@@ -53,7 +55,6 @@ PlatformSystem* PlatformSystem::GetInstance(HINSTANCE hInstance, bool show)
     initInfo.mWindowIcon = IDI_BOIDBOX;
 
     instance->winHandle = DGL_System_Init(&initInfo);
-    AudioInit();
 
     if (instance->winHandle == NULL)
         throw(Engine::NullWindowHandle);
@@ -76,7 +77,6 @@ PlatformSystem::~PlatformSystem()
 {
     if (instance)
         delete instance;
-    AudioCleanup();
 }
 
 LRESULT CALLBACK PlatformSystemCallback(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
