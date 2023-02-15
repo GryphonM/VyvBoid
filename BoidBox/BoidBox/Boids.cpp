@@ -48,6 +48,7 @@ struct BoidList
     DGL_Color boidColor;
     Mesh* boidMesh;
     Boid* boidsList[BOIDNUMBER];
+    Transform* trans;
 };
 
 
@@ -180,6 +181,7 @@ BoidList* CreateBoidlist()
 {
     BoidList* newBoidList = new BoidList;
 
+    newBoidList->trans = CreateTransform();
     newBoidList->CohesionWeight = 1;
     newBoidList->AlignmentWeight = 3;
     newBoidList->SeparationWeight = 3;
@@ -191,7 +193,7 @@ BoidList* CreateBoidlist()
     newBoidList->SeparateRange = 150;
     newBoidList->AlignmentSmoothVal = .01f;
     newBoidList->boidColor = { 0.5f, 0.25f, 1.0f, 1.0f };
-    newBoidList->boidMesh = SquareMesh(.5f, .5f, 0.f, 0.f, "Boid", newBoidList->boidColor);
+    newBoidList->boidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 1.0f, 1.0f, 0.0f, 1.0f });;
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
@@ -209,6 +211,7 @@ void UpdateBoidlistParamaters(BoidList* list, std::string filename = "\n")
 
 void DestroyBoidList(BoidList* list)
 {
+    DeleteTransform(&list->trans);
     DestroyBoids(list);
     delete list;
 }
@@ -230,21 +233,19 @@ void CheckBoidCollisions(BoidList* list)
 
 void RenderBoids(BoidList* list)
 {
-    Transform* trans = CreateTransform();
     Vector2D scale = Vector2D(10.0f, 10.0f);
-    TransformSetScale(trans, scale);
+    TransformSetScale(list->trans, scale);
     for (int i = 0; i < BOIDNUMBER; i++)
     {
         if (list->boidsList[i] != NULL)
         {
             if (list->boidsList[i]->isDead == false)
             {
-                TransformSetPosition(trans, list->boidsList[i]->position);
-                RenderMesh(list->boidMesh, trans);
+                TransformSetPosition(list->trans, list->boidsList[i]->position);
+                RenderMesh(list->boidMesh, list->trans);
             }
         }
     }
-    DeleteTransform(&trans);
 }
 
 void RunBoids(BoidList* list, float dt)

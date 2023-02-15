@@ -41,8 +41,9 @@ Scene* TylerGetInstance() { return &level.base; }
 Engine::ErrorCode TylerLoad(void)
 {
 	level.boidList = CreateBoidlist();
-
 	AddBoidToList(level.boidList, Vector2D(30, 30));
+
+	/*
 	AddBoidToList(level.boidList, Vector2D(50, 70));
 	AddBoidToList(level.boidList, Vector2D(30, 60));
 	AddBoidToList(level.boidList, Vector2D(30, 60));
@@ -52,6 +53,7 @@ Engine::ErrorCode TylerLoad(void)
 	AddBoidToList(level.boidList, Vector2D(30, 60));
 	AddBoidToList(level.boidList, Vector2D(30, 60));
 	AddBoidToList(level.boidList, Vector2D(30, 60));
+	*/
 	return Engine::NothingBad;
 }
 

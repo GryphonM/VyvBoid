@@ -24,11 +24,12 @@ struct Boid;
 //stuct goes here
 #endif
 
-
-#endif
 void RenderBoids(BoidList* list);
 void RunBoids(BoidList* list, float dt);
 void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D());
 void DestroyBoidList(BoidList* list);
-BoidList* CreateBoidlist(std::string filename = "\n");
+BoidList* CreateBoidlist();
 void UpdateBoidlistParamaters(BoidList* list, std::string filename = "\n");
+
+#endif
+
