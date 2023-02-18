@@ -20,7 +20,7 @@
 #include "Math.h"
 #include <string>
 
-#define BOIDNUMBER 40
+#define BOIDNUMBER 2000000
 
 struct Boid
 {
@@ -157,8 +157,8 @@ Boid* CreateBoid(BoidList* list, Vector2D posToSpawn = *new Vector2D)
     newBoid->isDead = false;
     newBoid->position.X(posToSpawn.X());
     newBoid->position.Y(posToSpawn.Y());
-    newBoid->velocity.X(list->maxSpeed);
-    newBoid->velocity.Y(list->maxSpeed);
+    newBoid->velocity.X(300);
+    newBoid->velocity.Y(0);
     newBoid->previousVelocity.X(1);
     newBoid->previousVelocity.Y(1);
     newBoid->rotation = 0;
