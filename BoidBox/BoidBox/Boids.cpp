@@ -46,7 +46,7 @@ struct BoidList
     float SeparateRange;
     float AlignmentSmoothVal;
     DGL_Color boidColor;
-    Mesh* boidMesh;
+    Sprite* boidSprite;
     Boid* boidsList[BOIDNUMBER];
     Transform* trans;
 };
@@ -193,7 +193,8 @@ BoidList* CreateBoidlist()
     newBoidList->SeparateRange = 150;
     newBoidList->AlignmentSmoothVal = .01f;
     newBoidList->boidColor = { 0.5f, 0.25f, 1.0f, 1.0f };
-    newBoidList->boidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 1.0f, 1.0f, 0.0f, 1.0f });;
+    newBoidList->boidSprite = CreateSprite();
+    SpriteSetMesh(newBoidList->boidSprite, SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "AHHHHH", { 0.99f, 0.73f, .01f, 1.0f }));
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
@@ -210,7 +211,8 @@ void UpdateBoidlistParamaters(BoidList* list, std::string filename = "\n")
 }
 
 void DestroyBoidList(BoidList* list)
-{
+{   
+    FreeSprite(&list->boidSprite);
     DeleteTransform(&list->trans);
     DestroyBoids(list);
     delete list;
@@ -240,7 +242,7 @@ void RenderBoids(BoidList* list)
             if (list->boidsList[i]->isDead == false)
             {
                 TransformSetPosition(list->trans, list->boidsList[i]->position);
-                RenderMesh(list->boidMesh, list->trans);
+                RenderSprite(list->boidSprite, list->trans);
             }
         }
     }
