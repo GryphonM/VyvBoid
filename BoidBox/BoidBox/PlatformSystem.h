@@ -26,12 +26,16 @@ public:
 	static PlatformSystem* GetInstance(HINSTANCE, bool);
 	static PlatformSystem* GetInstance();
 	void ChangeTitle(const char* = DefaultName);
+	int GetHeight();
+	int GetWidth();
 private:
 	PlatformSystem();
 	~PlatformSystem();
 
 	static PlatformSystem* instance;
 
+	int windowHeight;
+	int windowWidth;
 	HWND winHandle;
 };
 

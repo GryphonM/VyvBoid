@@ -48,8 +48,8 @@ PlatformSystem* PlatformSystem::GetInstance(HINSTANCE hInstance, bool show)
     initInfo.mShow = show;
     initInfo.mWindowStyle = WS_OVERLAPPEDWINDOW;
     initInfo.mWindowTitle = DefaultName;
-    initInfo.mWindowHeight = 768;
-    initInfo.mWindowWidth = 1024;
+    initInfo.mWindowHeight = instance->windowHeight;
+    initInfo.mWindowWidth = instance->windowWidth;
     initInfo.mCreateConsole = false;
     initInfo.pWindowsCallback = PlatformSystemCallback;
     initInfo.mWindowIcon = IDI_BOIDBOX;
@@ -72,7 +72,10 @@ void PlatformSystem::ChangeTitle(const char* title)
     SetWindowTextA(winHandle, title);
 }
 
-PlatformSystem::PlatformSystem() : BaseSystem("PlatformSystem"), winHandle(NULL) {}
+int PlatformSystem::GetHeight() { return windowHeight; }
+int PlatformSystem::GetWidth() { return windowWidth; }
+
+PlatformSystem::PlatformSystem() : BaseSystem("PlatformSystem"), windowHeight(768), windowWidth(1024), winHandle(NULL) {}
 PlatformSystem::~PlatformSystem() 
 {
     if (instance)
