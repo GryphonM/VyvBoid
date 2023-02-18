@@ -35,13 +35,13 @@ Mesh* SquareMesh(float halfX, float halfY, float UOffset, float VOffset, const c
 
 		DGL_Graphics_StartMesh();
 
-		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &color, Vector2D(0.0f, 0.0f),
-			Vector2D(halfX, halfY), &color, Vector2D(UOffset, VOffset),
-			Vector2D(halfX, -halfY), &color, Vector2D(UOffset, 0.0f));
+		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &color, Vector2D(0.0f, VOffset),
+			Vector2D(halfX, halfY), &color, Vector2D(UOffset, 0.0f),
+			Vector2D(halfX, -halfY), &color, Vector2D(UOffset, VOffset));
 
-		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &color, Vector2D(0.0f, 0.0f),
-			Vector2D(-halfX, halfY), &color, Vector2D(0.0f, VOffset),
-			Vector2D(halfX, halfY), &color, Vector2D(UOffset, VOffset));
+		DGL_Graphics_AddTriangle(Vector2D(-halfX, -halfY), &color, Vector2D(0.0f, VOffset),
+			Vector2D(-halfX, halfY), &color, Vector2D(0.0f, 0.0f),
+			Vector2D(halfX, halfY), &color, Vector2D(UOffset, 0.0f));
 
 		mesh->source = DGL_Graphics_EndMesh();
 
