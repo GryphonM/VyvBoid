@@ -80,6 +80,7 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 	DGL_Graphics_SetCB_Alpha(sprite->alpha);
 	//DGL_Graphics_SetCB_TintColor(&meshColor);
 	RenderMesh(sprite->mesh);
+	DGL_Graphics_SetTexture(NULL);
 }
 
 float SpriteGetAlpha(const Sprite* sprite)

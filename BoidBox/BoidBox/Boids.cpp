@@ -181,7 +181,7 @@ BoidList* CreateBoidlist()
 {
     BoidList* newBoidList = new BoidList;
 
-    newBoidList->trans = CreateTransform();
+    newBoidList->trans = CreateTransform(Vector2D(0,0), Vector2D(10, 10));
     newBoidList->CohesionWeight = 1;
     newBoidList->AlignmentWeight = 3;
     newBoidList->SeparationWeight = 3;
@@ -233,8 +233,6 @@ void CheckBoidCollisions(BoidList* list)
 
 void RenderBoids(BoidList* list)
 {
-    Vector2D scale = Vector2D(10.0f, 10.0f);
-    TransformSetScale(list->trans, scale);
     for (int i = 0; i < BOIDNUMBER; i++)
     {
         if (list->boidsList[i] != NULL)
