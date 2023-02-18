@@ -69,11 +69,11 @@ unsigned GetFrameCount(const SpriteSource* source)
 	}
 }
 
-void SpriteSourceGetUV(const SpriteSource* source, int frameIndex, Vector2D(vec))
+void SpriteSourceGetUV(const SpriteSource* source, int frameIndex, Vector2D *UV)
 {
 	// mmm hopefully this math checks out otherwise im gonna lose my mind lmao
-	vec.X((1.0f / source->Cols) * (frameIndex % source->Cols));
-	vec.Y((1.0f / source->rows) * (frameIndex / source->Cols));
+	UV->X((1.0f / source->Cols) * (frameIndex % source->Cols));
+	UV->Y((1.0f / source->rows) * (frameIndex / source->Cols));
 }
 
 void SpriteSourceSetTexture(const SpriteSource* source)
@@ -84,6 +84,6 @@ void SpriteSourceSetTexture(const SpriteSource* source)
 void SpriteSourceSetUV(const SpriteSource* source, int frameIndex)
 {
 	Vector2D(UV);
-	SpriteSourceGetUV(source, frameIndex, UV);
+	SpriteSourceGetUV(source, frameIndex, &UV);
 	DGL_Graphics_SetCB_TextureOffset(UV);
 }

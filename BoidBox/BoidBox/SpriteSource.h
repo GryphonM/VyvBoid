@@ -35,7 +35,7 @@ void LoadSpriteSourceTexture(SpriteSource* spriteSource, int Cols, int rows, con
 
 unsigned GetFrameCount(const SpriteSource* spriteSource);
 
-void SpriteSourceGetUV(const SpriteSource* spriteSource, int frameIndex, Vector2D(vec));
+void SpriteSourceGetUV(const SpriteSource* spriteSource, int frameIndex, Vector2D *UV);
 
 void SpriteSourceSetTexture(const SpriteSource* spriteSource);
 

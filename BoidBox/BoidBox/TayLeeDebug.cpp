@@ -8,7 +8,12 @@
 //
 //------------------------------------------------------------------------------
 
+#include <vector>
 #include "TayLeeDebug.h"
+#include "Hunters.h"
+#include "Mesh.h"
+#include "Sprite.h"
+#include "SpriteSource.h"
 #include "Scene.h"
 #include "SceneSystem.h"
 
@@ -17,9 +22,14 @@ struct TayLeeDebug
 	Scene base;
 
 	// Other Fings
+	//Mesh* testMesh;
+	Sprite* OpenSprite;
+	Hunters* hunter;
 
-	TayLeeDebug(Scene _base) : base(_base)
+	TayLeeDebug(Scene _base) : base(_base), OpenSprite(NULL)
 	{
+		OpenSprite = CreateSprite();
+		FreeSprite(&OpenSprite);
 	}
 };
 
@@ -36,11 +46,14 @@ Scene* TayLeeGetInstance() { return &instance.base; }
 
 Engine::ErrorCode TayLeeLoad(void)
 {
+	//instance.testMesh = NULL;
+	instance.hunter = HunterCreate();
 	return Engine::NothingBad;
 }
 
 Engine::ErrorCode TayLeeInit(void)
 {
+	InitCrosshair(instance.hunter);
 	return Engine::NothingBad;
 }
 
@@ -52,6 +65,8 @@ void TayLeeUpdate(float dt)
 
 void TayLeeRender(void)
 {
+	//RenderMesh(instance.testMesh);
+	DrawCrosshair(instance.hunter);
 }
 
 Engine::ErrorCode TayLeeExit(void)
@@ -61,5 +76,7 @@ Engine::ErrorCode TayLeeExit(void)
 
 Engine::ErrorCode TayLeeUnload(void)
 {
+	FreeHunters(&instance.hunter);
+	//freeMesh(&instance.testMesh);
 	return Engine::NothingBad;
 }

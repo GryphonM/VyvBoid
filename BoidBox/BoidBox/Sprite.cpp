@@ -7,12 +7,16 @@
 //
 //------------------------------------------------------------------------------
 #include "Sprite.h"
+
 #include "SpriteSource.h"
 #include "Mesh.h"
 #include "Vector2D.h"
 #include "Transform.h"
 #include "SpriteSource.h"
 #include "DGL.h"
+
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 struct Sprite
 {
@@ -56,6 +60,9 @@ void FreeSprite(Sprite** sprite)
 void RenderSprite(const Sprite* sprite, Transform* transform)
 { 
 	// props to anyone who DOESNT rip this from 230 tbh
+	float angle = TransformGetRotation(transform);
+	angle = (angle * (float)M_PI / 180.0f);
+	TransformSetRotation(transform, angle);
 
 	if (sprite->source)
 	{
@@ -69,10 +76,10 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 		DGL_Graphics_SetTexture(NULL);
 	}
 
-	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), TransformGetRotation(transform));
+	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), angle);
 	DGL_Graphics_SetCB_Alpha(sprite->alpha);
 	//DGL_Graphics_SetCB_TintColor(&meshColor);
-	RenderMesh(sprite->mesh, transform);
+	RenderMesh(sprite->mesh);
 }
 
 float SpriteGetAlpha(const Sprite* sprite)
