@@ -41,7 +41,7 @@ Scene* TylerGetInstance() { return &level.base; }
 Engine::ErrorCode TylerLoad(void)
 {
 	level.boidList = CreateBoidlist();
-	for (int i = 0; i < 40000; i++)
+	for (int i = 0; i < 40; i++)
 	{
 		AddBoidToList(level.boidList, Vector2D(0, 0));
 	}
