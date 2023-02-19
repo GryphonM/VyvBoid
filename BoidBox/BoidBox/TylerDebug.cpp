@@ -41,7 +41,7 @@ Scene* TylerGetInstance() { return &level.base; }
 Engine::ErrorCode TylerLoad(void)
 {
 	level.boidList = CreateBoidlist();
-	UpdateBoidlistParamaters(level.boidList, "Assets/BoidSettings.txt");
+	UpdateBoidlistParamaters(level.boidList, "Data/BoidSettings.txt");
 	for (int i = 0; i < 1000; i++)
 	{
 		AddBoidToList(level.boidList, Vector2D(10, 8));
@@ -80,7 +80,7 @@ Engine::ErrorCode TylerLoad(void)
 
 Engine::ErrorCode TylerInit(void)
 {
-	UpdateBoidlistParamaters(level.boidList, "Assets/BoidSettings.txt");
+	UpdateBoidlistParamaters(level.boidList, "Data/BoidSettings.txt");
 	return Engine::NothingBad;
 }
 
@@ -88,7 +88,7 @@ void TylerUpdate(float dt)
 { 
 	if (DGL_Input_KeyTriggered('D'))
 	{
-		UpdateBoidlistParamaters(level.boidList, "Assets/BoidSettings.txt");
+		UpdateBoidlistParamaters(level.boidList, "Data/BoidSettings.txt");
 	}
 	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
