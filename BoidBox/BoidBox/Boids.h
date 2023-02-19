@@ -28,8 +28,9 @@ void RenderBoids(BoidList* list);
 void RunBoids(BoidList* list, float dt);
 void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D());
 void DestroyBoidList(BoidList* list);
+void AddAvoidToList(BoidList* list, Vector2D posToSpawn = Vector2D());
 BoidList* CreateBoidlist();
-void UpdateBoidlistParamaters(BoidList* list, std::string filename = "\n");
-
+void UpdateBoidlistParamaters(BoidList* list, std::string filename);
+void RenderAvoids(BoidList* list);
 #endif
 
