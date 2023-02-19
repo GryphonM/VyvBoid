@@ -64,3 +64,5 @@ bool TextStream::ReadBool(bool isAlpha)
         file >> std::noboolalpha >> val;
     return val;
 }
+
+bool TextStream::EndOfFile() { return file.eof(); }

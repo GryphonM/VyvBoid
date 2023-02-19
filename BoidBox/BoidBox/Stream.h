@@ -25,6 +25,7 @@ public:
 	int ReadInt();
 	float ReadFloat();
 	bool ReadBool(bool isAlpha = false);
+	bool EndOfFile();
 private:
 	std::ifstream file;
 };
