@@ -25,6 +25,10 @@ struct PlaceBlock
 	int maxBlocks;
 	Vector2D offScreen;
 	
+	Vector2D offset;
+
+	DGL_Color color;
+
 	Sprite* sprite;
 	SpriteSource* source;
 
@@ -37,14 +41,15 @@ struct PlaceBlock
 PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name, const char* file)
 { 
 	PlaceBlock* place = new PlaceBlock;
-	DGL_Color color = { 1.0f, 1.0f, 1.0f, 1.0f };
+	place->color = { 1.0f, 1.0f, 1.0f, 1.0f };
 	if (place)
 	{
+		place->offset = (xHalfSize, yHalfSize);
 		place->sound = false;
 		place->BlocksPlaced = 0;
 		place->maxBlocks = max_blocks;
 		place->offScreen = (Vector2D)OFFSCREEN;
-		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name, color);
+		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name, place->color);
 		place->source = NULL;
 		place->sprite = NULL;
 		if (file != "none")
@@ -90,10 +95,15 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 		{
 			for (int i = 0; i < place->objectList.Size(); i++)
 			{
-				Vector2D position = TransformGetPosition(ObjectGetTransform(place->objectList[i]));
-				if ((mish.X() <= position.X() + 10.0f) && (mish.X() >= position.X() - 10.0f)
-					&& (mish.Y() <= position.Y() + 25.0f) && (mish.Y() >= position.Y() - 25.0f))
+				Transform* transform = ObjectGetTransform(place->objectList[i]);
+				Vector2D position = TransformGetPosition(transform);
+				Vector2D scale = TransformGetScale(transform);
+				if ((mish.X() <= (position.X() + (sqrtf(scale.Y()) * 2.2f)))
+				&& (mish.X() >= (position.X() - (sqrtf(scale.Y()) * 2.2f)))
+				&& (mish.Y() <= (position.Y() + (sqrtf(scale.X()) * 2.2f)))
+				&& (mish.Y() >= (position.Y() - (sqrtf(scale.X()) * 2.2f))))
 				{
+					place->color = { 0.0, 0.5, 0.5, 1.0 };
 					ObjectListRemove(&place->objectList, place->objectList[i]);
 					place->BlocksPlaced--;
 					if (sound)

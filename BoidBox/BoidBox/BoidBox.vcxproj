@@ -181,6 +181,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClInclude Include="Engine.h" />
     <ClInclude Include="BasicObstacles.h" />
     <ClInclude Include="GryphonDebug.h" />
+    <ClInclude Include="Trace.h" />
     <ClInclude Include="MichaelDebug.h" />
     <ClInclude Include="OpenScene.h" />
     <ClInclude Include="PlatformSystem.h" />
@@ -228,6 +229,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="BasicObstacles.cpp" />
     <ClCompile Include="SoundTest.cpp" />
+    <ClCompile Include="Trace.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteSource.cpp" />
     <ClCompile Include="Stream.cpp" />

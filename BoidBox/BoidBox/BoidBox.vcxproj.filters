@@ -192,6 +192,9 @@
     <ClInclude Include="StubScene.h">
       <Filter>Header Files\Engine\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Trace.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -279,6 +282,9 @@
       <Filter>Source Files\Engine\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Stream.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Trace.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
   </ItemGroup>
