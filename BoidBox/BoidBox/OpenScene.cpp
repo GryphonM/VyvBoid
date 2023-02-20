@@ -15,6 +15,7 @@
 #include "Sprite.h"
 #include "SpriteSource.h"
 #include "Mesh.h"
+#include "SoundSystem.h"
 
 struct OpenScene
 {
@@ -22,6 +23,8 @@ struct OpenScene
 
 	// Other Fings
 	Sprite* OpenSprite;
+
+	Sound* scare;
 
 	// Constructor (Actually used this time)
 	OpenScene(Scene _base) : base(_base), OpenSprite(NULL)
@@ -54,11 +57,15 @@ Engine::ErrorCode OpenSceneLoad(void)
 	instance.OpenSprite = CreateSprite();
 	SpriteSetMesh(instance.OpenSprite, squareMesh);
 	SpriteSetSource(instance.OpenSprite, source);
+	
+	instance.scare = SoundCreate("scare", "./Assets/cloaker.ogg");
+	
 	return Engine::NothingBad;
 }
 
 Engine::ErrorCode OpenSceneInit(void)
 {
+	PlaySound(instance.scare);
 	SpriteSetFrame(instance.OpenSprite, 0);
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	return Engine::NothingBad;
@@ -78,6 +85,7 @@ void OpenSceneRender(void)
 
 Engine::ErrorCode OpenSceneExit(void)
 {
+	SoundCleanup(instance.scare);
 	return Engine::NothingBad;
 }
 
