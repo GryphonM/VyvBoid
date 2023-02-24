@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 #include "Math.h"
+#include <math.h>
 
 #ifndef MATH_CPP
 #define MATH_CPP
@@ -28,6 +29,5 @@ T Lerp(const T& start, const T& end, float interpolation)
 	Clamp(interpolation, 0.0f, 1.0f);
 	return start + ((end - start) * interpolation);
 }
-
 #endif // !MATH_CPP
 

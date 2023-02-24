@@ -51,18 +51,13 @@ Hunters* HunterCreate(void);
 
 void FreeHunters(Hunters** hunter);
 
-Hunters* InitCrosshair(Hunters* hunter, float width = 2.0f, float height = 4.0f, float radius = 30.0f);
+Hunters* InitCrosshair(Hunters* hunter, float width = 2.0f, float height = 4.0f, float radius = 30.0f, Vector2D trans = { 0, 0 });
 
 void AddHunterSprite(Hunters* hunter, Sprite* sprite);
-
-void AddHunterTrans1(Hunters* hunter, Transform* transform);
-void AddHunterTrans2(Hunters* hunter, Transform* transform);
-void AddHunterTrans3(Hunters* hunter, Transform* transform);
+void AddHunterTrans(Hunters* hunter, Transform* transform);
 
 Sprite* GetHunterSprite(const Hunters* hunter);
-Transform* GetHunterTransform1(const Hunters* hunter);
-Transform* GetHunterTransform2(const Hunters* hunter);
-Transform* GetHunterTransform3(const Hunters* hunter);
+Transform* GetHunterTransform(const Hunters* hunter);
 
 void DrawCrosshair(Hunters* hunter);
 

@@ -88,16 +88,16 @@
     <Filter Include="Header Files\Engine\Scenes\Game Scenes">
       <UniqueIdentifier>{3ad11392-879d-4610-aabc-dc2dd46564bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Generic Systems">
+    <Filter Include="Source Files\Helper\Generic Systems">
       <UniqueIdentifier>{df75e2bd-1585-449a-ab0e-64dc779d7ce0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Generic Systems\SoundSystems">
+    <Filter Include="Source Files\Helper\Generic Systems\SoundSystems">
       <UniqueIdentifier>{9d21d3a7-71e1-4782-b0db-d77196a114d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Generic Systems\Positions">
+    <Filter Include="Source Files\Helper\Generic Systems\Positions">
       <UniqueIdentifier>{ef8c5ec3-04f7-4210-9440-f0b4dd9f5027}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Generic Systems\Graphics">
+    <Filter Include="Source Files\Helper\Generic Systems\Graphics">
       <UniqueIdentifier>{e5144546-f22e-48e8-8478-84ca7a87a8f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -195,25 +195,28 @@
     <ClInclude Include="Trace.h">
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
+    <ClInclude Include="ActionList.h">
+      <Filter>Header Files\Helper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Transform.cpp">
-      <Filter>Source Files\Generic Systems\Positions</Filter>
+      <Filter>Source Files\Helper\Generic Systems\Positions</Filter>
     </ClCompile>
     <ClCompile Include="Vector2D.cpp">
-      <Filter>Source Files\Generic Systems\Positions</Filter>
+      <Filter>Source Files\Helper\Generic Systems\Positions</Filter>
     </ClCompile>
     <ClCompile Include="Hunters.cpp">
       <Filter>Source Files\Game Systems\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Source Files\Generic Systems\Graphics</Filter>
+      <Filter>Source Files\Helper\Generic Systems\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="SoundSystem.cpp">
-      <Filter>Source Files\Generic Systems\SoundSystems</Filter>
+      <Filter>Source Files\Helper\Generic Systems\SoundSystems</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Source Files\Engine</Filter>
@@ -222,10 +225,10 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Generic Systems\Graphics</Filter>
+      <Filter>Source Files\Helper\Generic Systems\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="SpriteSource.cpp">
-      <Filter>Source Files\Generic Systems\Graphics</Filter>
+      <Filter>Source Files\Helper\Generic Systems\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="PlaceBlock.cpp">
       <Filter>Source Files\Game Systems\Placement</Filter>
@@ -285,6 +288,9 @@
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
     <ClCompile Include="Trace.cpp">
+      <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="ActionList.cpp">
       <Filter>Source Files\Helper</Filter>
     </ClCompile>
   </ItemGroup>

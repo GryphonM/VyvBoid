@@ -175,6 +175,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ActionList.h" />
     <ClInclude Include="BaseSystem.h" />
     <ClInclude Include="Boids.h" />
     <ClInclude Include="BoidTest.h" />
@@ -208,6 +209,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ActionList.cpp" />
     <ClCompile Include="BaseSystem.cpp" />
     <ClCompile Include="Boids.cpp" />
     <ClCompile Include="BoidTest.cpp" />
