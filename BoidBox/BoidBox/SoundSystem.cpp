@@ -81,6 +81,15 @@ void AudioUpdate(void)
     result = FMOD_System_Update(soundSystem);
     ERRCHECK(result);
 }
+
+
+void ChangeVolume(Sound* sound, float volume)
+{
+    //FMOD_Channel_Stop(sound->channel);
+    //FMOD_Channel_SetChannelGroup();
+    //FMOD_System_PlaySound()
+    result = FMOD_Channel_SetVolume(sound->channel, volume);
+}
 void SoundCleanup(Sound* sound)
 {
     // Release all sounds that have been created

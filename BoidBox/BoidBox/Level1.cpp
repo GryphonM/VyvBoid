@@ -24,7 +24,7 @@ struct Level1
 	Mesh* testMesh;
 	Hunters* hunter;
 	PlaceBlock* place;
-	Obstacles* obstacles;
+	Tower* tower;
 	Sound* sound;
 	// Here to shut up warning about uninitialized variable
 	// Use LevelCreate instead
@@ -38,15 +38,15 @@ Level1* Level1Create(std::string name)
 	level->state = Place;
 	level->testMesh = NULL;
 	level->sound = NULL;
-	level->obstacles = CreateObstacles(5.0f, 10.0f, 1.0f, 1.0f, "obstacles");
+	level->tower = CreateTower("obstacles");
 	level->hunter = HunterCreate();
-	level->place = CreatePlaceBlocks(5, .5f, .5f, 1.0f, 1.0f, "blocks", "none");
+	level->place = CreatePlaceBlocks("blocks");
 	return level;
 }
 
 void DeleteLevel(Level1* level)
 {
-	DestroyObstacles(&level->obstacles);
+	//DestroyObstacles(&level->tower);
 	DestroyPlaceBlocks(&level->place);
  	FreeHunters(&level->hunter);
 	freeMesh(&level->testMesh);
@@ -80,7 +80,7 @@ void LevelUpdate(Level1* level, float dt)
 
 void LevelDraw(Level1* level)
 {
-	DrawObstacles(level->obstacles);
+	//DrawObstacles(&level->obstacles);
 	DrawPlacedBlocks(level->place);
 	RenderMesh(level->testMesh);
 	DrawCrosshair(level->hunter);

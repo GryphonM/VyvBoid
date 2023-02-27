@@ -25,7 +25,7 @@ typedef struct PlaceBlock
 };
 #endif
 
-PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name, const char* file);
+PlaceBlock* CreatePlaceBlocks(const char* name, const char* file = "none", int max_blocks = 10);
 void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound);
 int GetNumberOfPlacedBlocks(PlaceBlock* place);
 //Vector2D* GetPlacedBlocksTransform(PlaceBlock* place, int location);

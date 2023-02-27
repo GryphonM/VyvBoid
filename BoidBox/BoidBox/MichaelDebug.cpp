@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "SceneSystem.h"
 #include "PlaceBlock.h"
+#include "BasicObstacles.h"
 #include "SoundSystem.h"
 #include "Trace.h"
 
@@ -23,6 +24,10 @@ struct MichaelDebug
 	// Other Fings
 	Sound* placeSound;
 	Sound* jumpScare;
+	
+	Obstacles* obstacle;
+	Tower* tower;
+	Gas* gas;
 	
 	Trace trace;
 
@@ -49,6 +54,13 @@ Scene* MichaelGetInstance() { return &instance.base; }
 
 Engine::ErrorCode MichaelLoad(void)
 {
+	instance.obstacle = CreateObstacles("obstacleContainer");
+	instance.tower = CreateTower("tower");
+	instance.gas = CreateGas("gas");
+	AddTower(instance.obstacle, instance.tower);
+	AddGas(instance.obstacle, instance.gas);
+
+	instance.place = CreatePlaceBlocks("block");
 
 	return Engine::NothingBad;
 }
@@ -57,7 +69,6 @@ Engine::ErrorCode MichaelInit(void)
 {
 	instance.placeSound = SoundCreate("test", "./Assets/place.mp3");
 	instance.jumpScare = SoundCreate("scare", "./Assets/cloaker.ogg");
-	instance.place = CreatePlaceBlocks(10, 0.5f, 0.5f, 1.0f, 1.0f, "block", "./Assets/catholicMario.jpg");
 	return Engine::NothingBad;
 }
 
@@ -66,8 +77,9 @@ void MichaelUpdate(float dt)
 	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
 	
-
+	UpdateGasPosition(instance.gas, -300.0f, 300.0f, dt);
 	instance.trace.TraceMessage("played");
+	ChangeVolume(instance.jumpScare,  0.0f);
 	UpdatePlaceBlocks(instance.place, instance.placeSound);
 	if (DGL_Input_KeyTriggered('C'))
 	{
@@ -77,6 +89,7 @@ void MichaelUpdate(float dt)
 
 void MichaelRender(void)
 {
+	DrawObstacles(instance.obstacle);
 	DrawPlacedBlocks(instance.place);
 }
 
@@ -89,6 +102,7 @@ Engine::ErrorCode MichaelExit(void)
 
 Engine::ErrorCode MichaelUnload(void)
 {
+	DestroyObstacles(&instance.obstacle);
 	DestroyPlaceBlocks(&instance.place);
 	return Engine::NothingBad;
 }

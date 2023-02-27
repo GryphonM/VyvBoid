@@ -38,6 +38,7 @@ Sound* SoundCreate(const char* soundName, const char* filePath);
 void AudioInit(void);
 void AudioUpdate(void);
 void SoundCleanup(Sound* sound);
+void ChangeVolume(Sound* sound, float volume);
 void AudioCleanup(void);
 void PlaySound(Sound* sound);
 
