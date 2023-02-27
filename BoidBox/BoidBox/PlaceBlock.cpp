@@ -38,34 +38,45 @@ struct PlaceBlock
 	bool sound;
 };
 
-PlaceBlock* CreatePlaceBlocks(int max_blocks, float xHalfSize, float yHalfSize, float uSize, float vSize, const char* name, const char* file)
+PlaceBlock* CreatePlaceBlocks(const char* name, const char* file, int max_blocks)
 { 
 	PlaceBlock* place = new PlaceBlock;
-	place->color = { 1.0f, 1.0f, 1.0f, 1.0f };
+
 	if (place)
 	{
-		place->offset = (xHalfSize, yHalfSize);
 		place->sound = false;
 		place->BlocksPlaced = 0;
 		place->maxBlocks = max_blocks;
 		place->offScreen = (Vector2D)OFFSCREEN;
-		place->mesh = SquareMesh(xHalfSize, yHalfSize, uSize, vSize, name, place->color);
 		place->source = NULL;
 		place->sprite = NULL;
-		if (file != "none")
+		if (file == "none")
 		{
+			place->color = { 1.0f, 1.0f, 1.0f, 1.0f };
 			place->sprite = CreateSprite();
-			place->source = CreateSpriteSource();
-			if (place->sprite && place->source)
+			place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
+			SpriteSetMesh(place->sprite, place->mesh);
+			if (place->mesh)
 			{
-				LoadSpriteSourceTexture(place->source, 1, 1, file);
-				SpriteSetMesh(place->sprite, place->mesh);
-				SpriteSetSource(place->sprite, place->source);
+				return place;
 			}
 		}
-		if (place->mesh)
+		else
 		{
-			return place;
+			place->color = { 1.0f, 0.0f, 1.0f, 1.0f };
+			place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
+			if (place->mesh)
+			{
+				place->sprite = CreateSprite();
+				place->source = CreateSpriteSource();
+				if (place->sprite && place->source)
+				{
+					LoadSpriteSourceTexture(place->source, 1, 1, file);
+					SpriteSetMesh(place->sprite, place->mesh);
+					SpriteSetSource(place->sprite, place->source);
+					return place;
+				}
+			}
 		}
 		return NULL;
 	}
@@ -83,7 +94,7 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 		mish = DGL_Camera_ScreenCoordToWorld(mish);
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
-			place->objectList.PushFront(ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(30.0f, 30.0f))));
+			place->objectList.PushFront(ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(10, 10))));
 			place->BlocksPlaced++;
 			if (sound)
 			{
@@ -98,16 +109,18 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 				Transform* transform = ObjectGetTransform(place->objectList[i]);
 				Vector2D position = TransformGetPosition(transform);
 				Vector2D scale = TransformGetScale(transform);
-				if ((mish.X() <= (position.X() + (sqrtf(scale.Y()) * 2.2f)))
-				&& (mish.X() >= (position.X() - (sqrtf(scale.Y()) * 2.2f)))
-				&& (mish.Y() <= (position.Y() + (sqrtf(scale.X()) * 2.2f)))
-				&& (mish.Y() >= (position.Y() - (sqrtf(scale.X()) * 2.2f))))
+				if ((mish.X() <= (position.X() + (scale.X() / 2.0f)))
+				&& (mish.X() >= (position.X() - (scale.X() / 2.0f)))
+				&& (mish.Y() <= (position.Y() + (scale.Y() / 2.0f)))
+				&& (mish.Y() >= (position.Y() - (scale.Y() / 2.0f))))
 				{
-					place->color = { 0.0, 0.5, 0.5, 1.0 };
 					ObjectListRemove(&place->objectList, place->objectList[i]);
 					place->BlocksPlaced--;
 					if (sound)
+					{
+						ChangeVolume(sound, 10000.0f);
 						PlaySound(sound);
+					}
 					break;
 				}
 			}
@@ -160,10 +173,13 @@ void DrawPlacedBlocks(PlaceBlock* place)
 	}
 	else
 	{
-		DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
-		for (int k = 0; k < place->BlocksPlaced; k++)
+		if (place->mesh)
 		{
-			RenderMesh(place->mesh, ObjectGetTransform(place->objectList[k]));
+			DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
+			for (int k = 0; k < place->BlocksPlaced; k++)
+			{
+				RenderSprite(place->sprite, ObjectGetTransform(place->objectList[k]));
+			}
 		}
 	}
 }
