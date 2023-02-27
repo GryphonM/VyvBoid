@@ -28,6 +28,7 @@ struct TayLeeDebug
 	Hunters* hunter1;
 	Hunters* hunter2;
 	Hunters* hunter3;
+	Hunters* hunter4;
 
 	TayLeeDebug(Scene _base) : base(_base), OpenSprite(NULL)
 	{
@@ -53,6 +54,7 @@ Engine::ErrorCode TayLeeLoad(void)
 	instance.hunter1 = HunterCreate();
 	instance.hunter2 = HunterCreate();
 	instance.hunter3 = HunterCreate();
+	instance.hunter4 = HunterCreate();
 	return Engine::NothingBad;
 }
 
@@ -61,6 +63,7 @@ Engine::ErrorCode TayLeeInit(void)
 	InitCrosshair(instance.hunter1, 2.0, 4.0, 30.0, {0, -300});
 	InitCrosshair(instance.hunter2, 2.0, 4.0, 30.0, {-300, 300});
 	InitCrosshair(instance.hunter3, 2.0, 4.0, 30.0, {300, 300});
+	InitCrosshair(instance.hunter4, 2.0, 4.0, 30.0, {0, 200});
 	return Engine::NothingBad;
 }
 
@@ -76,6 +79,7 @@ void TayLeeRender(void)
 	DrawCrosshair(instance.hunter1);
 	DrawCrosshair(instance.hunter2);
 	DrawCrosshair(instance.hunter3);
+	DrawCrosshair(instance.hunter4);
 }
 
 Engine::ErrorCode TayLeeExit(void)
@@ -88,6 +92,7 @@ Engine::ErrorCode TayLeeUnload(void)
 	FreeHunters(&instance.hunter1);
 	FreeHunters(&instance.hunter2);
 	FreeHunters(&instance.hunter3);
+	FreeHunters(&instance.hunter4);
 	//freeMesh(&instance.testMesh);
 	return Engine::NothingBad;
 }
