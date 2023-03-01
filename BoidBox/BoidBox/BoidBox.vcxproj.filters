@@ -210,6 +210,9 @@
     <ClInclude Include="Goal.h">
       <Filter>Header Files\Game Systems\Obstacles</Filter>
     </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>Header Files\Engine\Scenes\Game Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="Goal.cpp">
       <Filter>Source Files\Game Systems\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>Source Files\Engine\Scenes\Game Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

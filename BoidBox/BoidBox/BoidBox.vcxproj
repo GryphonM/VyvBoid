@@ -207,6 +207,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TayLeeDebug.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Tutorial.h" />
     <ClInclude Include="TylerDebug.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
@@ -242,6 +243,7 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <ClCompile Include="StubScene.cpp" />
     <ClCompile Include="TayLeeDebug.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Tutorial.cpp" />
     <ClCompile Include="TylerDebug.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
