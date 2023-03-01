@@ -13,7 +13,6 @@
 #include "BoidTest.h"
 #include "SoundTest.h"
 #include "DGL.h"
-#include <iostream>
 
 Engine* Engine::instance = new Engine();
 
@@ -153,10 +152,7 @@ Engine::ErrorCode Engine::Shutdown()
 		systems[i]->Close();
 	}
 	if (DGL_System_Exit())
-	{
-		std::cerr << DGL_System_GetLastError() << std::endl;
 		throw SomethingBad;
-	}
 	else
 		return EngineExit;
 }
