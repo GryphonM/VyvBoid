@@ -50,7 +50,7 @@ void DeleteLevel(SoundTest* level)
 void LevelInit(SoundTest* level)
 {
 	// Put your funky level init things here
-	level->place = CreatePlaceBlocks("block");
+//	level->place = CreatePlaceBlocks("block");
 }
 
 std::string LevelGetName(SoundTest* level) { return level->name; }

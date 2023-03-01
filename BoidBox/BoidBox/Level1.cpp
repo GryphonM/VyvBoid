@@ -40,7 +40,7 @@ Level1* Level1Create(std::string name)
 	level->sound = NULL;
 	level->tower = CreateTower("obstacles");
 	level->hunter = HunterCreate();
-	level->place = CreatePlaceBlocks("blocks");
+//	level->place = CreatePlaceBlocks("blocks");
 	return level;
 }
 

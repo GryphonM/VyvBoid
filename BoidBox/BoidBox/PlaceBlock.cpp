@@ -16,6 +16,7 @@
 #include "SpriteSource.h"
 #include "Sprite.h"
 #include "SoundSystem.h"
+#include "Boids.h"
 
 #define OFFSCREEN (1000.0f, 1000.0f)
 
@@ -33,17 +34,24 @@ struct PlaceBlock
 	SpriteSource* source;
 
 	Mesh* mesh;
+	
+	int avoidCounter;
+
 	ObjectList objectList;
+
+	BoidList* boids;
 
 	bool sound;
 };
 
-PlaceBlock* CreatePlaceBlocks(const char* name, const char* file, int max_blocks)
+PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, const char* file, int max_blocks)
 { 
 	PlaceBlock* place = new PlaceBlock;
 
 	if (place)
 	{
+		place->boids = boids;
+		place->avoidCounter = 0;
 		place->sound = false;
 		place->BlocksPlaced = 0;
 		place->maxBlocks = max_blocks;
@@ -94,7 +102,9 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 		mish = DGL_Camera_ScreenCoordToWorld(mish);
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
-			place->objectList.PushFront(ObjectCreate("Block" + place->BlocksPlaced, CreateTransform(mish, Vector2D(10, 10))));
+			Transform* transform = CreateTransform(mish, Vector2D(10, 10));
+			place->objectList.PushFront(ObjectCreate("Block" + place->BlocksPlaced, transform));
+			AddAvoidToList(place->boids, TransformGetPosition(transform));
 			place->BlocksPlaced++;
 			if (sound)
 			{
@@ -188,6 +198,7 @@ void DestroyPlaceBlocks(PlaceBlock** place)
 {
 	if (place)
 	{
+		DestroyAvoids((*place)->boids);
 		if ((*place)->source && (*place)->sprite)
 		{
 			FreeSprite(&((*place)->sprite));
