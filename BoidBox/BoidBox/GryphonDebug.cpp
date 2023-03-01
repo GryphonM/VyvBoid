@@ -44,11 +44,11 @@ Engine::ErrorCode GryphonLoad(void)
 {
 	gryphonInstance.boidList = CreateBoidlist();
 	UpdateBoidlistParamaters(gryphonInstance.boidList, "Data/BoidSettings.txt");
-	Vector2D BoidPos(0, -115);
+	Vector2D BoidPos(0, -200);
 	//Vector2D BoidPos(-(static_cast<float>(PlatformSystem::GetInstance()->GetWidth()) / 2) + 50, (static_cast<float>(PlatformSystem::GetInstance()->GetHeight()) / 2) - 50);
 	for (int i = 0; i < 10; ++i)
 	{
-		AddBoidToList(gryphonInstance.boidList, BoidPos, Vector2D(0, 10));
+		AddBoidToList(gryphonInstance.boidList, BoidPos, Vector2D(500, 0));
 	}
 	gryphonInstance.goal = new Goal(CreateTransform(Vector2D(), Vector2D(100, 100)), gryphonInstance.boidList, 10);
 	return Engine::NothingBad;

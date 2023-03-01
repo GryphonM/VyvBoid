@@ -7,7 +7,7 @@ SeparationWeight
 AvoidanceWeight
 8
 PreviousSpeedWeight
-1.25
+3
 maxSpeed
 75
 minSpeed

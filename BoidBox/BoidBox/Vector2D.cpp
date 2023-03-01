@@ -40,7 +40,7 @@ float Vector2D::DistanceSquared(Vector2D const& lhs, Vector2D const& rhs)
 {
 	float diffX = rhs.vec.x - lhs.vec.x;
 	float diffY = rhs.vec.y - lhs.vec.y;
-	return (diffX * diffX) + (diffY * diffY);
+	return abs((diffX * diffX) + (diffY * diffY));
 }
 
 float Vector2D::Distance(Vector2D const& lhs, Vector2D const& rhs) { 
@@ -48,7 +48,7 @@ float Vector2D::Distance(Vector2D const& lhs, Vector2D const& rhs) {
 }
 
 float Vector2D::MagnitudeSquared() const { 
-	return (vec.x * vec.x) + (vec.y * vec.y); 
+	return abs((vec.x * vec.x) + (vec.y * vec.y));
 }
 float Vector2D::Magnitude() const { 
 	return sqrt(MagnitudeSquared()); 

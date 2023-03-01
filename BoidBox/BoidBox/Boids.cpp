@@ -359,7 +359,7 @@ int CheckBoidCollisions(const BoidList* list, Vector2D pos, float scale, void (*
         {
             if (!list->boidsList[i]->isDead)
             {
-                if (CircleCircleCollision(list->boidsList[i]->position, TransformGetScale(list->trans).X(), pos, scale))
+                if (CircleCircleCollision(list->boidsList[i]->position, TransformGetScale(list->trans).X()/2, pos, scale))
                 {
                     handler(list->boidsList[i]);
                     ++count;
