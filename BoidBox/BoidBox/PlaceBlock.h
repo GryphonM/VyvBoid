@@ -10,8 +10,8 @@
 #define PLACEBLOCK_H
 
 typedef struct PlaceBlock PlaceBlock;
-struct Sound;
-struct BoidList;
+typedef struct Sound Sound;
+typedef struct BoidList BoidList;
 #if 0
 typedef struct PlaceBlock
 {
@@ -32,5 +32,6 @@ int GetNumberOfPlacedBlocks(PlaceBlock* place);
 bool SetPlaceSound(PlaceBlock* place, const char* query);
 void DrawPlacedBlocks(PlaceBlock* place);
 void DestroyPlaceBlocks(PlaceBlock** place);
+void DeleteBoidBlock(BoidList* list);
 
 #endif

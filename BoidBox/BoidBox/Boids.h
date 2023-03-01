@@ -30,6 +30,8 @@ void RunBoids(BoidList* list, float dt);
 void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D(), Vector2D initialVelcity = Vector2D(1, 1));
 void DestroyBoidList(BoidList* list);
 void DestroyAvoids(BoidList* list);
+void DeleteAvoidBlock(BoidList* list, int i);
+int FindAvoid(BoidList* boid, Vector2D pos);
 void KillBoid(Boid* boid);
 int CheckBoidCollisions(const BoidList* list, Vector2D pos, float scale, void (*handler)(Boid*));
 void AddAvoidToList(BoidList* list, Vector2D posToSpawn = Vector2D());

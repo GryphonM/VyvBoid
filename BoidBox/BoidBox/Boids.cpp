@@ -503,6 +503,23 @@ void UpdateBoidlistParamaters(BoidList* list, std::string filename)
         }
     }
 }
+
+void DeleteAvoidBlock(BoidList* boids, int i)
+{
+    delete boids->avoidsList[i];
+    boids->avoidsList[i] = NULL;
+}
+
+int FindAvoid(BoidList* boid, Vector2D pos)
+{
+    for (int i = 0; i < AVOIDNUMBER; i++)
+    {
+        if (boid->avoidsList[i] != NULL)
+            if (pos == boid->avoidsList[i]->position)
+                return i;
+    }
+    return NULL;
+}
 /*
 
 Vector2D Avoidance(Boid* boid)

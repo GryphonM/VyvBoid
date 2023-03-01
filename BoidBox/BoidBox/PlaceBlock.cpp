@@ -124,7 +124,9 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 				&& (mish.Y() <= (position.Y() + (scale.Y() / 2.0f)))
 				&& (mish.Y() >= (position.Y() - (scale.Y() / 2.0f))))
 				{
+					int pos = FindAvoid(place->boids, position);
 					ObjectListRemove(&place->objectList, place->objectList[i]);
+					DeleteAvoidBlock(place->boids, pos);
 					place->BlocksPlaced--;
 					if (sound)
 					{
