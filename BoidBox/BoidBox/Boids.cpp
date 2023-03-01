@@ -9,6 +9,7 @@
 #include "DGL.h"
 #include "Mesh.h"
 #include "Transform.h"
+#include "Collision.h"
 #include "Hunters.h"
 #include "Vector2D.h"
 #include <stdio.h>
@@ -343,9 +344,30 @@ void DestroyBoidList(BoidList* list)
     delete list;
 }
 
-void CheckBoidCollisions(Boid* boid)
+void KillBoid(Boid* boid)
 {
-    return;
+    if (boid)
+        boid->isDead = true;
+}
+
+int CheckBoidCollisions(const BoidList* list, Vector2D pos, float scale, void (*handler)(Boid*))
+{
+    int count = 0;
+    for (int i = 0; i < BOIDNUMBER; ++i)
+    {
+        if (list->boidsList[i])
+        {
+            if (!list->boidsList[i]->isDead)
+            {
+                if (CircleCircleCollision(list->boidsList[i]->position, TransformGetScale(list->trans).X(), pos, scale))
+                {
+                    handler(list->boidsList[i]);
+                    ++count;
+                }
+            }
+        }
+    }
+    return count;
 }
 
 void RenderBoids(BoidList* list)
@@ -383,20 +405,20 @@ void RunBoids(BoidList* list, float dt)
         {
             if (list->boidsList[i]->isDead == false)
             {
-                CheckBoidCollisions(list->boidsList[i]);
                 UpdateBoid(list->boidsList[i], list, dt);
             }
         }
     }
 }
 
-void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D())
+void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D(), Vector2D initialVelocity = Vector2D())
 {
     for (int i = 0; i < BOIDNUMBER; i++)
     {
         if (list->boidsList[i] == NULL)
         {
             list->boidsList[i] = CreateBoid(list, posToSpawn);
+            list->boidsList[i]->velocity = initialVelocity;
             return;
         }
     }

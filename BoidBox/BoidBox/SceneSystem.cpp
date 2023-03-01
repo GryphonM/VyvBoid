@@ -98,12 +98,12 @@ void SceneSystem::ChangeScene()
 	{
 		activeScene->Exit();
 
-		if (activeScene != nextScene || isRestarting)
-		{
+		//if (activeScene != nextScene || isRestarting)
+		//{
 			activeScene->Unload();
 			activeScene = nextScene;
 			activeScene->Load();
-		}
+		//}
 		isRestarting = false;
 	}
 

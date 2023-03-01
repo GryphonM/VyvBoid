@@ -100,6 +100,12 @@
     <Filter Include="Source Files\Generic Systems\Graphics">
       <UniqueIdentifier>{e5144546-f22e-48e8-8478-84ca7a87a8f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Generic Systems\Collisions">
+      <UniqueIdentifier>{eb1c4594-21a3-41e6-bc8f-95888089d328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Generic Systems\Collisions">
+      <UniqueIdentifier>{7dfcb38a-7d74-4a5a-9153-c15c53b851fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -198,6 +204,12 @@
     <ClInclude Include="ActionList.h">
       <Filter>Header Files\Helper</Filter>
     </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Generic Systems\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>Header Files\Game Systems\Obstacles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -292,6 +304,12 @@
     </ClCompile>
     <ClCompile Include="ActionList.cpp">
       <Filter>Source Files\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files\Generic Systems\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>Source Files\Game Systems\Obstacles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -11,25 +11,21 @@
 #include "GryphonDebug.h"
 #include "Scene.h"
 #include "SceneSystem.h"
-#include "Mesh.h"
-#include "Sprite.h"
+#include "PlatformSystem.h"
+#include "Goal.h"
+#include "Boids.h"
+#include "Transform.h"
 
 struct GryphonDebug
 {
 	Scene base;
 
 	// Other Fings
-	Sprite* sprite;
-	Transform* pos;
-	float maxY;
-	float minY;
-	float speed;
-	bool movingUp;
+	BoidList* boidList;
+	Goal* goal;
 
-	GryphonDebug(Scene _base) : base(_base), sprite(NULL), pos(NULL), maxY(150.0f), minY(-150.0f), speed(50.0f), movingUp(false)
+	GryphonDebug(Scene _base) : base(_base), goal(NULL), boidList(NULL)
 	{
-		sprite = CreateSprite();
-		FreeSprite(&sprite);
 	}
 };
 
@@ -40,26 +36,29 @@ void GryphonRender(void);
 Engine::ErrorCode GryphonExit(void);
 Engine::ErrorCode GryphonUnload(void);
 
-GryphonDebug instance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
-Scene* GryphonGetInstance() { return &instance.base; }
+GryphonDebug gryphonInstance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
+Scene* GryphonGetInstance() { return &gryphonInstance.base; }
 Mesh* mesh;
 
 Engine::ErrorCode GryphonLoad(void)
 {
-	mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square", { 0.80f, 0.11f, 0.72f, 1.0f });
-	instance.sprite = CreateSprite();
-	instance.pos = CreateTransform(Vector2D(), Vector2D(50.0f, 50.0f));
+	gryphonInstance.boidList = CreateBoidlist();
+	UpdateBoidlistParamaters(gryphonInstance.boidList, "Data/BoidSettings.txt");
+	Vector2D BoidPos(0, -115);
+	//Vector2D BoidPos(-(static_cast<float>(PlatformSystem::GetInstance()->GetWidth()) / 2) + 50, (static_cast<float>(PlatformSystem::GetInstance()->GetHeight()) / 2) - 50);
+	for (int i = 0; i < 10; ++i)
+	{
+		AddBoidToList(gryphonInstance.boidList, BoidPos, Vector2D(0, 10));
+	}
+	gryphonInstance.goal = new Goal(CreateTransform(Vector2D(), Vector2D(100, 100)), gryphonInstance.boidList, 10);
 	return Engine::NothingBad;
 }
 
 Engine::ErrorCode GryphonInit(void)
 {
-	Vector2D pos(0, 0);
-	instance.movingUp = false;
-	TransformSetPosition(instance.pos, pos);
-	SpriteSetMesh(instance.sprite, mesh);
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	DGL_Graphics_SetTexture(NULL);
+	gryphonInstance.goal->Reset();
 	return Engine::NothingBad;
 }
 
@@ -67,27 +66,14 @@ void GryphonUpdate(float dt)
 {
 	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
-
-	Vector2D pos = TransformGetPosition(instance.pos);
-	if (instance.movingUp)
-	{
-		pos.Y(pos.Y() + (instance.speed * dt));
-		if (pos.Y() >= instance.maxY)
-			instance.movingUp = false;
-	}
-	else
-	{
-		pos.Y(pos.Y() - (instance.speed * dt));
-		if (pos.Y() <= instance.minY)
-			instance.movingUp = true;
-	}
-	TransformSetPosition(instance.pos, pos);
+	RunBoids(gryphonInstance.boidList, dt);
+	gryphonInstance.goal->Update();
 }
 
 void GryphonRender(void)
 {
-	DGL_Graphics_SetShaderMode(DGL_SM_COLOR);
-	RenderSprite(instance.sprite, instance.pos);
+	RenderBoids(gryphonInstance.boidList);
+	gryphonInstance.goal->Render();
 }
 
 Engine::ErrorCode GryphonExit(void)
@@ -97,8 +83,6 @@ Engine::ErrorCode GryphonExit(void)
 
 Engine::ErrorCode GryphonUnload(void)
 {
-	freeMesh(&mesh);
-	FreeSprite(&instance.sprite);
-	DeleteTransform(&instance.pos);
+	DestroyBoidList(gryphonInstance.boidList);
 	return Engine::NothingBad;
 }
