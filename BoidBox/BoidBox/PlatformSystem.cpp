@@ -12,6 +12,7 @@
 #include "SceneSystem.h"
 #include "SoundSystem.h"
 #include "Resource.h"
+#include "Vector2D.h"
 
 PlatformSystem* PlatformSystem::instance = new PlatformSystem();
 
@@ -74,6 +75,8 @@ void PlatformSystem::ChangeTitle(const char* title)
 
 int PlatformSystem::GetHeight() { return windowHeight; }
 int PlatformSystem::GetWidth() { return windowWidth; }
+
+Vector2D PlatformSystem::GetScreenSize() { return Vector2D(windowWidth, windowHeight); }
 
 PlatformSystem::PlatformSystem() : BaseSystem("PlatformSystem"), windowHeight(600), windowWidth(960), winHandle(NULL) {}
 PlatformSystem::~PlatformSystem() 

@@ -14,6 +14,7 @@
 #include "DGL.h"
 
 #define DefaultName "Boid Box"
+class Vector2D;
 
 class PlatformSystem : public BaseSystem
 {
@@ -28,6 +29,7 @@ public:
 	void ChangeTitle(const char* = DefaultName);
 	int GetHeight();
 	int GetWidth();
+	Vector2D GetScreenSize();
 private:
 	PlatformSystem();
 	~PlatformSystem();
