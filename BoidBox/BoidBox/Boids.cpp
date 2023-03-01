@@ -323,7 +323,7 @@ BoidList* CreateBoidlist()
     newBoidList->boidSprite = CreateSprite();
     newBoidList->avoidSprite = CreateSprite();
 
-    newBoidList->boidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "avoidMesh", newBoidList->avoidColor);
+    newBoidList->boidMesh = SquareMesh(1.0f, 0.0f, 0.82f, 1.0f, "avoidMesh", newBoidList->avoidColor);
     SpriteSetMesh(newBoidList->avoidSprite, newBoidList->boidMesh);
 
     newBoidList->avoidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "boidMesh", newBoidList->boidColor);

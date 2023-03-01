@@ -46,7 +46,7 @@ PlatformSystem* PlatformSystem::GetInstance(HINSTANCE hInstance, bool show)
     initInfo.mClassStyle = CS_HREDRAW | CS_VREDRAW;
     initInfo.mMaxFrameRate = 60;
     initInfo.mShow = show;
-    initInfo.mWindowStyle = WS_OVERLAPPEDWINDOW;
+    initInfo.mWindowStyle = WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME; // Resize but only diagonally?
     initInfo.mWindowTitle = DefaultName;
     initInfo.mWindowHeight = instance->windowHeight;
     initInfo.mWindowWidth = instance->windowWidth;
@@ -75,7 +75,7 @@ void PlatformSystem::ChangeTitle(const char* title)
 int PlatformSystem::GetHeight() { return windowHeight; }
 int PlatformSystem::GetWidth() { return windowWidth; }
 
-PlatformSystem::PlatformSystem() : BaseSystem("PlatformSystem"), windowHeight(768), windowWidth(1024), winHandle(NULL) {}
+PlatformSystem::PlatformSystem() : BaseSystem("PlatformSystem"), windowHeight(600), windowWidth(960), winHandle(NULL) {}
 PlatformSystem::~PlatformSystem() 
 {
     if (instance)

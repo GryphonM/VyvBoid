@@ -129,7 +129,8 @@ xcopy "$(SolutionDir)\BoidBox\Data\*" "$(OutDir)Data\" /s /r /y /q</Command>
       <Command>xcopy "$(SolutionDir)DGL\lib\$(Platform)\DGL.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(ProjectDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
 xcopy "$(ProjectDir)Data\*" "$(OutDir)Data\" /s /r /y /q
-xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q</Command>
+xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.Day).$([System.DateTime]::Now.Month).$([System.DateTime]::Now.Year)_$([System.DateTime]::Now.Hour).$([System.DateTime]::Now.Minute)\" /s /r /y /q /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,7 +176,8 @@ xcopy "$(SolutionDir)\BoidBox\Data\*" "$(OutDir)Data\" /s /r /y /q</Command>
       <Command>xcopy "$(SolutionDir)DGL\lib\$(Platform)\DGL.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(ProjectDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
 xcopy "$(ProjectDir)Data\*" "$(OutDir)Data\" /s /r /y /q
-xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q</Command>
+xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q
+xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.Day).$([System.DateTime]::Now.Month).$([System.DateTime]::Now.Year)_$([System.DateTime]::Now.Hour).$([System.DateTime]::Now.Minute)\" /s /r /y /q /i</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

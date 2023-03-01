@@ -21,9 +21,9 @@ AvoidRange
 AlignmentSmoothVal
 .03
 boidColor
-.9
-.9
-.9
+1
+0
+.84
 1
 avoidColor
 1
