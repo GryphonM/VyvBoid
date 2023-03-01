@@ -6,6 +6,7 @@
 // Course:		GAM 150
 //
 //------------------------------------------------------------------------------
+#include "Boids.h"
 #include "DGL.h"
 #include "Mesh.h"
 #include "Transform.h"
@@ -58,7 +59,9 @@ struct BoidList
     DGL_Color boidColor;
     DGL_Color avoidColor;
     Sprite* boidSprite;
+    Mesh* boidMesh;
     Sprite* avoidSprite;
+    Mesh* avoidMesh;
     Boid* boidsList[BOIDNUMBER];
     Avoid* avoidsList[AVOIDNUMBER];
     Transform* trans;
@@ -268,7 +271,7 @@ void UpdateBoid(Boid* boid, BoidList* list, float dt)
     SetDirectionOfBoid(DirectionVector, boid, list, dt);
 }
 
-Boid* CreateBoid(BoidList* list, Vector2D posToSpawn = *new Vector2D)
+Boid* CreateBoid(BoidList* list, Vector2D posToSpawn)
 {
     Boid* newBoid = new Boid;
     newBoid->isDead = false;
@@ -282,7 +285,7 @@ Boid* CreateBoid(BoidList* list, Vector2D posToSpawn = *new Vector2D)
     return newBoid;
 }
 
-Avoid* CreateAvoid(BoidList* list, Vector2D posToSpawn = *new Vector2D)
+Avoid* CreateAvoid(BoidList* list, Vector2D posToSpawn)
 {
     Avoid* newAvoid = new Avoid;
     newAvoid->position = posToSpawn;
@@ -320,9 +323,11 @@ BoidList* CreateBoidlist()
     newBoidList->boidSprite = CreateSprite();
     newBoidList->avoidSprite = CreateSprite();
 
-    SpriteSetMesh(newBoidList->avoidSprite, SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "avoidMesh", newBoidList->avoidColor));
+    newBoidList->boidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "avoidMesh", newBoidList->avoidColor);
+    SpriteSetMesh(newBoidList->avoidSprite, newBoidList->boidMesh);
 
-    SpriteSetMesh(newBoidList->boidSprite, SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "boidMesh", newBoidList->boidColor));
+    newBoidList->avoidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "boidMesh", newBoidList->boidColor);
+    SpriteSetMesh(newBoidList->boidSprite, newBoidList->avoidMesh);
 
     for (int i = 0; i < BOIDNUMBER; i++)
     {
@@ -339,8 +344,12 @@ BoidList* CreateBoidlist()
 void DestroyBoidList(BoidList* list)
 {   
     FreeSprite(&list->boidSprite);
+    freeMesh(&list->boidMesh);
+    FreeSprite(&list->avoidSprite);
+    freeMesh(&list->avoidMesh);
     DeleteTransform(&list->trans);
     DestroyBoids(list);
+    DestroyAvoids(list);
     delete list;
 }
 
@@ -411,7 +420,7 @@ void RunBoids(BoidList* list, float dt)
     }
 }
 
-void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D(), Vector2D initialVelocity = Vector2D())
+void AddBoidToList(BoidList* list, Vector2D posToSpawn, Vector2D initialVelocity)
 {
     for (int i = 0; i < BOIDNUMBER; i++)
     {
@@ -424,7 +433,7 @@ void AddBoidToList(BoidList* list, Vector2D posToSpawn = Vector2D(), Vector2D in
     }
 }
 
-void AddAvoidToList(BoidList* list, Vector2D posToSpawn = Vector2D())
+void AddAvoidToList(BoidList* list, Vector2D posToSpawn)
 {
     for (int i = 0; i < AVOIDNUMBER; i++)
     {
@@ -492,13 +501,19 @@ void UpdateBoidlistParamaters(BoidList* list, std::string filename)
             {
                 DGL_Color newBoidColor = {stream.ReadFloat(), stream.ReadFloat(), stream.ReadFloat(), stream.ReadFloat()};
                 list->boidColor = newBoidColor;
-                SpriteSetMesh(list->boidSprite, SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "boidMesh", list->boidColor));
+                if (list->boidMesh)
+                    freeMesh(&list->boidMesh);
+                list->boidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "boidMesh", list->boidColor);
+                SpriteSetMesh(list->boidSprite, list->boidMesh);
             }
             else if (tokenWord == "avoidColor")
             {
                 DGL_Color newBoidColor = { stream.ReadFloat(), stream.ReadFloat(), stream.ReadFloat(), stream.ReadFloat() };
                 list->avoidColor = newBoidColor;
-                SpriteSetMesh(list->avoidSprite, SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "avoidMesh", list->avoidColor));
+                if (list->avoidMesh)
+                    freeMesh(&list->avoidMesh);
+                list->avoidMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "avoidMesh", list->avoidColor);
+                SpriteSetMesh(list->avoidSprite, list->avoidMesh);
             }
         }
     }

@@ -60,7 +60,7 @@ PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, const char* fil
 		place->sprite = NULL;
 		if (file == "none")
 		{
-			place->color = { 1.0f, 1.0f, 1.0f, 1.0f };
+			place->color = { 1.0f, 0.1f, 0.1f, 1.0f };
 			place->sprite = CreateSprite();
 			place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
 			SpriteSetMesh(place->sprite, place->mesh);
@@ -201,7 +201,7 @@ void DestroyPlaceBlocks(PlaceBlock** place)
 	if (place)
 	{
 		DestroyAvoids((*place)->boids);
-		if ((*place)->source && (*place)->sprite)
+		if ((*place)->sprite)
 		{
 			FreeSprite(&((*place)->sprite));
 		}

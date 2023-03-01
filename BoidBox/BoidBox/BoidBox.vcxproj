@@ -103,7 +103,8 @@
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(SolutionDir)DGL\lib\$(Platform)\DGL_d.dll" "$(OutDir)" /s /r /y /q
-xcopy "$(SolutionDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q</Command>
+xcopy "$(SolutionDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q
+xcopy "$(SolutionDir)\BoidBox\Data\*" "$(OutDir)Data\" /s /r /y /q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -126,8 +127,9 @@ xcopy "$(SolutionDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)DGL\lib\$(Platform)\DGL.dll" "$(OutDir)" /s /r /y /q
-xcopy "$(ProjectDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q
-xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
+xcopy "$(ProjectDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
+xcopy "$(ProjectDir)Data\*" "$(OutDir)Data\" /s /r /y /q
+xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -147,7 +149,8 @@ xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q
 xcopy "$(SolutionDir)DGL\lib\$(Platform)\DGL_d.dll" "$(OutDir)" /s /r /y /q
-xcopy "$(SolutionDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q</Command>
+xcopy "$(SolutionDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q
+xcopy "$(SolutionDir)\BoidBox\Data\*" "$(OutDir)Data\" /s /r /y /q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -170,8 +173,9 @@ xcopy "$(SolutionDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q</Command>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)DGL\lib\$(Platform)\DGL.dll" "$(OutDir)" /s /r /y /q
-xcopy "$(ProjectDir)\BoidBox\Assets\*" "$(OutDir)Assets\" /s /r /y /q
-xcopy "$(ProjectDir)FMOD\lib\fmod.dll" "$(OutDir)Assets\" /s /r /y /q</Command>
+xcopy "$(ProjectDir)Assets\*" "$(OutDir)Assets\" /s /r /y /q
+xcopy "$(ProjectDir)Data\*" "$(OutDir)Data\" /s /r /y /q
+xcopy "$(SolutionDir)FMOD\lib\fmod.dll" "$(OutDir)" /s /r /y /q</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

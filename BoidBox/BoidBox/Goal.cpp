@@ -36,6 +36,7 @@ Goal::~Goal()
 {
 	FreeSprite(&sprite);
 	freeMesh(&openMesh);
+	freeMesh(&endMesh);
 	DeleteTransform(&transform);
 	SoundCleanup(completeSound);
 }

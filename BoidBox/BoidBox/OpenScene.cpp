@@ -34,8 +34,6 @@ struct OpenScene
 	// Constructor (Actually used this time)
 	OpenScene(Scene _base) : base(_base), OpenSprite(NULL)
 	{
-		OpenSprite = CreateSprite();
-		FreeSprite(&OpenSprite);
 	}
 };
 
@@ -62,16 +60,6 @@ Engine::ErrorCode OpenSceneLoad(void)
 	instance.titleSprite = CreateSprite();
 	SpriteSetMesh(instance.titleSprite, instance.titleMesh);
 	SpriteSetSource(instance.titleSprite, instance.titleSource);
-
-	//squareMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
-	//pos = CreateTransform(Vector2D(), Vector2D(200.0, 200.0f));	
-	//source = CreateSpriteSource();
-	//source = CreateSpriteSource();
-	//LoadSpriteSourceTexture(source, 1, 1, "./Assets/containmentbreached.png");
-	//instance.OpenSprite = CreateSprite();
-	//SpriteSetMesh(instance.OpenSprite, squareMesh);
-	//SpriteSetSource(instance.OpenSprite, source);
-	
 	instance.scare = SoundCreate("scare", "./Assets/cloaker.ogg");
 	
 	return Engine::NothingBad;
@@ -81,9 +69,8 @@ Engine::ErrorCode OpenSceneInit(void)
 {
 	SpriteSetFrame(instance.titleSprite, 0);
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
-
-	PlaySound(instance.scare);
-	//SpriteSetFrame(instance.OpenSprite, 0);
+	DGL_Graphics_SetTexture(NULL);
+	//PlaySound(instance.scare);
 	return Engine::NothingBad;
 }
 
