@@ -16,6 +16,9 @@
 #include "Goal.h"
 #include "Boids.h"
 #include "PlaceBlock.h"
+#include "Mesh.h"
+#include "Sprite.h"
+#include "SpriteSource.h"
 
 struct Tutorial
 {
@@ -26,6 +29,12 @@ struct Tutorial
 	BoidList* bList;
 	PlaceBlock* pBlocks;
 	Sound* placeSound;
+
+	Sprite* backgroundSprite;
+
+	Mesh* backgroundMesh;
+	SpriteSource* backgroundSource;
+	Transform* backgroundPos;
 
 	Tutorial(Scene _base) : base(_base), goal(NULL), bList(NULL), pBlocks(NULL), placeSound(NULL)
 	{
@@ -45,6 +54,14 @@ Scene* TutorialGetInstance() { return &instance.base; }
 
 Engine::ErrorCode TutorialLoad(void)
 {
+	instance.backgroundMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
+	instance.backgroundPos = CreateTransform(Vector2D(), Vector2D(1010.0, 750.0f));
+	instance.backgroundSource = CreateSpriteSource();
+	LoadSpriteSourceTexture(instance.backgroundSource, 1, 1, "./Assets/tempbackground.png");
+	instance.backgroundSprite = CreateSprite();
+	SpriteSetMesh(instance.backgroundSprite, instance.backgroundMesh);
+	SpriteSetSource(instance.backgroundSprite, instance.backgroundSource);
+
 	instance.bList = CreateBoidlist();
 	UpdateBoidlistParamaters(instance.bList, "./Data/BoidSettings.txt");
 	Vector2D Screen(static_cast<float>(PlatformSystem::GetInstance()->GetWidth()), static_cast<float>(PlatformSystem::GetInstance()->GetHeight()));
@@ -62,6 +79,9 @@ Engine::ErrorCode TutorialLoad(void)
 
 Engine::ErrorCode TutorialInit(void)
 {
+	SpriteSetFrame(instance.backgroundSprite, 0);
+	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
+
 	instance.goal->Reset();
 	return Engine::NothingBad;
 }
@@ -77,6 +97,8 @@ void TutorialUpdate(float dt)
 
 void TutorialRender(void)
 {
+	RenderSprite(instance.backgroundSprite, instance.backgroundPos);
+
 	DrawPlacedBlocks(instance.pBlocks);
 	RenderBoids(instance.bList);
 	instance.goal->Render();
@@ -89,6 +111,10 @@ Engine::ErrorCode TutorialExit(void)
 
 Engine::ErrorCode TutorialUnload(void)
 {
+	FreeSprite(&instance.backgroundSprite);
+	freeMesh(&instance.backgroundMesh);
+	DeleteTransform(&instance.backgroundPos);
+
 	SoundCleanup(instance.placeSound);
 	DestroyPlaceBlocks(&instance.pBlocks);
 	DestroyBoidList(instance.bList);

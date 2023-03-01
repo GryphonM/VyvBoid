@@ -56,7 +56,7 @@ Scene* OpenSceneGetInstance() { return &(instance.base); }
 Engine::ErrorCode OpenSceneLoad(void)
 {
 	instance.titleMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
-	instance.titlePos = CreateTransform(Vector2D(), Vector2D(1000.0, 880.0f));
+	instance.titlePos = CreateTransform(Vector2D(), Vector2D(1010.0, 750.0f));;
 	instance.titleSource = CreateSpriteSource();
 	LoadSpriteSourceTexture(instance.titleSource, 1, 1, "./Assets/title.png");
 	instance.titleSprite = CreateSprite();
