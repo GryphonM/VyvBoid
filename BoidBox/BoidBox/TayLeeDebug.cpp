@@ -25,10 +25,15 @@ struct TayLeeDebug
 	// Other Fings
 	//Mesh* testMesh;
 	Sprite* OpenSprite;
+	Sprite* titleSprite;
 	Hunters* hunter1;
 	Hunters* hunter2;
 	Hunters* hunter3;
 	Hunters* hunter4;
+
+	Mesh* squareMesh;
+	SpriteSource* source;
+	Transform* pos;
 
 	TayLeeDebug(Scene _base) : base(_base), OpenSprite(NULL)
 	{
@@ -50,6 +55,15 @@ Scene* TayLeeGetInstance() { return &instance.base; }
 
 Engine::ErrorCode TayLeeLoad(void)
 {
+	instance.squareMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
+	instance.pos = CreateTransform(Vector2D(), Vector2D(1000.0, 880.0f));
+	instance.source = CreateSpriteSource();
+	instance.source = CreateSpriteSource();
+	LoadSpriteSourceTexture(instance.source, 1, 1, "./Assets/title.png");
+	instance.titleSprite = CreateSprite();
+	SpriteSetMesh(instance.titleSprite, instance.squareMesh);
+	SpriteSetSource(instance.titleSprite, instance.source);
+
 	//instance.testMesh = NULL;
 	instance.hunter1 = HunterCreate();
 	instance.hunter2 = HunterCreate();
@@ -60,6 +74,9 @@ Engine::ErrorCode TayLeeLoad(void)
 
 Engine::ErrorCode TayLeeInit(void)
 {
+	SpriteSetFrame(instance.titleSprite, 0);
+	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
+
 	InitCrosshair(instance.hunter1, 2.0, 4.0, 30.0, {0, -300});
 	InitCrosshair(instance.hunter2, 2.0, 4.0, 30.0, {-300, 300});
 	InitCrosshair(instance.hunter3, 2.0, 4.0, 30.0, {300, 300});
@@ -75,6 +92,8 @@ void TayLeeUpdate(float dt)
 
 void TayLeeRender(void)
 {
+	RenderSprite(instance.titleSprite, instance.pos);
+
 	//RenderMesh(instance.testMesh);
 	DrawCrosshair(instance.hunter1);
 	DrawCrosshair(instance.hunter2);
@@ -89,6 +108,10 @@ Engine::ErrorCode TayLeeExit(void)
 
 Engine::ErrorCode TayLeeUnload(void)
 {
+	FreeSprite(&instance.titleSprite);
+	freeMesh(&instance.squareMesh);
+	DeleteTransform(&instance.pos);
+
 	FreeHunters(&instance.hunter1);
 	FreeHunters(&instance.hunter2);
 	FreeHunters(&instance.hunter3);
