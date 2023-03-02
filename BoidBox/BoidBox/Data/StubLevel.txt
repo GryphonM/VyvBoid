@@ -1,0 +1,10 @@
+BoidStart
+X Y			// Central position of boid location
+Boid Settings	// Filename for the boids settings in this level
+GoalPos
+X Y			// Central position of goal pos
+X Y			// Scale of the goal
+Name			// Filename for the generic data of the goal
+Buildings		// Filename for locations of buildings
+Pollution		// Filename for locations of pollutions
+Hunters		// Filename for locations of hunters
