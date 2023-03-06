@@ -9,6 +9,7 @@
 #include "Boids.h"
 #include "DGL.h"
 #include "Mesh.h"
+#include "SpriteSource.h"
 #include "Transform.h"
 #include "Collision.h"
 #include "Hunters.h"
@@ -65,6 +66,8 @@ struct BoidList
     Boid* boidsList[BOIDNUMBER];
     Avoid* avoidsList[AVOIDNUMBER];
     Transform* trans;
+
+    SpriteSource* boidSource;
 };
 
 /*
@@ -322,6 +325,9 @@ BoidList* CreateBoidlist()
     newBoidList->trans = CreateTransform(Vector2D(0,0), Vector2D(10, 10));
     newBoidList->boidSprite = CreateSprite();
     newBoidList->avoidSprite = CreateSprite();
+    newBoidList->boidSource = CreateSpriteSource();
+    LoadSpriteSourceTexture(newBoidList->boidSource, 1, 1, "./Assets/10x10BoidsTest.png");
+    SpriteSetSource(newBoidList->boidSprite, newBoidList->boidSource);
 
     newBoidList->boidMesh = SquareMesh(1.0f, 0.0f, 0.82f, 1.0f, "avoidMesh", newBoidList->avoidColor);
     SpriteSetMesh(newBoidList->avoidSprite, newBoidList->boidMesh);
