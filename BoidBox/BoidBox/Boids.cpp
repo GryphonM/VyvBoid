@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 #include "Boids.h"
 #include "DGL.h"
+#include "PlatformSystem.h"
 #include "Mesh.h"
 #include "SpriteSource.h"
 #include "Transform.h"
@@ -264,7 +265,12 @@ void SetDirectionOfBoid(Vector2D BoidVelocity, Boid* boid, BoidList* list, float
     //float degToRot = Mathf.Atan2(rb.velocity.y, rb.velocity.x);
     //degToRot = degToRot * Mathf.Rad2Deg - 90;
     //boid.transform.eulerAngles = new Vector3(0, 0, degToRot);
-    boid->position += boid->velocity * dt;
+    Vector2D newPos = boid->position + boid->velocity * dt;
+    Vector2D ScreenCoords = PlatformSystem::GetInstance()->GetScreenSize() / 2;
+    ScreenCoords.x -= 10;
+    ScreenCoords.y -= 25;
+    boid->position.x = Clamp(newPos.x, -ScreenCoords.x, ScreenCoords.x);
+    boid->position.y = Clamp(newPos.y, -ScreenCoords.y, ScreenCoords.y);
     
 }
 
@@ -374,7 +380,27 @@ int CheckBoidCollisions(const BoidList* list, Vector2D pos, float scale, void (*
         {
             if (!list->boidsList[i]->isDead)
             {
-                if (CircleCircleCollision(list->boidsList[i]->position, TransformGetScale(list->trans).X()/2, pos, scale))
+                if (CircleCircleCollision(list->boidsList[i]->position, TransformGetScale(list->trans).x/2, pos, scale))
+                {
+                    handler(list->boidsList[i]);
+                    ++count;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+int CheckBoidCollisions(const BoidList* list, Vector2D pos, Vector2D scale, void (*handler)(Boid*))
+{
+    int count = 0;
+    for (int i = 0; i < BOIDNUMBER; ++i)
+    {
+        if (list->boidsList[i])
+        {
+            if (!list->boidsList[i]->isDead)
+            {
+                if (CircleRectCollision(list->boidsList[i]->position, TransformGetScale(list->trans).x / 2, pos, scale))
                 {
                     handler(list->boidsList[i]);
                     ++count;

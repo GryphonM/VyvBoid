@@ -21,6 +21,8 @@ public:
 	Vector2D& operator=(const Vector2D& other);
 	float X() const;
 	float Y() const;
+	float& X();
+	float& Y();
 	void X(const float newVal);
 	void Y(const float newVal);
 
@@ -52,6 +54,7 @@ public:
 	Vector2D& operator/=(const Vector2D& rhs);
 	Vector2D operator/(float rhs) const;
 	Vector2D& operator/=(float rhs);
+	float x, y;
 private:
 	DGL_Vec2 vec;
 };

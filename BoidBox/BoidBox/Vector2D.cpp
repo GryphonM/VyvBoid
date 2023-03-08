@@ -11,35 +11,53 @@
 #include <string>
 #include <cmath>
 
-Vector2D::Vector2D(float x, float y) 
-{ 
+Vector2D::Vector2D(float _x, float _y) 
+{
+	x = _x;
+	y = _y;
 	vec.x = x; 
 	vec.y = y; 
 }
-Vector2D::Vector2D(DGL_Vec2* _vec) : vec(*_vec) {}
-Vector2D::Vector2D(DGL_Vec2 _vec) : vec(_vec) {}
+Vector2D::Vector2D(DGL_Vec2* _vec) : vec(*_vec) \
+{
+	x = vec.x;
+	y = vec.y;
+}
+Vector2D::Vector2D(DGL_Vec2 _vec) : vec(_vec) 
+{
+	x = vec.x;
+	y = vec.y;
+}
 Vector2D& Vector2D::operator=(const Vector2D& rhs) 
-{ 
-	vec.x = rhs.vec.x; 
-	vec.y = rhs.vec.y; 
+{
+	x = rhs.x;
+	y = rhs.y;
 	return *this; 
 }
 
-float Vector2D::X() const { return vec.x; }
-float Vector2D::Y() const { return vec.y; }
-void Vector2D::X(float x) { vec.x = x; }
-void Vector2D::Y(float y) { vec.y = y; }
+float Vector2D::X() const { return x; }
+float Vector2D::Y() const { return y; }
+float& Vector2D::X() { return x; }
+float& Vector2D::Y() { return y; }
+void Vector2D::X(float _x) { x = _x; }
+void Vector2D::Y(float _y) { y = _y; }
 
-Vector2D::operator DGL_Vec2*() { return &vec; }
+Vector2D::operator DGL_Vec2*() 
+{
+	vec.x = x;
+	vec.y = y;
+	return &vec;
+}
 
-float Vector2D::DotProduct(Vector2D& other) const { 
-	return (vec.x * other.X()) + (vec.y * other.Y()); 
+float Vector2D::DotProduct(Vector2D& other) const 
+{ 
+	return (x * other.x) + (y * other.y); 
 }
 
 float Vector2D::DistanceSquared(Vector2D const& lhs, Vector2D const& rhs)
 {
-	float diffX = rhs.vec.x - lhs.vec.x;
-	float diffY = rhs.vec.y - lhs.vec.y;
+	float diffX = rhs.x - lhs.x;
+	float diffY = rhs.y - lhs.y;
 	return abs((diffX * diffX) + (diffY * diffY));
 }
 
@@ -48,97 +66,97 @@ float Vector2D::Distance(Vector2D const& lhs, Vector2D const& rhs) {
 }
 
 float Vector2D::MagnitudeSquared() const { 
-	return abs((vec.x * vec.x) + (vec.y * vec.y));
+	return abs((x * x) + (y * y));
 }
 float Vector2D::Magnitude() const { 
 	return sqrt(MagnitudeSquared()); 
 }
 Vector2D Vector2D::Normalized() const 
 { 
-	if (vec.x == 0 && vec.y == 0)
+	if (x == 0 && y == 0)
 		return Vector2D();
 	return *this / Magnitude(); 
 }
 
 bool Vector2D::operator==(const Vector2D& rhs) const { 
-	return vec.x == rhs.vec.x && vec.y == rhs.vec.y; 
+	return x == rhs.x && y == rhs.y; 
 }
 bool Vector2D::operator!=(const Vector2D& rhs) const { 
 	return !(*this == rhs); 
 }
 
 Vector2D Vector2D::operator+(const Vector2D& rhs) const { 
-	return Vector2D(vec.x + rhs.vec.x, vec.y + rhs.vec.y); 
+	return Vector2D(x + rhs.x, y + rhs.y); 
 }
 Vector2D& Vector2D::operator+=(const Vector2D& rhs) 
 { 
-	vec.x += rhs.vec.x; 
-	vec.y += rhs.vec.y; 
+	x += rhs.x; 
+	y += rhs.y; 
 	return *this; 
 }
 Vector2D Vector2D::operator+(float rhs) const { 
-	return Vector2D(vec.x + rhs, vec.y + rhs); 
+	return Vector2D(x + rhs, y + rhs); 
 }
 Vector2D& Vector2D::operator+=(float rhs) 
 { 
-	vec.x += rhs; 
-	vec.y += rhs; 
+	x += rhs; 
+	y += rhs; 
 	return *this; 
 }
 
 Vector2D Vector2D::operator-(const Vector2D& rhs) const { 
-	return Vector2D(vec.x - rhs.vec.x, vec.y - rhs.vec.y); 
+	return Vector2D(x - rhs.x, y - rhs.y); 
 }
 Vector2D& Vector2D::operator-=(const Vector2D& rhs) 
 { 
-	vec.x -= rhs.vec.x; 
-	vec.y -= rhs.vec.y; 
+	x -= rhs.x; 
+	y -= rhs.y; 
 	return *this; 
 }
 Vector2D Vector2D::operator-(float rhs) const { 
-	return Vector2D(vec.x - rhs, vec.y - rhs); 
+	return Vector2D(x - rhs, y - rhs); 
 }
 Vector2D& Vector2D::operator-=(float rhs) 
 { 
-	vec.x -= rhs; 
-	vec.y -= rhs; 
+	x -= rhs; 
+	y -= rhs; 
 	return *this; 
 }
 
 Vector2D Vector2D::operator*(const Vector2D& rhs) const { 
-	return Vector2D(vec.x * rhs.vec.x, vec.y * rhs.vec.y); 
+	return Vector2D(x * rhs.x, y * rhs.y); 
 }
 Vector2D& Vector2D::operator*=(const Vector2D& rhs) 
 { 
-	vec.x *= rhs.vec.x; 
-	vec.y *= rhs.vec.y; 
+	x *= rhs.x; 
+	y *= rhs.y; 
 	return *this; 
 }
 Vector2D Vector2D::operator*(float rhs) const { 
-	return Vector2D(vec.x * rhs, vec.y * rhs); 
+	return Vector2D(x * rhs, y * rhs); 
 }
 Vector2D& Vector2D::operator*=(float rhs) 
 { 
-	vec.x *= rhs; 
-	vec.y *= rhs; 
+	x *= rhs; 
+	y *= rhs; 
 	return *this; 
 }
 
 Vector2D Vector2D::operator/(const Vector2D& rhs) const { 
-	return Vector2D(vec.x / rhs.vec.x, vec.y / rhs.vec.y); 
+	return Vector2D(x / rhs.x, y / rhs.y); 
 }
 Vector2D& Vector2D::operator/=(const Vector2D& rhs) 
 { 
-	vec.x /= rhs.vec.x; 
-	vec.y /= rhs.vec.y; 
+	x /= rhs.x; 
+	y /= rhs.y; 
 	return *this; 
 }
 Vector2D Vector2D::operator/(float rhs) const { 
-	return Vector2D(vec.x / rhs, vec.y / rhs); 
+	return Vector2D(x / rhs, y / rhs); 
 }
 Vector2D& Vector2D::operator/=(float rhs) 
 { 
-	vec.x /= rhs; 
-	vec.y /= rhs; 
+	x /= rhs; 
+	y /= rhs; 
 	return *this; 
 }
