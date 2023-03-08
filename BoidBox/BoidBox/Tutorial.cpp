@@ -55,9 +55,9 @@ Scene* TutorialGetInstance() { return &instance.base; }
 Engine::ErrorCode TutorialLoad(void)
 {
 	instance.backgroundMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
-	instance.backgroundPos = CreateTransform(Vector2D(), Vector2D(1010.0, 750.0f));
+	instance.backgroundPos = CreateTransform(Vector2D(0, -9), Vector2D(1000, 600));
 	instance.backgroundSource = CreateSpriteSource();
-	LoadSpriteSourceTexture(instance.backgroundSource, 1, 1, "./Assets/tempbackground.png");
+	LoadSpriteSourceTexture(instance.backgroundSource, 1, 1, "./Assets/desktopBackgroundBLANK.png");
 	instance.backgroundSprite = CreateSprite();
 	SpriteSetMesh(instance.backgroundSprite, instance.backgroundMesh);
 	SpriteSetSource(instance.backgroundSprite, instance.backgroundSource);

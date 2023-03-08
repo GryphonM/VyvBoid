@@ -54,9 +54,9 @@ Scene* OpenSceneGetInstance() { return &(instance.base); }
 Engine::ErrorCode OpenSceneLoad(void)
 {
 	instance.titleMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
-	instance.titlePos = CreateTransform(Vector2D(), Vector2D(1010.0, 750.0f));;
+	instance.titlePos = CreateTransform(Vector2D(0, -9), Vector2D(1000, 600));;
 	instance.titleSource = CreateSpriteSource();
-	LoadSpriteSourceTexture(instance.titleSource, 1, 1, "./Assets/title.png");
+	LoadSpriteSourceTexture(instance.titleSource, 1, 1, "./Assets/desktopBackgroundTITLE.png");
 	instance.titleSprite = CreateSprite();
 	SpriteSetMesh(instance.titleSprite, instance.titleMesh);
 	SpriteSetSource(instance.titleSprite, instance.titleSource);

@@ -80,7 +80,7 @@ Engine::ErrorCode TayLeeInit(void)
 	//InitCrosshair(instance.hunter1, 2.0, 4.0, 30.0, {0, -300});
 	//InitCrosshair(instance.hunter2, 2.0, 4.0, 30.0, {-300, 300});
 	//InitCrosshair(instance.hunter3, 2.0, 4.0, 30.0, {300, 300});
-	InitCrosshair(instance.hunter4, 2.0, 4.0, 30.0, {0, 200});
+	InitCrosshair(instance.hunter4, 2.0, 4.0, 30.0, {0, 100});
 	return Engine::NothingBad;
 }
 
