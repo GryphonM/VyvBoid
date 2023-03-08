@@ -213,6 +213,12 @@
     <ClInclude Include="Tutorial.h">
       <Filter>Header Files\Engine\Scenes\Game Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Header Files\Game Systems\Obstacles</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstLevel.h">
+      <Filter>Header Files\Engine\Scenes\Game Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -315,6 +321,12 @@
       <Filter>Source Files\Game Systems\Obstacles</Filter>
     </ClCompile>
     <ClCompile Include="Tutorial.cpp">
+      <Filter>Source Files\Engine\Scenes\Game Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files\Game Systems\Obstacles</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstLevel.cpp">
       <Filter>Source Files\Engine\Scenes\Game Scenes</Filter>
     </ClCompile>
   </ItemGroup>

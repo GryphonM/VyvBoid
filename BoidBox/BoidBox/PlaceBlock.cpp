@@ -11,6 +11,7 @@
 #include "Mesh.h"
 #include "Vector2D.h"
 #include "List.h"
+#include "Collision.h"
 #include "Object.h"
 #include "PlaceBlock.h"
 #include "SpriteSource.h"
@@ -119,10 +120,7 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 				Transform* transform = ObjectGetTransform(place->objectList[i]);
 				Vector2D position = TransformGetPosition(transform);
 				Vector2D scale = TransformGetScale(transform);
-				if ((mish.X() <= (position.X() + (scale.X() / 2.0f)))
-				&& (mish.X() >= (position.X() - (scale.X() / 2.0f)))
-				&& (mish.Y() <= (position.Y() + (scale.Y() / 2.0f)))
-				&& (mish.Y() >= (position.Y() - (scale.Y() / 2.0f))))
+				if (PointSquareCollision(mish, position, scale))
 				{
 					int pos = FindAvoid(place->boids, position);
 					ObjectListRemove(&place->objectList, place->objectList[i]);

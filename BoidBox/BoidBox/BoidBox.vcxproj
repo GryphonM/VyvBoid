@@ -188,8 +188,10 @@ xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.D
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="BasicObstacles.h" />
+    <ClInclude Include="FirstLevel.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="GryphonDebug.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="MichaelDebug.h" />
     <ClInclude Include="OpenScene.h" />
@@ -224,6 +226,7 @@ xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.D
     <ClCompile Include="BoidTest.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="FirstLevel.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="GryphonDebug.cpp" />
     <ClCompile Include="Hunters.cpp" />
@@ -234,6 +237,7 @@ xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.D
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MichaelDebug.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="OpenScene.cpp" />
     <ClCompile Include="PlaceBlock.cpp" />
     <ClCompile Include="PlatformSystem.cpp" />
