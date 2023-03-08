@@ -59,7 +59,7 @@ Engine::ErrorCode TayLeeLoad(void)
 	instance.pos = CreateTransform(Vector2D(), Vector2D(960, 561));
 	instance.source = CreateSpriteSource();
 	instance.source = CreateSpriteSource();
-	LoadSpriteSourceTexture(instance.source, 1, 1, "./Assets/desktopBackground.png");
+	LoadSpriteSourceTexture(instance.source, 1, 1, "./Assets/desktopBackgroundBLANK.png");
 	instance.titleSprite = CreateSprite();
 	SpriteSetMesh(instance.titleSprite, instance.squareMesh);
 	SpriteSetSource(instance.titleSprite, instance.source);

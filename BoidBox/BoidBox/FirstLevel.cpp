@@ -26,7 +26,8 @@ struct FirstLevel
 	Scene base;
 
 	// Other Fings
-	Obstacle* obstacle;
+	Obstacle* obstacle1;
+	Obstacle* obstacle2;
 	Goal* goal;
 	BoidList* bList;
 	PlaceBlock* pBlocks;
@@ -57,9 +58,9 @@ Scene* FirstLevelGetInstance() { return &instance.base; }
 Engine::ErrorCode FirstLevelLoad(void)
 {
 	instance.backgroundMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Square Mesh", { 0.0f, 0.0f, 0.0f, 0.0f });
-	instance.backgroundPos = CreateTransform(Vector2D(), Vector2D(1010.0, 750.0f));
+	instance.backgroundPos = CreateTransform(Vector2D(), Vector2D(960, 561));
 	instance.backgroundSource = CreateSpriteSource();
-	LoadSpriteSourceTexture(instance.backgroundSource, 1, 1, "./Assets/tempbackground.png");
+	LoadSpriteSourceTexture(instance.backgroundSource, 1, 1, "./Assets/desktopBackgroundBLANK.png");
 	instance.backgroundSprite = CreateSprite();
 	SpriteSetMesh(instance.backgroundSprite, instance.backgroundMesh);
 	SpriteSetSource(instance.backgroundSprite, instance.backgroundSource);
@@ -67,13 +68,14 @@ Engine::ErrorCode FirstLevelLoad(void)
 	instance.bList = CreateBoidlist();
 	UpdateBoidlistParamaters(instance.bList, "./Data/BoidSettings.txt");
 	Vector2D Screen(static_cast<float>(PlatformSystem::GetInstance()->GetWidth()), static_cast<float>(PlatformSystem::GetInstance()->GetHeight()));
-	Vector2D BoidStart(-(Screen.X() / 2) + 50, (Screen.Y() / 2) - 50);
-	Vector2D GoalStart((Screen.X() / 2) - 20, -(Screen.Y() / 2) + 20);
+	Vector2D BoidStart(-(Screen.X() / 2) + 50, (Screen.Y() / 2) - 155);
+	Vector2D GoalStart((Screen.X() / 2) - 20, -(Screen.Y() / 2) + 300);
 	for (int i = 0; i < 10; ++i)
 	{
 		AddBoidToList(instance.bList, BoidStart, Vector2D(0, 1000));
 	}
-	instance.obstacle = new Obstacle(CreateTransform(Vector2D(-350, -200), Vector2D(800.0f, 200.0f)), instance.bList, 10);
+	instance.obstacle1 = new Obstacle(CreateTransform(Vector2D(0, -150), Vector2D(400, 171)), instance.bList, 10);
+	instance.obstacle2 = new Obstacle(CreateTransform(Vector2D(0, 240), Vector2D(400, 170)), instance.bList, 10);
 	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
@@ -86,7 +88,8 @@ Engine::ErrorCode FirstLevelInit(void)
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 
 	instance.goal->Reset();
-	instance.obstacle->Reset();
+	instance.obstacle1->Reset();
+	instance.obstacle2->Reset();
 	instance.base.mode = Scene::Mode::Place;
 	return Engine::NothingBad;
 }
@@ -105,7 +108,8 @@ void FirstLevelUpdate(float dt)
 	{
 		RunBoids(instance.bList, dt);
 		instance.goal->Update();
-		instance.obstacle->Update();
+		instance.obstacle1->Update();
+		instance.obstacle2->Update();
 	}
 }
 
@@ -115,7 +119,8 @@ void FirstLevelRender(void)
 
 	DrawPlacedBlocks(instance.pBlocks);
 	RenderBoids(instance.bList);
-	instance.obstacle->Render();
+	instance.obstacle1->Render();
+	instance.obstacle2->Render();
 	instance.goal->Render();
 }
 
@@ -134,8 +139,10 @@ Engine::ErrorCode FirstLevelUnload(void)
 	DestroyPlaceBlocks(&instance.pBlocks);
 	DestroyBoidList(instance.bList);
 	instance.bList = NULL;
-	delete instance.obstacle;
-	instance.obstacle = NULL;
+	delete instance.obstacle1;
+	delete instance.obstacle2;
+	instance.obstacle1 = NULL;
+	instance.obstacle2 = NULL;
 	delete instance.goal;
 	instance.goal = NULL;
 	return Engine::NothingBad;
