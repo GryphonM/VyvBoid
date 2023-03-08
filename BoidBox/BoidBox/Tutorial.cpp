@@ -10,6 +10,7 @@
 
 #include "Tutorial.h"
 #include "Scene.h"
+#include "FirstLevel.h"
 #include "SceneSystem.h"
 #include "PlatformSystem.h"
 #include "SoundSystem.h"
@@ -71,7 +72,7 @@ Engine::ErrorCode TutorialLoad(void)
 	{
 		AddBoidToList(instance.bList, BoidStart, Vector2D(0, 1000));
 	}
-	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), &instance.base, instance.bList, 10);
+	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), FirstLevelGetInstance(), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
 	return Engine::NothingBad;

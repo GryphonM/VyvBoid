@@ -11,6 +11,7 @@
 #include "FirstLevel.h"
 #include "Scene.h"
 #include "SceneSystem.h"
+#include "OpenScene.h"
 #include "PlatformSystem.h"
 #include "SoundSystem.h"
 #include "Goal.h"
@@ -76,7 +77,7 @@ Engine::ErrorCode FirstLevelLoad(void)
 	}
 	instance.obstacle1 = new Obstacle(CreateTransform(Vector2D(0, -150), Vector2D(400, 171)), instance.bList, 10);
 	instance.obstacle2 = new Obstacle(CreateTransform(Vector2D(0, 240), Vector2D(400, 170)), instance.bList, 10);
-	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), &instance.base, instance.bList, 10);
+	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), OpenSceneGetInstance(), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
 	return Engine::NothingBad;

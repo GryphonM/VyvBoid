@@ -46,7 +46,7 @@ Goal::~Goal()
 void Goal::Update(float dt)
 {
 	capturedBoids += CheckBoidCollisions(boidList, TransformGetPosition(transform), TransformGetScale(transform).x/2, KillBoid);
-	if (capturedBoids >= totalBoids)
+	if (capturedBoids >= totalBoids - 2)
 	{
 		SpriteSetMesh(sprite, endMesh);
 		if (!soundPlayed)
