@@ -43,7 +43,7 @@ Goal::~Goal()
 
 void Goal::Update()
 {
-	capturedBoids += CheckBoidCollisions(boidList, TransformGetPosition(transform), TransformGetScale(transform).X()/2, KillBoid);
+	capturedBoids += CheckBoidCollisions(boidList, TransformGetPosition(transform), TransformGetScale(transform).x/2, KillBoid);
 	if (capturedBoids >= totalBoids)
 	{
 		SpriteSetMesh(sprite, endMesh);

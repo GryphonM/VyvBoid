@@ -43,7 +43,7 @@ Obstacle::~Obstacle()
 
 void Obstacle::Update()
 {
-	capturedBoids += CheckBoidCollisions(boidList, TransformGetPosition(transform), TransformGetScale(transform).X() / 2, KillBoid);
+	capturedBoids += CheckBoidCollisions(boidList, TransformGetPosition(transform), TransformGetScale(transform), KillBoid);
 	if (boidsCaptured < capturedBoids)
 	{
 		boidsCaptured = capturedBoids;

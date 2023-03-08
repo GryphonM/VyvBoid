@@ -84,5 +84,6 @@ Engine::ErrorCode GryphonExit(void)
 Engine::ErrorCode GryphonUnload(void)
 {
 	DestroyBoidList(gryphonInstance.boidList);
+	delete gryphonInstance.goal;
 	return Engine::NothingBad;
 }
