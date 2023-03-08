@@ -16,6 +16,7 @@
 
 #include "OpenScene.h"
 #include "Tutorial.h"
+#include "FirstLevel.h"
 
 #include "GryphonDebug.h"
 #include "MichaelDebug.h"
@@ -134,6 +135,8 @@ bool CheckGameScenes()
 		SceneSystem::GetInstance()->SetScene(OpenSceneGetInstance());
 	else if (DGL_Input_KeyTriggered('1'))
 		SceneSystem::GetInstance()->SetScene(TutorialGetInstance());
+	else if (DGL_Input_KeyTriggered('2'))
+		SceneSystem::GetInstance()->SetScene(FirstLevelGetInstance());
 	else
 		return false;
 	return true;

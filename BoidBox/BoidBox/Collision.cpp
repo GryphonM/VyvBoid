@@ -17,3 +17,11 @@ bool CircleCircleCollision(const Vector2D& Circle1Pos, float Circle1Radius, cons
 
 	return dist < radiiSquared;
 }
+
+bool PointSquareCollision(const Vector2D& point, const Vector2D& squarePos, const Vector2D& scale2)
+{
+	Vector2D topRight = squarePos + (scale2 / 2.0f);
+	bool retVal = (point.X() < topRight.X() && point.X() > -topRight.X() &&
+		point.Y() < topRight.Y() && point.Y() > -topRight.Y());
+	return retVal;
+}
