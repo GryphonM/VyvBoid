@@ -73,7 +73,7 @@ Engine::ErrorCode FirstLevelLoad(void)
 	{
 		AddBoidToList(instance.bList, BoidStart, Vector2D(0, 1000));
 	}
-	instance.obstacle = new Obstacle(CreateTransform(Vector2D(0, -200), Vector2D(800.0f, 800.0f)), instance.bList, 10);
+	instance.obstacle = new Obstacle(CreateTransform(Vector2D(-350, -200), Vector2D(800.0f, 200.0f)), instance.bList, 10);
 	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");

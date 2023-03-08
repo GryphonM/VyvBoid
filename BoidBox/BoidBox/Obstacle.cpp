@@ -22,12 +22,12 @@ Obstacle::Obstacle(Transform* _transform, const BoidList* _boidList, int _totalB
 	if (_transform && _boidList)
 	{
 		sprite = CreateSprite();
-		openMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Obstacle", { 0.9f, 0.043f, 0.059f, 1.0f });
+		openMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Obstacle", { 0.19f, 0.43f, 0.59f, 1.0f });
 		endMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Complete", { 1.0f, 0.0f, 0.0f, 1.0f });
 		SpriteSetMesh(sprite, openMesh);
-		SpriteSource* texture = CreateSpriteSource();
-		LoadSpriteSourceTexture(texture, 1, 1, "./Assets/Circle.png");
-		SpriteSetSource(sprite, texture);
+		//SpriteSource* texture = CreateSpriteSource();
+		//LoadSpriteSourceTexture(texture, 1, 1, "./Assets/Circle.png");
+		//SpriteSetSource(sprite, texture);
 		diedSound = SoundCreate("BugEscaped", "./Assets/bugEscaped.mp3");
 	}
 }
@@ -47,7 +47,6 @@ void Obstacle::Update()
 	if (boidsCaptured < capturedBoids)
 	{
 		boidsCaptured = capturedBoids;
-		SpriteSetMesh(sprite, endMesh);
 		PlaySound(diedSound);
 	}
 }

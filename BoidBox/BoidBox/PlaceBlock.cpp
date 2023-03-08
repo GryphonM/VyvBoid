@@ -120,7 +120,8 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 				Transform* transform = ObjectGetTransform(place->objectList[i]);
 				Vector2D position = TransformGetPosition(transform);
 				Vector2D scale = TransformGetScale(transform);
-				if (PointSquareCollision(mish, position, scale))
+				Vector2D mishe = mish;
+				if (PointSquareCollision(mishe, position, scale))
 				{
 					int pos = FindAvoid(place->boids, position);
 					ObjectListRemove(&place->objectList, place->objectList[i]);
