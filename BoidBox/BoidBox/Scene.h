@@ -21,6 +21,8 @@ class Scene
 public:
 	Scene(const char * _name, ErrorVoid load, ErrorVoid init, VoidFloat update, VoidVoid render, ErrorVoid exit, ErrorVoid unload);
 	const char* name;
+	enum Mode { Place, Play, Menu };
+	Mode mode;
 	ErrorVoid Load;
 	ErrorVoid Init;
 	VoidFloat Update;

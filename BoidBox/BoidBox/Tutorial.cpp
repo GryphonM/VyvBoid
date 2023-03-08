@@ -83,6 +83,7 @@ Engine::ErrorCode TutorialInit(void)
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 
 	instance.goal->Reset();
+	instance.base.mode = Scene::Mode::Place;
 	return Engine::NothingBad;
 }
 
@@ -90,9 +91,17 @@ void TutorialUpdate(float dt)
 {
 	if (CheckDebugScenes() || CheckGameScenes())
 		return;
-	UpdatePlaceBlocks(instance.pBlocks, instance.placeSound);
-	RunBoids(instance.bList, dt);
-	instance.goal->Update();
+	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Place)
+	{
+		UpdatePlaceBlocks(instance.pBlocks, instance.placeSound);
+		if (DGL_Input_KeyTriggered('P'))
+			instance.base.mode = Scene::Mode::Play;
+	}
+	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Play)
+	{
+		RunBoids(instance.bList, dt);
+		instance.goal->Update();
+	}
 }
 
 void TutorialRender(void)

@@ -11,6 +11,6 @@
 #include "Scene.h"
 
 Scene::Scene(const char * _name, ErrorVoid load, ErrorVoid init, VoidFloat update, VoidVoid render, ErrorVoid exit, ErrorVoid unload)
-	: name(_name), Load(load), Init(init), Update(update), Render(render), Exit(exit), Unload(unload)
+	: name(_name), Load(load), Init(init), Update(update), Render(render), Exit(exit), Unload(unload), mode(Mode::Menu)
 { }
 

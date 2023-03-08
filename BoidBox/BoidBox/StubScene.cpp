@@ -11,6 +11,7 @@
 #include "StubScene.h"
 #include "Scene.h"
 #include "SceneSystem.h"
+#include "DGL.h"
 
 struct StubScene
 {
@@ -48,6 +49,16 @@ void StubSceneUpdate(float dt)
 {
 	if (CheckDebugScenes() || CheckGameScenes())
 		return;
+	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Place)
+	{	
+		// Place Fings
+		if (DGL_Input_KeyTriggered('P'))
+			instance.base.mode = Scene::Mode::Play;
+	}
+	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Play)
+	{
+		// Play Fings
+	}
 }
 
 void StubSceneRender(void)
