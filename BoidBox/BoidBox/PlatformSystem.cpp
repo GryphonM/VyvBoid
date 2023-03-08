@@ -76,7 +76,7 @@ void PlatformSystem::ChangeTitle(const char* title)
 int PlatformSystem::GetHeight() { return windowHeight; }
 int PlatformSystem::GetWidth() { return windowWidth; }
 
-Vector2D PlatformSystem::GetScreenSize() { return Vector2D(windowWidth, windowHeight); }
+Vector2D PlatformSystem::GetScreenSize() { return Vector2D(static_cast<float>(windowWidth), static_cast<float>(windowHeight)); }
 
 PlatformSystem::PlatformSystem() : BaseSystem("PlatformSystem"), windowHeight(600), windowWidth(960), winHandle(NULL) {}
 PlatformSystem::~PlatformSystem() 
