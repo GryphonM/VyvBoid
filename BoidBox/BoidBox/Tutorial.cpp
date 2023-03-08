@@ -71,7 +71,7 @@ Engine::ErrorCode TutorialLoad(void)
 	{
 		AddBoidToList(instance.bList, BoidStart, Vector2D(0, 1000));
 	}
-	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), instance.bList, 10);
+	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), &instance.base, instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
 	return Engine::NothingBad;
@@ -100,7 +100,7 @@ void TutorialUpdate(float dt)
 	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Play)
 	{
 		RunBoids(instance.bList, dt);
-		instance.goal->Update();
+		instance.goal->Update(dt);
 	}
 }
 

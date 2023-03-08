@@ -76,7 +76,7 @@ Engine::ErrorCode FirstLevelLoad(void)
 	}
 	instance.obstacle1 = new Obstacle(CreateTransform(Vector2D(0, -150), Vector2D(400, 171)), instance.bList, 10);
 	instance.obstacle2 = new Obstacle(CreateTransform(Vector2D(0, 240), Vector2D(400, 170)), instance.bList, 10);
-	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), instance.bList, 10);
+	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), &instance.base, instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
 	return Engine::NothingBad;
@@ -107,7 +107,7 @@ void FirstLevelUpdate(float dt)
 	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Play)
 	{
 		RunBoids(instance.bList, dt);
-		instance.goal->Update();
+		instance.goal->Update(dt);
 		instance.obstacle1->Update();
 		instance.obstacle2->Update();
 	}
