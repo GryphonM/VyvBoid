@@ -30,18 +30,18 @@ bool PointSquareCollision(const Vector2D& point, const Vector2D& squarePos, cons
 bool CircleRectCollision(const Vector2D& CirclePos, float CircleRadius, const Vector2D& SquarePos, const Vector2D& SquareScale)
 {
 	Vector2D clampPoint = CirclePos;
-	Vector2D topLeft(SquarePos.X() - (SquareScale.X() / 2), SquarePos.Y() - (SquareScale.Y() / 2));
-	Vector2D botRight(SquarePos.X() + (SquareScale.X() / 2), SquarePos.Y() + (SquareScale.Y() / 2));
+	Vector2D botLeft = SquarePos - (SquareScale / 2);
+	Vector2D topRight = SquarePos + (SquareScale / 2);
 
-	if (clampPoint.X() > botRight.X())
-		clampPoint.X(botRight.X());
-	else if (clampPoint.X() < topLeft.X())
-		clampPoint.X(topLeft.X());
+	if (clampPoint.x > topRight.x)
+		clampPoint.x = topRight.x;
+	else if (clampPoint.x < botLeft.x)
+		clampPoint.x = botLeft.x;
 
-	if (clampPoint.Y() > topLeft.Y())
-		clampPoint.Y(topLeft.Y());
-	else if (clampPoint.Y() < botRight.Y())
-		clampPoint.Y(botRight.Y());
+	if (clampPoint.y > topRight.y)
+		clampPoint.y = topRight.y;
+	else if (clampPoint.y < botLeft.y)
+		clampPoint.y = topRight.y;
 
 	return Vector2D::DistanceSquared(clampPoint, CirclePos) < (CircleRadius * CircleRadius);
 }
