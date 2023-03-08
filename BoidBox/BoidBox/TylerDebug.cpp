@@ -90,7 +90,7 @@ void TylerUpdate(float dt)
 	{
 		UpdateBoidlistParamaters(level.boidList, "Data/BoidSettings.txt");
 	}
-	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestart())
 		return;
 	RunBoids(level.boidList, dt);
 

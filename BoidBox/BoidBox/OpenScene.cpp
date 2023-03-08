@@ -76,7 +76,7 @@ Engine::ErrorCode OpenSceneInit(void)
 
 void OpenSceneUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestart())
 		return;
 	// Other Things on Open
 }

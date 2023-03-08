@@ -89,7 +89,7 @@ Engine::ErrorCode MichaelInit(void)
 
 void MichaelUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestart())
 		return;
 
 	UpdateGasPosition(instance.gas, -300.0f, 300.0f, dt);
