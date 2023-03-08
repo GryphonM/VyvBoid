@@ -14,6 +14,7 @@
 #include "PlatformSystem.h"
 #include "Goal.h"
 #include "Boids.h"
+#include "PlaceBlock.h"
 #include "Transform.h"
 
 struct GryphonDebug
@@ -22,9 +23,10 @@ struct GryphonDebug
 
 	// Other Fings
 	BoidList* boidList;
+	PlaceBlock* pBlock;
 	Goal* goal;
 
-	GryphonDebug(Scene _base) : base(_base), goal(NULL), boidList(NULL)
+	GryphonDebug(Scene _base) : base(_base), goal(NULL), pBlock(NULL), boidList(NULL)
 	{
 	}
 };
@@ -36,21 +38,22 @@ void GryphonRender(void);
 Engine::ErrorCode GryphonExit(void);
 Engine::ErrorCode GryphonUnload(void);
 
-GryphonDebug gryphonInstance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
-Scene* GryphonGetInstance() { return &gryphonInstance.base; }
+GryphonDebug grynstance(Scene("Gryphon Debug Scene", GryphonLoad, GryphonInit, GryphonUpdate, GryphonRender, GryphonExit, GryphonUnload));
+Scene* GryphonGetInstance() { return &grynstance.base; }
 Mesh* mesh;
 
 Engine::ErrorCode GryphonLoad(void)
 {
-	gryphonInstance.boidList = CreateBoidlist();
-	UpdateBoidlistParamaters(gryphonInstance.boidList, "Data/BoidSettings.txt");
+	grynstance.boidList = CreateBoidlist();
+	UpdateBoidlistParamaters(grynstance.boidList, "Data/BoidSettings.txt");
 	Vector2D BoidPos(0, -200);
 	//Vector2D BoidPos(-(static_cast<float>(PlatformSystem::GetInstance()->GetWidth()) / 2) + 50, (static_cast<float>(PlatformSystem::GetInstance()->GetHeight()) / 2) - 50);
 	for (int i = 0; i < 10; ++i)
 	{
-		AddBoidToList(gryphonInstance.boidList, BoidPos, Vector2D(500, 0));
+		AddBoidToList(grynstance.boidList, BoidPos, Vector2D(500, 0));
 	}
-	gryphonInstance.goal = new Goal(CreateTransform(Vector2D(), Vector2D(100, 100)), gryphonInstance.boidList, 10);
+	grynstance.pBlock = CreatePlaceBlocks("Place Blocks", grynstance.boidList);
+	grynstance.goal = new Goal(CreateTransform(Vector2D(), Vector2D(100, 100)), &grynstance.base, grynstance.boidList, 10);
 	return Engine::NothingBad;
 }
 
@@ -58,7 +61,7 @@ Engine::ErrorCode GryphonInit(void)
 {
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 	DGL_Graphics_SetTexture(NULL);
-	gryphonInstance.goal->Reset();
+	grynstance.goal->Reset();
 	return Engine::NothingBad;
 }
 
@@ -66,14 +69,16 @@ void GryphonUpdate(float dt)
 {
 	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
 		return;
-	RunBoids(gryphonInstance.boidList, dt);
-	gryphonInstance.goal->Update();
+	UpdatePlaceBlocks(grynstance.pBlock, NULL);
+	RunBoids(grynstance.boidList, dt);
+	grynstance.goal->Update(dt);
 }
 
 void GryphonRender(void)
 {
-	RenderBoids(gryphonInstance.boidList);
-	gryphonInstance.goal->Render();
+	DrawPlacedBlocks(grynstance.pBlock);
+	RenderBoids(grynstance.boidList);
+	grynstance.goal->Render();
 }
 
 Engine::ErrorCode GryphonExit(void)
@@ -83,7 +88,8 @@ Engine::ErrorCode GryphonExit(void)
 
 Engine::ErrorCode GryphonUnload(void)
 {
-	DestroyBoidList(gryphonInstance.boidList);
-	delete gryphonInstance.goal;
+	DestroyPlaceBlocks(&grynstance.pBlock);
+	DestroyBoidList(grynstance.boidList);
+	delete grynstance.goal;
 	return Engine::NothingBad;
 }

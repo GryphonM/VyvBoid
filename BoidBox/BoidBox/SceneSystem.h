@@ -21,6 +21,7 @@ public:
 	void Render();
 	Engine::ErrorCode Close();
 	void SetScene(Scene* scene, bool debug = false);
+	void RestartCurrentScene();
 
 	static SceneSystem* GetInstance();
 private:

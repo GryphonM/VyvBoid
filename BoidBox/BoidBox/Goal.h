@@ -14,13 +14,15 @@ struct Sprite;
 struct BoidList;
 struct Mesh;
 struct Sound;
+class Scene;
 
 class Goal
 {
 public:
 	Goal(Transform* transform, const BoidList* boidList, int _totalBoids);
+	Goal(Transform* transform, Scene* nextScene, const BoidList* boidList, int _totalBoids);
 	~Goal();
-	void Update();
+	void Update(float dt);
 	void Render();
 	void Reset();
 private:
@@ -30,8 +32,10 @@ private:
 	Mesh* openMesh;
 	Mesh* endMesh;
 	Sound* completeSound;
+	Scene* nextScene;
 
 	int capturedBoids;
 	int totalBoids;
+	float soundTime;
 	bool soundPlayed;
 };

@@ -72,6 +72,11 @@ void SceneSystem::SetScene(Scene* scene, bool debug)
 	nextScene = scene;
 }
 
+void SceneSystem::RestartCurrentScene()
+{
+	SetScene(activeScene);
+}
+
 SceneSystem* SceneSystem::GetInstance()
 {
 	return instance;
