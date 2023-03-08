@@ -19,7 +19,6 @@ class Scene;
 class Goal
 {
 public:
-	Goal(Transform* transform, const BoidList* boidList, int _totalBoids);
 	Goal(Transform* transform, Scene* nextScene, const BoidList* boidList, int _totalBoids);
 	~Goal();
 	void Update(float dt);
