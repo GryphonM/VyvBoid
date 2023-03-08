@@ -28,7 +28,7 @@ Obstacle::Obstacle(Transform* _transform, const BoidList* _boidList, int _totalB
 		//SpriteSource* texture = CreateSpriteSource();
 		//LoadSpriteSourceTexture(texture, 1, 1, "./Assets/Circle.png");
 		//SpriteSetSource(sprite, texture);
-		diedSound = SoundCreate("BugEscaped", "./Assets/bugEscaped.mp3");
+		diedSound = SoundCreate("BugEscaped", "./Assets/escaped.mp3");
 	}
 }
 
