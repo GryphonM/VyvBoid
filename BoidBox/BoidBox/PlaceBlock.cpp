@@ -45,8 +45,40 @@ struct PlaceBlock
 	bool sound;
 };
 
-PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, const char* file, int max_blocks)
+PlaceBlock* CreatePlaceBlocks(const char* file, const char* name, BoidList* boids, int max_blocks)
 { 
+	PlaceBlock* place = new PlaceBlock;
+
+	if (place)
+	{
+		place->boids = boids;
+		place->avoidCounter = 0;
+		place->sound = false;
+		place->BlocksPlaced = 0;
+		place->maxBlocks = max_blocks;
+		place->offScreen = (Vector2D)OFFSCREEN;
+
+		place->color = { 1.0f, 0.0f, 1.0f, 1.0f };
+		place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
+		if (place->mesh)
+		{
+			place->sprite = CreateSprite();
+			place->source = CreateSpriteSource();
+			if (place->sprite && place->source)
+			{
+				LoadSpriteSourceTexture(place->source, 1, 1, file);
+				SpriteSetMesh(place->sprite, place->mesh);
+				SpriteSetSource(place->sprite, place->source);
+				return place;
+			}
+		}
+	}
+	
+	return NULL;
+}
+
+PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, int max_blocks)
+{
 	PlaceBlock* place = new PlaceBlock;
 
 	if (place)
@@ -59,37 +91,17 @@ PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, const char* fil
 		place->offScreen = (Vector2D)OFFSCREEN;
 		place->source = NULL;
 		place->sprite = NULL;
-		if (file == "none")
+		place->color = { 0.0f, 0.0f, 0.0f, 1.0f };
+		place->sprite = CreateSprite();
+		place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
+
+		SpriteSetMesh(place->sprite, place->mesh);
+		if (place->mesh)
 		{
-			place->color = { 1.0f, 0.1f, 0.1f, 1.0f };
-			place->sprite = CreateSprite();
-			place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
-			SpriteSetMesh(place->sprite, place->mesh);
-			if (place->mesh)
-			{
-				return place;
-			}
+			return place;
 		}
-		else
-		{
-			place->color = { 1.0f, 0.0f, 1.0f, 1.0f };
-			place->mesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, name, place->color);
-			if (place->mesh)
-			{
-				place->sprite = CreateSprite();
-				place->source = CreateSpriteSource();
-				if (place->sprite && place->source)
-				{
-					LoadSpriteSourceTexture(place->source, 1, 1, file);
-					SpriteSetMesh(place->sprite, place->mesh);
-					SpriteSetSource(place->sprite, place->source);
-					return place;
-				}
-			}
-		}
-		return NULL;
 	}
-	
+
 	return NULL;
 }
 
@@ -177,7 +189,7 @@ void DrawPlacedBlocks(PlaceBlock* place)
 	{
 		DGL_Graphics_SetShaderMode(DGL_SM_TEXTURE);
 		
-		for (int k = 0; k < place->BlocksPlaced; k++)
+ 		for (int k = 0; k < place->BlocksPlaced; k++)
 		{
 			RenderSprite(place->sprite, ObjectGetTransform(place->objectList[k]));
 		}
