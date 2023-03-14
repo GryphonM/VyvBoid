@@ -105,14 +105,10 @@ PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, int max_blocks)
 	return NULL;
 }
 
-void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
+void PlacePlaceBlocks(PlaceBlock* place, Vector2D& mish, Sound* sound)
 {
-	// set to 0 to place
-	int test = 0;
-	if (place && test != 1)
-	{	
-		Vector2D mish = Vector2D(DGL_Input_GetMousePosition());
-		mish = DGL_Camera_ScreenCoordToWorld(mish);
+	if (place)
+	{
 		if (DGL_Input_KeyTriggered(VK_LBUTTON) && place->BlocksPlaced < place->maxBlocks)
 		{
 			Transform* transform = CreateTransform(mish, Vector2D(10, 10));
@@ -124,8 +120,14 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 				PlaySound(sound);
 			}
 		}
+	}
+}
 
-		if (DGL_Input_KeyTriggered(VK_RBUTTON) )
+void DeletePlaceBlocks(PlaceBlock* place, Vector2D & mish, Sound* sound)
+{
+	if (place)
+	{
+		if (DGL_Input_KeyTriggered(VK_RBUTTON))
 		{
 			for (int i = 0; i < place->objectList.Size(); i++)
 			{
@@ -148,6 +150,19 @@ void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
 				}
 			}
 		}
+	}
+}
+
+void UpdatePlaceBlocks(PlaceBlock* place, Sound* sound)
+{
+	if (place)
+	{
+		Vector2D mish = Vector2D(DGL_Input_GetMousePosition());
+		mish = DGL_Camera_ScreenCoordToWorld(mish);
+		
+		PlacePlaceBlocks(place, mish, sound);
+		DeletePlaceBlocks(place, mish, sound);
+
 		ObjectListClean(&place->objectList);
 	}
 }
