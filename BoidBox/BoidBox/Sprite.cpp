@@ -27,6 +27,8 @@ struct Sprite
 	SpriteSource* source;
 
 	const Mesh* mesh;
+
+	const char* text;
 };
 
 Sprite* CreateSprite(void)
@@ -39,6 +41,7 @@ Sprite* CreateSprite(void)
 		sprite->mesh = NULL;
 		sprite->alpha = 1;
 		sprite->frameIndex = 0;
+		sprite->text = NULL;
 		return (sprite);
 	}
 	else
@@ -76,11 +79,27 @@ void RenderSprite(const Sprite* sprite, Transform* transform)
 		DGL_Graphics_SetTexture(NULL);
 	}
 
-	DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), angle);
 	DGL_Graphics_SetCB_Alpha(sprite->alpha);
-	//DGL_Graphics_SetCB_TintColor(&meshColor);
-	RenderMesh(sprite->mesh);
-	//DGL_Graphics_SetTexture(NULL);
+
+	if (sprite->text == NULL)
+	{
+		DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), angle);
+		RenderMesh(sprite->mesh);
+	}
+	else
+	{
+		const char* spritePtr = sprite->text;
+		int i = 0;
+
+		while (spritePtr[i] != 0)
+		{
+			int frameIndex = spritePtr[i] - ' ';
+			SpriteSourceSetUV(sprite->source, frameIndex);
+			DGL_Graphics_SetCB_TransformData(TransformGetPosition(transform), TransformGetScale(transform), angle);
+			RenderMesh(sprite->mesh);
+			i++;
+		}
+	}
 }
 
 float SpriteGetAlpha(const Sprite* sprite)
@@ -128,4 +147,16 @@ void SpriteSetMesh(Sprite* sprite, const Mesh* mesh)
 void SpriteSetSource(Sprite* sprite, SpriteSource* source)
 {
 	sprite->source = source;
+}
+
+void SpriteSetText(Sprite* sprite, const char* text)
+{
+	if (text != NULL)
+	{
+		sprite->text = text;
+	}
+	else
+	{
+		sprite->text = 0;
+	}
 }
