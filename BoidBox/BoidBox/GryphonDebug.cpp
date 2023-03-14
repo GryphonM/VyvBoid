@@ -67,7 +67,7 @@ Engine::ErrorCode GryphonInit(void)
 
 void GryphonUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestart() || CheckRestartGame())
 		return;
 	UpdatePlaceBlocks(grynstance.pBlock, NULL);
 	RunBoids(grynstance.boidList, dt);

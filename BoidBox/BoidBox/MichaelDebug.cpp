@@ -72,7 +72,7 @@ Engine::ErrorCode MichaelLoad(void)
 		AddBoidToList(instance.boids, Vector2D(10, 8));
 	}
 
-	instance.place = CreatePlaceBlocks("block", instance.boids, "none", 50);
+	instance.place = CreatePlaceBlocks("/Assets/gunch.png", "block", instance.boids, 50);
 
 	return Engine::NothingBad;
 }
@@ -89,7 +89,7 @@ Engine::ErrorCode MichaelInit(void)
 
 void MichaelUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes() || CheckRestartGame())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestart())
 		return;
 
 	UpdateGasPosition(instance.gas, -300.0f, 300.0f, dt);
@@ -109,11 +109,11 @@ void MichaelUpdate(float dt)
 
 void MichaelRender(void)
 {
+	RenderAvoids(instance.boids);
 	DrawObstacles(instance.obstacle);
 	DrawPlacedBlocks(instance.place);
 
 	RenderBoids(instance.boids);
-	RenderAvoids(instance.boids);
 }
 
 Engine::ErrorCode MichaelExit(void)

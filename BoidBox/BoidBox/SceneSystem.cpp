@@ -147,13 +147,24 @@ bool CheckGameScenes()
 	return true;
 }
 
-bool CheckRestartGame()
+bool CheckRestart()
 {
 	if (DGL_Input_KeyTriggered('R'))
 	{
 		SceneSystem* instance = SceneSystem::GetInstance();
+		instance->SetScene(instance->activeScene);
+		return true;
+	}
+	return false;
+}
+
+bool CheckRestartGame()
+{
+	if (DGL_Input_KeyTriggered('`'))
+	{
+		SceneSystem* instance = SceneSystem::GetInstance();
 		instance->isRestarting = true;
-		instance->SetScene(instance->DefaultSceneInstance());
+		instance->SetScene(instance->activeScene);
 		return true;
 	}
 	return false;

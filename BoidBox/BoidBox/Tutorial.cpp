@@ -90,7 +90,7 @@ Engine::ErrorCode TutorialInit(void)
 
 void TutorialUpdate(float dt)
 {
-	if (CheckDebugScenes() || CheckGameScenes())
+	if (CheckDebugScenes() || CheckGameScenes() || CheckRestart())
 		return;
 	if (instance.base.mode == Scene::Mode::Menu || instance.base.mode == Scene::Mode::Place)
 	{
