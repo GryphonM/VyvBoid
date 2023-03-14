@@ -21,6 +21,10 @@
 
 #define OFFSCREEN (1000.0f, 1000.0f)
 
+static void PlacePlaceBlocks(PlaceBlock* place, Vector2D& mish, Sound* sound);
+static void DeletePlaceBlocks(PlaceBlock* place, Vector2D& mish, Sound* sound);
+
+
 struct PlaceBlock
 {
 	int BlocksPlaced;
@@ -105,7 +109,7 @@ PlaceBlock* CreatePlaceBlocks(const char* name, BoidList* boids, int max_blocks)
 	return NULL;
 }
 
-void PlacePlaceBlocks(PlaceBlock* place, Vector2D& mish, Sound* sound)
+static void PlacePlaceBlocks(PlaceBlock* place, Vector2D& mish, Sound* sound)
 {
 	if (place)
 	{
@@ -123,7 +127,7 @@ void PlacePlaceBlocks(PlaceBlock* place, Vector2D& mish, Sound* sound)
 	}
 }
 
-void DeletePlaceBlocks(PlaceBlock* place, Vector2D & mish, Sound* sound)
+static void DeletePlaceBlocks(PlaceBlock* place, Vector2D & mish, Sound* sound)
 {
 	if (place)
 	{
