@@ -10,6 +10,7 @@
 
 #include "Tutorial.h"
 #include "Scene.h"
+#include "Obstacle.h"
 #include "FirstLevel.h"
 #include "SceneSystem.h"
 #include "PlatformSystem.h"
@@ -26,6 +27,7 @@ struct Tutorial
 	Scene base;
 
 	// Other Fings
+	Obstacle* taskbar;
 	Goal* goal;
 	BoidList* bList;
 	PlaceBlock* pBlocks;
@@ -72,6 +74,7 @@ Engine::ErrorCode TutorialLoad(void)
 	{
 		AddBoidToList(instance.bList, BoidStart, Vector2D(0, 1000));
 	}
+	instance.taskbar = new Obstacle("./Assets/taskbarColor.png", CreateTransform(Vector2D(0, -269), Vector2D(1000, 60)), instance.bList, 10);
 	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), FirstLevelGetInstance(), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
@@ -84,6 +87,7 @@ Engine::ErrorCode TutorialInit(void)
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 
 	instance.goal->Reset();
+	instance.taskbar->Reset();
 	instance.base.mode = Scene::Mode::Place;
 	return Engine::NothingBad;
 }
@@ -102,6 +106,7 @@ void TutorialUpdate(float dt)
 	{
 		RunBoids(instance.bList, dt);
 		instance.goal->Update(dt);
+		instance.taskbar->Update();
 	}
 }
 
@@ -109,9 +114,10 @@ void TutorialRender(void)
 {
 	RenderSprite(instance.backgroundSprite, instance.backgroundPos);
 
+	instance.goal->Render();
+	instance.taskbar->Render();
 	DrawPlacedBlocks(instance.pBlocks);
 	RenderBoids(instance.bList);
-	instance.goal->Render();
 }
 
 Engine::ErrorCode TutorialExit(void)
@@ -130,6 +136,8 @@ Engine::ErrorCode TutorialUnload(void)
 	DestroyBoidList(instance.bList);
 	instance.bList = NULL;
 	delete instance.goal;
+	delete instance.taskbar;
+	instance.taskbar = NULL;
 	instance.goal = NULL;
 	return Engine::NothingBad;
 }

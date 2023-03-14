@@ -26,8 +26,10 @@ struct SecondLevelScene
 {
 	Scene base;
 
-	Obstacle* bottomObs1;
-	Obstacle* bottomObs2;
+	Obstacle* obs1;
+	Obstacle* obs2;
+	Obstacle* taskbar;
+
 	Goal* goal;
 	BoidList* bList;
 	PlaceBlock* pBlocks;
@@ -77,8 +79,9 @@ Engine::ErrorCode SecondLevelSceneLoad(void)
 		AddBoidToList(instance.bList, BoidStart, Vector2D(0, 1000));
 	}
 
-	instance.bottomObs1 = new Obstacle(CreateTransform(Vector2D(-180, -136), Vector2D(60, 200)), instance.bList, 10);
-	instance.bottomObs2 = new Obstacle(CreateTransform(Vector2D(120, 145), Vector2D(60, 270)), instance.bList, 10);
+	instance.obs1 = new Obstacle(CreateTransform(Vector2D(-180, -136), Vector2D(60, 200)), instance.bList, 10);
+	instance.obs2 = new Obstacle(CreateTransform(Vector2D(120, 145), Vector2D(60, 270)), instance.bList, 10);
+	instance.taskbar = new Obstacle("./Assets/taskbarColor.png", CreateTransform(Vector2D(0, -269), Vector2D(1000, 60)), instance.bList, 10);
 	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), OpenSceneGetInstance(), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList, 15);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
@@ -91,8 +94,9 @@ Engine::ErrorCode SecondLevelSceneInit(void)
 	DGL_Graphics_SetBlendMode(DGL_BM_BLEND);
 
 	instance.goal->Reset();
-	instance.bottomObs1->Reset();
-	instance.bottomObs2->Reset();
+	instance.obs1->Reset();
+	instance.obs2->Reset();
+	instance.taskbar->Reset();
 	instance.base.mode = Scene::Mode::Place;
 	return Engine::NothingBad;
 }
@@ -111,8 +115,9 @@ void SecondLevelSceneUpdate(float dt)
 	{
 		RunBoids(instance.bList, dt);
 		instance.goal->Update(dt);
-		instance.bottomObs1->Update();
-		instance.bottomObs2->Update();
+		instance.obs1->Update();
+		instance.obs2->Update();
+		instance.taskbar->Update();
 	}
 }
 
@@ -122,9 +127,10 @@ void SecondLevelSceneRender(void)
 
 	DrawPlacedBlocks(instance.pBlocks);
 	RenderBoids(instance.bList);
-	instance.bottomObs1->Render();
-	instance.bottomObs2->Render();
 	instance.goal->Render();
+	instance.obs1->Render();
+	instance.obs2->Render();
+	instance.taskbar->Render();
 }
 
 Engine::ErrorCode SecondLevelSceneExit(void)
@@ -142,10 +148,12 @@ Engine::ErrorCode SecondLevelSceneUnload(void)
 	DestroyPlaceBlocks(&instance.pBlocks);
 	DestroyBoidList(instance.bList);
 	instance.bList = NULL;
-	delete instance.bottomObs1;
-	delete instance.bottomObs2;
-	instance.bottomObs1 = NULL;
-	instance.bottomObs2 = NULL;
+	delete instance.obs1;
+	delete instance.obs2;
+	delete instance.taskbar;
+	instance.obs1 = NULL;
+	instance.obs2 = NULL;
+	instance.taskbar = NULL;
 	delete instance.goal;
 	instance.goal = NULL;
 	return Engine::NothingBad;

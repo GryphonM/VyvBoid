@@ -29,6 +29,9 @@ struct FirstLevel
 	// Other Fings
 	Obstacle* obstacle1;
 	Obstacle* obstacle2;
+
+	Obstacle* taskbar;
+
 	Goal* goal;
 	BoidList* bList;
 	PlaceBlock* pBlocks;
@@ -77,6 +80,7 @@ Engine::ErrorCode FirstLevelLoad(void)
 	}
 	instance.obstacle1 = new Obstacle(CreateTransform(Vector2D(0, -150), Vector2D(400, 171)), instance.bList, 10);
 	instance.obstacle2 = new Obstacle(CreateTransform(Vector2D(0, 240), Vector2D(400, 170)), instance.bList, 10);
+	instance.taskbar = new Obstacle("./Assets/taskbarColor.png", CreateTransform(Vector2D(0, -269), Vector2D(1000, 60)), instance.bList, 10);
 	instance.goal = new Goal(CreateTransform(GoalStart, Vector2D(200, 200)), OpenSceneGetInstance(), instance.bList, 10);
 	instance.pBlocks = CreatePlaceBlocks("Place Blocks", instance.bList);
 	instance.placeSound = SoundCreate("Block Place Sound", "./Assets/place.mp3");
@@ -91,6 +95,7 @@ Engine::ErrorCode FirstLevelInit(void)
 	instance.goal->Reset();
 	instance.obstacle1->Reset();
 	instance.obstacle2->Reset();
+	instance.taskbar->Reset();
 	instance.base.mode = Scene::Mode::Place;
 	return Engine::NothingBad;
 }
@@ -111,6 +116,7 @@ void FirstLevelUpdate(float dt)
 		instance.goal->Update(dt);
 		instance.obstacle1->Update();
 		instance.obstacle2->Update();
+		instance.taskbar->Update();
 	}
 }
 
@@ -122,6 +128,7 @@ void FirstLevelRender(void)
 	RenderBoids(instance.bList);
 	instance.obstacle1->Render();
 	instance.obstacle2->Render();
+	instance.taskbar->Render();
 	instance.goal->Render();
 }
 
@@ -142,8 +149,10 @@ Engine::ErrorCode FirstLevelUnload(void)
 	instance.bList = NULL;
 	delete instance.obstacle1;
 	delete instance.obstacle2;
+	delete instance.taskbar;
 	instance.obstacle1 = NULL;
 	instance.obstacle2 = NULL;
+	instance.taskbar = NULL;
 	delete instance.goal;
 	instance.goal = NULL;
 	return Engine::NothingBad;

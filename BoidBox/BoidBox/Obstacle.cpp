@@ -40,11 +40,11 @@ Obstacle::Obstacle(const char* file, Transform* _transform, const BoidList* _boi
 	if (_transform && _boidList)
 	{
 		sprite = CreateSprite();
-		openMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Obstacle", { 0.80f, 0.20f, 0.30f, 1.0f });
-		endMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Complete", { 1.0f, 0.0f, 0.0f, 1.0f });
+		openMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Obstacle", { 0.00f, 0.00f, 0.00f, 1.0f });
+		endMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Complete", { 0.0f, 0.0f, 0.0f, 1.0f });
 		SpriteSetMesh(sprite, openMesh);
 		SpriteSource* texture = CreateSpriteSource();
-		LoadSpriteSourceTexture(texture, 1, 1, "./Assets/Circle.png");
+		LoadSpriteSourceTexture(texture, 1, 1, file);
 		SpriteSetSource(sprite, texture);
 		diedSound = SoundCreate("BugEscaped", "./Assets/escaped.mp3");
 	}
