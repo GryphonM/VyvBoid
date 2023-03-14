@@ -32,6 +32,24 @@ Obstacle::Obstacle(Transform* _transform, const BoidList* _boidList, int _totalB
 	}
 }
 
+Obstacle::Obstacle(const char* file, Transform* _transform, const BoidList* _boidList, int _totalBoids) : transform(_transform), boidList(_boidList),
+																						totalBoids(_totalBoids), capturedBoids(0),
+																						openMesh(NULL), endMesh(NULL), sprite(NULL),
+																						diedSound(NULL), soundPlayed(false), boidsCaptured(0)
+{
+	if (_transform && _boidList)
+	{
+		sprite = CreateSprite();
+		openMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Obstacle", { 0.80f, 0.20f, 0.30f, 1.0f });
+		endMesh = SquareMesh(0.5f, 0.5f, 1.0f, 1.0f, "Complete", { 1.0f, 0.0f, 0.0f, 1.0f });
+		SpriteSetMesh(sprite, openMesh);
+		SpriteSource* texture = CreateSpriteSource();
+		LoadSpriteSourceTexture(texture, 1, 1, "./Assets/Circle.png");
+		SpriteSetSource(sprite, texture);
+		diedSound = SoundCreate("BugEscaped", "./Assets/escaped.mp3");
+	}
+}
+
 Obstacle::~Obstacle()
 {
 	FreeSprite(&sprite);

@@ -19,6 +19,7 @@ class Obstacle
 {
 public:
 	Obstacle(Transform* transform, const BoidList* boidList, int _totalBoids);
+	Obstacle(const char* file, Transform* _transform, const BoidList* _boidList, int _totalBoids);
 	~Obstacle();
 	void Update();
 	void Render();
