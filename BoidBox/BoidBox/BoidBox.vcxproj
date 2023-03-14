@@ -192,6 +192,7 @@ xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.D
     <ClInclude Include="Goal.h" />
     <ClInclude Include="GryphonDebug.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="SecondLevel.h" />
     <ClInclude Include="Trace.h" />
     <ClInclude Include="MichaelDebug.h" />
     <ClInclude Include="OpenScene.h" />
@@ -243,6 +244,7 @@ xcopy "$(OutDir)*" "$(SolutionDir)..\Installer\Builds\$([System.DateTime]::Now.D
     <ClCompile Include="PlatformSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneSystem.cpp" />
+    <ClCompile Include="SecondLevel.cpp" />
     <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="BasicObstacles.cpp" />
     <ClCompile Include="SoundTest.cpp" />
